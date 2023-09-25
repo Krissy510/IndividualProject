@@ -28,10 +28,17 @@
 * *0.5 hour* Plan out what is left for this week
 
 ### 20 Sep 2023
-* *4 hours* Write down questions and objective for the upcoming user UI/UX interview
+* *4 hours* Write down questions and objective for the upcoming UI/UX reseach
 
 ### 21 Sep 2023
 
 * *2 hour* Read the project guidance slides
 * *1 hour* Created GitHub repository and add initial files
 * *0.5 hour* Book a meeting with interviewees
+
+### 22 Sep 2023
+* *2 hour* Interview with the 1st participant
+* *2 hour* Interview with the 2nd participant
+
+### Total
+16.5 hours
