@@ -5,12 +5,15 @@ By gathering qualitative and potentially quantitative data from users to determi
 
 ## Introduction Script
 
-Welcome and thank you for participating in this research study. Our goal today is to assess the UI/UX of PyTerrier's documentation web pages. Your feedback will provide insights that can help us measure the effectiveness of the current design and serve as a basis for future improvements.
+Welcome and thank you for participating in this research study. 
+Our goal today is to assess the UI/UX of PyTerrier's documentation web pages. 
+Your feedback will provide insights that can help us measure the effectiveness of the current design and serve as a basis for future improvements.
 
 As of now, we have no written user feedback, that is why your feedbacks is very essential.
 Here's what we'll be doing:
 1. First, I'll ask you to navigate to PyTerrier's documentation web page.
-2.Then, you'll receive a task to complete while on the site.
+   
+2. Then, you'll receive a task to complete while on the site.
 
 For the purpose of this study, we'll be recording this session. We'll also collect feedback from you regarding the design, as well as some basic information such as whether you've used or heard of PyTerrier before.
 
