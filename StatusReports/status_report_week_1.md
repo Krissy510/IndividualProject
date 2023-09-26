@@ -34,7 +34,7 @@ The success of the revamped documentation will be evaluated through user intervi
 
 
 ### Risks
-- Deployment might become a problem later as the project is divided into frontend and backend. Cur- rently, it is decided that Vercel will be used to host frontend while University’s cluster will be used to host the backend side.
+- Deployment might become a problem later as the project is divided into frontend and backend. Currently, it is decided that Vercel will be used to host frontend while University’s cluster will be used to host the backend side.
 
 
 ## Plan
@@ -47,8 +47,8 @@ the new documentation webpage will look like.
 - Week 3 - Complete design
 - Week 4 - Continue complete design & Clean up
 - Week 5 - Evaluate the new documentation and design the interactive feature
-- Week 6 - Frontend development
-- Week 7 - Backend development
+- Week 6 - Complete Frontend Interactive feature
+- Week 7 - Complete Backend for interactive feature
 - Week 8 - Integration & Testing
 - Week 9 - Evaluate new documentation & Clean up
 - Week 10 - Final Deployment
