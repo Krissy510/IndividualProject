@@ -56,7 +56,7 @@
 ## Week 2
 
 ### 25 Sep 2023
-* *0.5 hour*  Update timelog for the rest of week 1
+* *0.5 hour*  Update timelog for the rest  of week 1
 * *1 hour*  Conclude interview from last week briefly
 * *2 hours*  Write status report for week 1
 * *1.5 hours*  Prepare week 2 meeting
@@ -71,3 +71,89 @@
 * *0.5 hour* Update plan based on today's meeting with supervisor
 
 **Total: 2.5 hours**
+
+### 27 Sep 2023
+
+* *1.5 hours* Start design in Figma
+* *0.5 hour*  Write an invite to interviewees.
+
+**Total: 2 hours**
+
+### 28 Sep 2023
+
+* *1.5 hours* Design in Figma
+* *1 hour*Preparing a Microsoft form to accomodate interviewee with limited time.
+
+**Total: 2.5 hours**
+
+### 29 Sep 2023
+
+* *1.5 hours* Design in Figma
+* *0.5 hour* Research more about Vercel to resolve Week 1 risk.
+
+**Total: 2 hours**
+
+### Week 2 Total
+14 hours
+
+## Week 3
+
+### 2 Oct 2023
+* *1 hours* Design in Figma
+
+**Total: 1 hour**
+
+### 3 Oct 2023
+* *1 hours* Design in Figma
+* *1 hours*  Prepare week 3 meeting
+* *0.5 hour* Write status report
+
+**Total: 2.5 hours**
+
+### 4 Oct 2023
+* *0.5 hour* Meeting with supervisor
+* *0.5 hour* Create a session for interviewees
+* *1 hour* Conclude meeting
+
+**Total: 1 hour**
+
+### 5 Oct 2023
+* *3 hour* Start implement design
+
+**Total: 3 hours**
+
+### 6 Oct 2023
+* *5 hour* Implement design
+
+**Total: 5 hours**
+
+### 6 Oct 2023
+* *5 hour* Implement design
+
+**Total: 5 hours**
+
+### Week 3 Total
+17.5 hours
+
+
+## Week 4
+
+### 9 Oct 2023
+* *1 hours* Study about alternative tools
+
+**Total: 1 hour**
+
+### 10 Oct 2023
+* *3 hours* Trying out Docusaurus
+* *0.5 hour* Write status report
+
+
+**Total: 3 hours**
+
+### 11 Oct 2023
+* *1 hour* Continue implementing the design
+
+**Total: 1 hour**
+
+
+### Week 4 Total
