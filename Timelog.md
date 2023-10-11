@@ -146,12 +146,12 @@
 ### 10 Oct 2023
 * *3 hours* Trying out Docusaurus
 * *0.5 hour* Write status report
+* *2 hours* Interview 2 interviewee
 
-
-**Total: 3 hours**
+**Total: 5.5 hours**
 
 ### 11 Oct 2023
-* *1 hour* Continue implementing the design
+* *1 hour* Update timelog
 
 **Total: 1 hour**
 
