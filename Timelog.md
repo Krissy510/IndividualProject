@@ -155,5 +155,9 @@
 
 **Total: 1 hour**
 
+### 12 Oct 2023
+* *5 hour* Start implemeting design using Docusaurus 
+
+**Total: 5 hours**
 
 ### Week 4 Total
