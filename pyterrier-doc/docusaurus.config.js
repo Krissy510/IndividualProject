@@ -76,9 +76,10 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/testPage', label: 'Test Page', position: 'left'},
           {
             href: 'https://github.com/terrier-org/pyterrier',
             label: 'GitHub',
