@@ -22,15 +22,18 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
 
         <div className="flex center gap--10">
-          <Link className="button button--primary button--lg" to="/docs/intro">
+          <Link
+            className="button button--primary button--lg text-color"
+            to="/docs/intro"
+          >
             <div className="flex center gap--5">
               <FiCompass />
               Get Started
             </div>
           </Link>
           <a
-            className="button button--secondary button--lg"
-            href=""
+            className="button button--secondary button--lg text-color"
+            href="https://github.com/terrier-org/pyterrier"
             target="_blank"
           >
             <div className="flex center gap--5">
@@ -40,7 +43,7 @@ function HomepageHeader() {
           </a>
 
           <Link
-            className="button button--secondary button--lg"
+            className="button button--secondary button--lg text-color"
             to="/docs/intro"
           >
             <div className="flex center gap--5">
