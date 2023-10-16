@@ -2,35 +2,61 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Introduction
 
-Let's discover **Docusaurus in less than 5 minutes**.
+**PyTerrier is a Python-based information retrieval (IR) framework** that is used for researching, testing, and building IR models and systems. It is built on top of the Terrier IR platform and provides a declarative interface and a set of operators that make it easy to build and experiment with different IR pipelines.
 
-## Getting Started
+Here are some specific examples of how PyTerrier can be used:
 
-Get started by **creating a new site**.
+- **Researching IR models:** Implement and evaluate a wide range of IR models, such as Boolean models, language models, and neural ranking models.
+- **Testing IR systems:** Test the performance of IR systems on standard test collections, such as TREC and CLEF.
+- **Building IR systems:** Build production IR systems for a variety of applications, such as web search, enterprise search, and e-commerce search
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+[**Don't know what IR is? <u>Click here!</u>**](./category/beginner-start-here)
+
+## Getting started
 
 ### What you'll need
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+- [Python](https://www.python.org/downloads/) 3.7  or newer.
+- [Java](https://www.java.com/en/download/) 11 or newer. 
+- PyTerrier is natively supported on Linux, Mac OS X and Windows.
 
-## Generate a new site
+You can check the requirements using the following command:
 
-Generate a new Docusaurus site using the **classic template**.
 
-The classic template will automatically be added to your project after you run the command:
-
+**Python**
 ```bash
-npm init docusaurus@latest my-website classic
+python -V
+```
+> Note: If `python` is not found, try `python3 -V` instead
+
+**Java**
+```bash
+java -version
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+### Installation
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+Installing PyTerrier is easy - it can be installed from the command-line in the normal way using Pip:
+```bash
+pip install python-terrier
+```
 
+If you want the latest version of PyTerrier, you can install direct from the Github repo:
+
+```bash
+pip install --upgrade git+https://github.com/terrier-org/pyterrier.git#egg=python-terrier
+```
+> There is no need to have a local installation of the Java component, Terrier. PyTerrier will download the latest release on startup.
+
+### Your first PyTerrier
+
+Similar to other Python library you will need to start by importing PyTerrrier and running `init()`.
+```python
+import pyterrier as pt
+pt.init()
+```
 ## Start your site
 
 Run the development server:
