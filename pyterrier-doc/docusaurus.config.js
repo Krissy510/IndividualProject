@@ -69,7 +69,7 @@ const config = {
         title: 'PyTerrier',
         logo: {
           alt: 'PyTerrier Logo',
-          src: 'img/logo.svg',
+          src: 'img/white_logo.svg',
         },
         items: [
           {

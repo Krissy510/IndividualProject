@@ -46,11 +46,17 @@
   gap: 10px;
 }
 
+[data-theme='dark'] .button--primary {
+  color: #f8f8f8;
+}
+
+.button--secondary {
+  background-color: #dfdfdf;
+}
+
 [data-theme='dark'] .button--secondary{
   background-color: #1e1a1a;
   border: none;
-}
-
-[data-theme='dark'] .text-color {
   color: ghostwhite;
 }
+

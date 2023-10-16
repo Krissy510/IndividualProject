@@ -36,9 +36,9 @@
 
 .logo {
   padding-top: 20px;
-  fill: #0000;
 }
 
 [data-theme='dark'] .logo {
-  fill: #f8f8f8;
+  fill: white;
 }
+

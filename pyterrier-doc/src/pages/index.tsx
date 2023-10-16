@@ -1,5 +1,5 @@
 import React from "react";
-import PyTerrierLogo from "@site/static/img/black_logo.svg";
+import PyTerrierLogo from "@site/static/img/logo.svg";
 import { FiCompass } from "react-icons/fi";
 import { BsGithub } from "react-icons/bs";
 import { IoLibraryOutline } from "react-icons/io5";
@@ -22,10 +22,7 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
 
         <div className="flex center gap--10">
-          <Link
-            className="button button--primary button--lg text-color"
-            to="/docs/intro"
-          >
+          <Link className="button button--primary button--lg" to="/docs/intro">
             <div className="flex center gap--5">
               <FiCompass />
               Get Started
