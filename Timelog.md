@@ -161,3 +161,18 @@
 **Total: 5 hours**
 
 ### Week 4 Total
+
+12.5 hours
+
+## Week 5
+
+### 16 Oct 2023
+
+* *3.5 hours* Fix dark mode and update add introduction
+* *0.5 hour* Try using PyTerrier
+**Total: 4 hours**
+
+### 17 Oct 2023
+* *1 hour* Creating example for getting started
+* *0.5 hour* Writing status report
+**Total: 1.5 hours**
