@@ -15,6 +15,7 @@ Here are some specific examples of how PyTerrier can be used:
 [**Don't know what IR is? <u>Click here!</u>**](./category/beginner-start-here)
 
 ## Getting started
+You can either run this library on your local machine or use [Google Colab](https://colab.google).
 
 ### What you'll need
 
@@ -39,8 +40,13 @@ java -version
 ### Installation
 
 Installing PyTerrier is easy - it can be installed from the command-line in the normal way using Pip:
+Local Machine
 ```bash
 pip install python-terrier
+```
+Google Colab
+```bash
+!pip install python-terrier
 ```
 
 If you want the latest version of PyTerrier, you can install direct from the Github repo:
