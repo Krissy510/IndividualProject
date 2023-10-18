@@ -176,3 +176,6 @@
 * *1 hour* Creating example for getting started
 * *0.5 hour* Writing status report
 **Total: 1.5 hours**
+
+### 18 Oct 2023
+* *1 hour* Update repo to match the master template

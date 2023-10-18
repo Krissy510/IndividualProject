@@ -1,9 +1,9 @@
 # Plan
 
-* PROJECT TITLE
-* YOUR NAME
-* STUDENT ID
-* SUPERVISOR NAME
+* Interactive Documentation for PyTerrier
+* Raviphas Sananpanichkul
+* 2827932
+* Sean MacAvaney
 
 Week-by-week plan for the whole project. Update this as you go along.
 
