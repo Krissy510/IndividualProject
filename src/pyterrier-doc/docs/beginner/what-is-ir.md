@@ -1,1 +1,1 @@
-# What is IR?
+# What is Information Retrival?
