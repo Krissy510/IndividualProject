@@ -79,7 +79,7 @@ const config = {
             label: 'Docs',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
-          {to: '/testPage', label: 'Test Page', position: 'left'},
+          // {to: '/testPage', label: 'Test Page', position: 'left'},
           {
             href: 'https://github.com/terrier-org/pyterrier',
             label: 'GitHub',
