@@ -179,10 +179,10 @@
 
 ### 18 Oct 2023
 * *1 hour* Update repo to match the master template
-**Total: 1.5 hours**
+**Total: 1 hours**
 
 ### 19 Oct 2023
-* *5 hours* Add remaining pages
+* *2 hours* Add remaining pages
 
 ### 20 Oct 2023
 * *4 hour* Design interactive feature
@@ -190,7 +190,7 @@
 
 ### Week 5 Total
 
-16 hours
+12.5 hours
 
 ## Week 6
 
@@ -198,6 +198,7 @@
 
 * *5 hours* Design interactive feature
 * *1 hour* Write status report
+**Total: 6 hours**
 
 ### 24 Oct 2023
 
