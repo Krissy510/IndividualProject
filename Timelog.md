@@ -185,8 +185,20 @@
 * *5 hours* Add remaining pages
 
 ### 20 Oct 2023
-* *1 hour* Design interactive feature
+* *4 hour* Design interactive feature
+
 
 ### Week 5 Total
 
-13 hours
+16 hours
+
+## Week 6
+
+### 23 Oct 2023
+
+* *5 hours* Design interactive feature
+* *1 hour* Write status report
+
+### 24 Oct 2023
+
+* *0.5 hour* Meeting with supervisor
