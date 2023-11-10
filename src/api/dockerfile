@@ -1,0 +1,25 @@
+FROM python:3.12
+ 
+# Update the package lists and install necessary packages
+RUN apt update && apt-get update
+
+# Install pcre to resolve pyautocorpus issue
+RUN apt install libpcre3-dev -y
+
+# Install JDK
+RUN apt install default-jdk -y
+
+# Set work dir
+WORKDIR /app
+
+# Copy list of dependencies
+COPY ./requirements.txt /app
+
+# Install all dependecies
+RUN pip3 install --no-cache-dir --upgrade -r requirements.txt
+
+# Copy the project
+COPY . /app
+
+# Run the server
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]

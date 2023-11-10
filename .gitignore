@@ -2,3 +2,5 @@
 .DS_Store
 
 Interviews/
+
+src/api/__pycache__/
