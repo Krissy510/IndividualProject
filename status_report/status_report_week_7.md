@@ -87,7 +87,7 @@ interactive feature.
 - Week 9 - Continue development
 - Week 10 - Continue development
 - Week 11 - Integrate & Testing
-- Week 12 - Evaluate new documentation with interactive design & Clean up bugs
-- Week 13 - Final deployment
+- Week 12 - Final deployment & Clean up bugs
+- Week 13 - Evaluate new documentation with interactive design
 
 
