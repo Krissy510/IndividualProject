@@ -37,11 +37,22 @@ The success of the revamped documentation will be evaluated through user intervi
 - Studying a library for the project
 - Interview 2 interviewees
 
+#### Week 4
+- Implemented the base design 
+- Hosted the website
+- Write up the ”Getting Start” section 
+- Trying out PyTerrier
+
+#### Week 5
+- Implemented all pages (No content)
+- Start designing interactive feature
+- Study more about IR
+
 
 ## Problems and risks
 ### Problems
-- The initial thought of developing the whole documentation from scratch have many technical challenges and time consuming.
-- Resolve the previous issue by using open-source document generator that can extend using React comoponent such as Docusaurus. However, this meant that I need to study about this library and the design needs to alter a bit. Which is a trade off for development efficiency.
+- The example about working with Passages rather than Documents and ”text sliding” and ”max pas- sage” is something I don’t understand.
+- Since I am still lacking understanding of how PyTerrier is use for IR researchers I decided to swap between the front end and the back end development plan.
 
 
 ### Risks
@@ -56,10 +67,10 @@ This week’s main goal is to continue on implementing the design.
 - Week 2 - Complete base design & Gain more metrics via user feedback
 - Week 3 - Start implement the design & Edit the design according to feedback & Gain more metrics via user feedback
 - Week 4 - Continue implement the design
-- Week 5 - Ask for user feedback for the new documentation & Design the interactive feature.
-- Week 6 - If design pass then start implement the front end of the interactive feature.
+- Week 5 - Add more pages & Design the interactive feature
+- Week 6 - If design pass then start implement the back end of the interactive feature
 - Week 7 - Continue development
-- Week 8 - Start implement backend of the project
+- Week 8 - Start implement front end of the interactive feature
 - Week 9 - Continue development
 - Week 10 - Integrate & Testing
 - Week 11 - Evaluate new documentation with interactive design & Clean up bugs

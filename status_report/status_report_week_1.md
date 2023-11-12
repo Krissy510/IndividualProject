@@ -26,43 +26,33 @@ The success of the revamped documentation will be evaluated through user intervi
 - Had a kickoff meeting to gather basic requirements and resources.
 - Interviewed 2 participants for design review.
 
-#### Week 2
-- Wrote an invite interviewees.
-- Start designing the documentation page using Figma.
-- Preparing form to accomodate interviewee lack of time and gain wider feedback on the website.
-- Resovle last week risk by doing more research about Vercel.
-
-#### Week 3
-- Start implementing the design
-- Studying a library for the project
-- Interview 2 interviewees
-
 
 ## Problems and risks
 ### Problems
-- The initial thought of developing the whole documentation from scratch have many technical challenges and time consuming.
-- Resolve the previous issue by using open-source document generator that can extend using React comoponent such as Docusaurus. However, this meant that I need to study about this library and the design needs to alter a bit. Which is a trade off for development efficiency.
+- Insufficient diversity in user interview participants
+- Incomplete understanding of the library’s functionality
 
 
 ### Risks
-- By using other library such as Docusaurus, we relied heavily that this library will continue developing and not deprecated.
+- Deployment might become a problem later as the project is divided into frontend and backend. Cur- rently, it is decided that Vercel will be used to host frontend while University’s cluster will be used to host the backend side.
 
 
 ## Plan
 ### Current Week
-This week’s main goal is to continue on implementing the design.
+This week’s main goal is to complete the user interview for the current design and to start designing how
+the new documentation webpage will look like.
+
+
 ### Far Future
-- Week 1 - Gather requirments & Set up
-- Week 2 - Complete base design & Gain more metrics via user feedback
-- Week 3 - Start implement the design & Edit the design according to feedback & Gain more metrics via user feedback
-- Week 4 - Continue implement the design
-- Week 5 - Ask for user feedback for the new documentation & Design the interactive feature.
-- Week 6 - If design pass then start implement the front end of the interactive feature.
-- Week 7 - Continue development
-- Week 8 - Start implement backend of the project
-- Week 9 - Continue development
-- Week 10 - Integrate & Testing
-- Week 11 - Evaluate new documentation with interactive design & Clean up bugs
-- Week 12 - Final deployment
+- Week 1 - Gather requirments & Set up.
+- Week 2 - Research & Completedesign of improved documentation without interactive documentation.
+- Week 3 - Complete design.
+- Week 4 - Continue complete design & Clean up.
+- Week 5 - Evaluate the new documentaiton and design the interactive feature.
+- Week 6 - Complete front end interactive feature.
+- Week 7 - Complete back end inntractive feature.
+- Week 8 - Integrate & Testing.
+- Week 9 - Evaluate new documentation with interactive design & Clean up bugs.
+- Week 10 - Final deployment.
 
 
