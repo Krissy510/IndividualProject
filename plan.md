@@ -9,24 +9,24 @@ Week-by-week plan for the whole project. Update this as you go along.
 
 ## Winter semester
 
-* **Week 1**
-* **Week 2**
-* **Week 3**
-* **Week 4**
-* **Week 5**
-* **Week 6**
-* **Week 7**
-* **Week 8**
-* **Week 9**
-* **Week 10**
-* **Week 11 [PROJECT WEEK]**
-* **Week 12 [PROJECT WEEK]** Status report submitted.
+* **Week 1** Gather requirments & Set up
+* **Week 2** Complete base design & Gain more metrics via user feedback
+* **Week 3** Start implement the design & Edit the design according to feedback & Gain more metrics via user feedback
+* **Week 4** Continue implement the design
+* **Week 5** Add more pages & Design the interactive feature
+* **Week 6** If design pass then start implement the back end of the interactive feature
+* **Week 7** Continue development
+* **Week 8** Start implement front end of the interactive feature
+* **Week 9** Continue development
+* **Week 10** Continue development
+* **Week 11 [PROJECT WEEK]** Integrate & Testing
+* **Week 12 [PROJECT WEEK]**  Final deployment & Clean up bugs & Status report submitted.
 
 ## Winter break
 
 ## Spring Semester
 
-* **Week 13**
+* **Week 13** Evaluate new documentation with interactive design
 * **Week 14**
 * **Week 15**
 * **Week 16**
