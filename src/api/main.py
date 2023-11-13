@@ -39,7 +39,7 @@ def terrier_retreive(request: RetrieveRequest) -> List[Result]:
 def text_sliding(request: TextSlidingRequest) -> List[TextSlidingResult]:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride)(request.documents)
-    return result.to_dict('records')
+    return result.head(request.num_results).to_dict('records')
 
 
 @app.get("/max-passage")

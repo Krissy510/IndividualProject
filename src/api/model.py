@@ -35,12 +35,13 @@ class MaxPassageInput(TypedDict):
 class RetrieveRequest(BaseModel):
     queries: List[Query]
     index_variant: str
-    num_results: int
+    num_results: int | None = 10
     wmodel: str
     dataset: str
 
 
 class TextSlidingRequest(BaseModel):
+    num_results: int | None = 10
     length: int | None = 150
     stride: int | None = 75
     documents: List[Document]
