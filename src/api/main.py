@@ -39,4 +39,4 @@ def terrier_retreive(request: RetrieveRequest) -> List[ResultModel]:
 def text_sliding(request: TextSlidingRequest) -> List[TextSlidingResult]:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride)(request.documents)
-    return result[['docno', 'body']].to_dict('records')
+    return result.to_dict('records')

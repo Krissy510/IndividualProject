@@ -40,5 +40,6 @@ class TextSlidingRequest(BaseModel):
 
 # Result Model
 class TextSlidingResult(TypedDict):
+    Index: int
     docno: str
     body: str
