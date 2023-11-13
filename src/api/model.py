@@ -3,14 +3,15 @@ from typing import List, TypedDict
 
 from pydantic import BaseModel
 
+# Common Data Model
+
 class Query(TypedDict):
-    qid: str
+    qid: int
     query: str
 
 class RetrieveRequest(BaseModel):
     queries: List[Query]
-    groupByQid: bool | None = True
     index_variant: str
-    max_results: int | None = 10
+    num_results: int
     wmodel: str
     dataset: str

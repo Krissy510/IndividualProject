@@ -16,7 +16,7 @@ app = FastAPI()
 
 
 @app.get("/retreive")
-def terrierRetreive(request: RetrieveRequest):
+def terrier_retreive(request: RetrieveRequest) -> List[Result]:
     if (not val.dataset(request.dataset)):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid dataset")
@@ -27,8 +27,11 @@ def terrierRetreive(request: RetrieveRequest):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid index variant")
     pipeline = pt.BatchRetrieve.from_dataset(
-        request.dataset, request.index_variant, wmodel=request.wmodel)
+        num_results=request.num_results,
+        dataset=request.dataset,
+        variant=request.index_variant,
+        wmodel=request.wmodel)
     result = pipeline(request.queries)
-    if (request.groupByQid):
-        result = result.groupby('qid')
-    return {"result": result.head(request.max_results).to_dict('records')}
+    return result.to_dict('records')
+
+
