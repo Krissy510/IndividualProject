@@ -16,7 +16,7 @@ app = FastAPI()
 
 
 @app.get("/retreive")
-def terrier_retreive(request: RetrieveRequest) -> List[Result]:
+def terrier_retreive(request: RetrieveRequest) -> List[ResultModel]:
     if (not val.dataset(request.dataset)):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid dataset")
@@ -35,3 +35,8 @@ def terrier_retreive(request: RetrieveRequest) -> List[Result]:
     return result.to_dict('records')
 
 
+@app.get("/text-sliding")
+def text_sliding(request: TextSlidingRequest) -> List[TextSlidingResult]:
+    result = pt.text.sliding(length=request.length,
+                             stride=request.stride)(request.documents)
+    return result[['docno', 'body']].to_dict('records')
