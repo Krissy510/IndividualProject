@@ -47,7 +47,7 @@ class TextSlidingRequest(BaseModel):
 
 
 class MaxPassageRequest(BaseModel):
-    num_results: int
+    num_results: int | None = 10
     max_passage_input: List[MaxPassageInput]
 
 

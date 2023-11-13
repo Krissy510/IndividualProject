@@ -40,3 +40,9 @@ def text_sliding(request: TextSlidingRequest) -> List[TextSlidingResult]:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride)(request.documents)
     return result.to_dict('records')
+
+
+@app.get("/max-passage")
+def max_passage(request: MaxPassageRequest) -> List[MaxPassageResult]:
+    result = pt.text.max_passage()(request.max_passage_input)
+    return result.head(request.num_results).to_dict('records')
