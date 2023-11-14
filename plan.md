@@ -19,8 +19,8 @@ Week-by-week plan for the whole project. Update this as you go along.
 * **Week 8** Start implement front end of the interactive feature
 * **Week 9** Continue development
 * **Week 10** Continue development
-* **Week 11 [PROJECT WEEK]** Integrate & Testing
-* **Week 12 [PROJECT WEEK]**  Final deployment & Clean up bugs & Status report submitted.
+* **Week 11 [PROJECT WEEK]** Testing & Clean up bugs
+* **Week 12 [PROJECT WEEK]**  Deployment & Status report submitted.
 
 ## Winter break
 
