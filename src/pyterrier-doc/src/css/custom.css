@@ -46,8 +46,8 @@
   gap: 10px;
 }
 
-[data-theme='dark'] .button--primary {
-  color: #f8f8f8;
+[data-theme='dark'] * {
+  color: ghostwhite;
 }
 
 .button--secondary {
@@ -57,6 +57,5 @@
 [data-theme='dark'] .button--secondary{
   background-color: #1e1a1a;
   border: none;
-  color: ghostwhite;
 }
 
