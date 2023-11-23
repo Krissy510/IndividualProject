@@ -15,7 +15,7 @@ if not pt.started():
 app = FastAPI()
 
 
-@app.get("/retreive")
+@app.post("/retreive")
 def terrier_retreive(request: RetrieveRequest) -> List[Result]:
     if (not val.dataset(request.dataset)):
         raise HTTPException(
@@ -35,14 +35,14 @@ def terrier_retreive(request: RetrieveRequest) -> List[Result]:
     return result.to_dict('records')
 
 
-@app.get("/text-sliding")
+@app.post("/text-sliding")
 def text_sliding(request: TextSlidingRequest) -> List[TextSlidingResult]:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride)(request.documents)
     return result.head(request.num_results).to_dict('records')
 
 
-@app.get("/max-passage")
+@app.post("/max-passage")
 def max_passage(request: MaxPassageRequest) -> List[MaxPassageResult]:
     result = pt.text.max_passage()(request.max_passage_input)
     return result.head(request.num_results).to_dict('records')
