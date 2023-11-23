@@ -177,7 +177,7 @@ export default function InteractiveFeature() {
     const handleClick = () => {
       const id = randomId();
       const qid = rows.length;
-      setRows((oldRows) => [{ id, qid, query: "" }, ...oldRows]);
+      setRows((oldRows) => [{ id, qid, query: "", isNew: true }, ...oldRows]);
       setRowModesModel((oldModel) => ({
         ...oldModel,
         [id]: { mode: GridRowModes.Edit, fieldToFocus: "query" },
