@@ -222,7 +222,6 @@ export default function InteractiveFeature() {
           onRowEditStop={handleRowEditStop}
           processRowUpdate={processRowUpdate}
           rowSelection={false}
-          pagination={false}
           slots={{
             toolbar: EditToolbar,
           }}
