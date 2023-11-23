@@ -112,6 +112,9 @@ export default function InteractiveFeature() {
     setRowModesModel(newRowModesModel);
   };
 
+  const handelTransform = () => {
+  };
+
   const isAnyRowInEditMode = () => {
     return Object.values(rowModesModel).some(
       (modeInfo) => modeInfo.mode === GridRowModes.Edit
