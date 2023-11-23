@@ -108,6 +108,12 @@ export default function InteractiveFeature() {
     setRowModesModel(newRowModesModel);
   };
 
+  const isAnyRowInEditMode = () => {
+    return Object.values(rowModesModel).some(
+      (modeInfo) => modeInfo.mode === GridRowModes.Edit
+    );
+  };
+
   const columns: GridColDef[] = [
     { field: "qid", headerName: "qid", width: 50, editable: true },
     {
@@ -278,8 +284,11 @@ export default function InteractiveFeature() {
             value={numResult}
             onChange={handleNumResultChange}
           />
-        </Box>
-        <Button variant="contained" disabled={rows.length === 0}>
+        <Button
+          variant="contained"
+          onClick={handelTransform}
+          disabled={numResult < 1 || rows.length < 1 || isAnyRowInEditMode()}
+        >
           Transform
         </Button>
       </Box>
