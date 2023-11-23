@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 # Data Model
 class Query(TypedDict):
-    qid: int
+    qid: str
     query: str
 
 
@@ -17,14 +17,14 @@ class Document(TypedDict):
 
 
 class Result(TypedDict):
-    qid: int
+    qid: str
     query: str
     docno: str
     score: float
 
 
 class MaxPassageInput(TypedDict):
-    qid: int
+    qid: str
     query: str
     docno: str
     body: str
@@ -60,7 +60,7 @@ class TextSlidingResult(TypedDict):
 
 
 class MaxPassageResult(TypedDict):
-    qid: int
+    qid: str
     query: str
     body: str
     score: float
