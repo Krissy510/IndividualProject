@@ -206,7 +206,6 @@ export default function InteractiveFeature() {
   return (
     <div
       style={{
-        width: "50%",
         border: "1px solid #7E7E7E",
         borderRadius: 10,
         display: "flex",
@@ -217,7 +216,6 @@ export default function InteractiveFeature() {
     >
       <Box
         sx={{
-          height: 350,
           padding: 3,
         }}
       >
@@ -227,7 +225,6 @@ export default function InteractiveFeature() {
           columns={columns}
           editMode="row"
           rowModesModel={rowModesModel}
-          autoPageSize
           onRowModesModelChange={handleRowModesModelChange}
           onRowEditStop={handleRowEditStop}
           processRowUpdate={processRowUpdate}
@@ -306,7 +303,6 @@ export default function InteractiveFeature() {
           label="Number result"
           id="number-result"
           type="number"
-            sx={{ width: "40%" }}
           value={numResult}
           onChange={handleNumResultChange}
         />
