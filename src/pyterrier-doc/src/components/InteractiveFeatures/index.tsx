@@ -46,6 +46,10 @@ export default function InteractiveFeature() {
   const [dataset, setDataset] = React.useState("msmarco_passage");
   const [wmodel, setWmodel] = React.useState("BM25");
   const [numResult, setNumResult] = React.useState(5);
+  const [indexVariant, setIndexVariant] = React.useState("terrier_stemmed");
+  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
+    {}
+  );
 
   const handleDatasetChange = (event: SelectChangeEvent) => {
     setDataset(event.target.value);
@@ -61,9 +65,9 @@ export default function InteractiveFeature() {
     setNumResult(Number(event.target.value));
   };
 
-  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
-    {}
-  );
+  const handleIndexVariantChange = (event: SelectChangeEvent) => {
+    setIndexVariant(event.target.value);
+  };
 
   const handleRowEditStop: GridEventListener<"rowEditStop"> = (
     params,
@@ -260,30 +264,52 @@ export default function InteractiveFeature() {
           </Select>
         </FormControl>
 
-        <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}>
-          <FormControl sx={{ width: "50%" }} variant="filled">
-            <InputLabel id="wmodel-select-label">Weight model</InputLabel>
-            <Select
-              labelId="wmodel-select-label"
-              id="wmodel-select"
-              value={wmodel}
-              label="Wmodel"
-              onChange={handleWmodelChange}
-            >
-              <MenuItem value={"BM25"}>BM25</MenuItem>
-              <MenuItem value={"DFIC"}>DFIC</MenuItem>
-              <MenuItem value={"DFRWeightingModel"}>DFRWeightingModel</MenuItem>
-            </Select>
-          </FormControl>
+        <FormControl variant="filled">
+          <InputLabel id="wmodel-select-label">Weight model</InputLabel>
+          <Select
+            labelId="wmodel-select-label"
+            id="wmodel-select"
+            value={wmodel}
+            label="Wmodel"
+            onChange={handleWmodelChange}
+          >
+            <MenuItem value={"BM25"}>BM25</MenuItem>
+            <MenuItem value={"DFIC"}>DFIC</MenuItem>
+            <MenuItem value={"DFRWeightingModel"}>DFRWeightingModel</MenuItem>
+          </Select>
+        </FormControl>
 
-          <TextField
-            label="Number result"
-            id="number-result"
-            type="number"
+        <FormControl variant="filled">
+          <InputLabel id="index-variant-select-label">Index variant</InputLabel>
+          <Select
+            labelId="index-variant-select-label"
+            id="index-variant-select"
+            value={indexVariant}
+            label="IndexVariant"
+            onChange={handleIndexVariantChange}
+          >
+            <MenuItem value={"terrier_stemmed"}>terrier_stemmed</MenuItem>
+            <MenuItem value={"terrier_stemmed_positions"}>
+              terrier_stemmed_positions
+            </MenuItem>
+            <MenuItem value={"terrier_unstemmed"}>terrier_unstemmed</MenuItem>
+            <MenuItem value={"terrier_stemmed_text"}>
+              terrier_stemmed_text
+            </MenuItem>
+            <MenuItem value={"terrier_unstemmed_text"}>
+              terrier_stemmed_text
+            </MenuItem>
+          </Select>
+        </FormControl>
+
+        <TextField
+          label="Number result"
+          id="number-result"
+          type="number"
             sx={{ width: "40%" }}
-            value={numResult}
-            onChange={handleNumResultChange}
-          />
+          value={numResult}
+          onChange={handleNumResultChange}
+        />
         <Button
           variant="contained"
           onClick={handelTransform}
