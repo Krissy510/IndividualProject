@@ -108,8 +108,8 @@ export default function InteractiveFeature() {
     setRowModesModel(newRowModesModel);
   };
 
-  const query: GridColDef[] = [
-    { field: "qid", headerName: "qid", width: 50 },
+  const columns: GridColDef[] = [
+    { field: "qid", headerName: "qid", width: 50, editable: true },
     {
       field: "query",
       headerName: "query",
@@ -214,7 +214,7 @@ export default function InteractiveFeature() {
         <h4>Pipeline Input</h4>
         <DataGrid
           rows={rows}
-          columns={query}
+          columns={columns}
           editMode="row"
           rowModesModel={rowModesModel}
           autoPageSize
