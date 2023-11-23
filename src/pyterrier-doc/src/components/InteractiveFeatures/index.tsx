@@ -28,9 +28,21 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
+const initialRows: GridRowsProp = [
+  {
+    id: randomId(),
+    qid: 0,
+    query: "how to retrieve text",
+  },
+  {
+    id: randomId(),
+    qid: 1,
+    query: "what is an inverted index",
+  },
+];
 
 export default function InteractiveFeature() {
-  const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = React.useState(initialRows);
   const [dataset, setDataset] = React.useState("msmarco_passage");
   const [wmodel, setWmodel] = React.useState("BM25");
   const [numResult, setNumResult] = React.useState(5);
