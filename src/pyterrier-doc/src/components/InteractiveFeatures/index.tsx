@@ -6,6 +6,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+import SplitscreenIcon from "@mui/icons-material/Splitscreen";
+import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
 import {
   GridRowsProp,
   GridRowModesModel,
@@ -22,6 +24,7 @@ import {
 import { randomId } from "@mui/x-data-grid-generator";
 import {
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Select,
@@ -50,6 +53,7 @@ export default function InteractiveFeature() {
   const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
     {}
   );
+  const [displayMode, setDisplayMode] = React.useState("column");
 
   const handleDatasetChange = (event: SelectChangeEvent) => {
     setDataset(event.target.value);
@@ -112,8 +116,7 @@ export default function InteractiveFeature() {
     setRowModesModel(newRowModesModel);
   };
 
-  const handelTransform = () => {
-  };
+  const handelTransform = () => {};
 
   const isAnyRowInEditMode = () => {
     return Object.values(rowModesModel).some(
@@ -207,16 +210,30 @@ export default function InteractiveFeature() {
   }
 
   return (
-    <div
-      style={{
-        border: "1px solid #7E7E7E",
-        borderRadius: 10,
-        display: "flex",
-        flexDirection: "column",
-        gap: 10,
-        marginBottom: 10,
-      }}
-    >
+    <Box>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <IconButton
+          color="primary"
+          disabled={displayMode === "row"}
+          onClick={() => setDisplayMode("row")}
+        >
+          <VerticalSplitIcon />
+        </IconButton>
+
+        <IconButton
+          color="primary"
+          disabled={displayMode === "column"}
+          onClick={() => setDisplayMode("column")}
+        >
+          <SplitscreenIcon />
+        </IconButton>
+      </Box>
       <Box
         sx={{
           padding: 3,
@@ -317,6 +334,6 @@ export default function InteractiveFeature() {
           Transform
         </Button>
       </Box>
-    </div>
+    </Box>
   );
 }
