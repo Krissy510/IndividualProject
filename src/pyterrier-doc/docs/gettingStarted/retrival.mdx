@@ -3,9 +3,66 @@ sidebar_position: 4
 ---
 
 import InteractiveFeature from '@site/src/components/InteractiveFeatures'
+import ParameterTypes from '@site/src/components/PipelineInput/model'
 
 # Terrier Retrival
 
-<InteractiveFeature />
+<InteractiveFeature example={[
+    {qid: "0", query: "how to retrieve text"},
+    {qid: "1", query: "what is an inverted index"},
+    ]}
+    apiUrl="http://localhost:8080/retreive"
+    columns={[
+            {
+              name: "qid",
+              width: 50,
+            },
+            {
+              name: "query",
+              width: 200,
+            },
+          ]}
+    parameters={[
+    {
+        name: "Dataset",
+        type: "select",
+        default: "msmarco_document",
+        id: "dataset",
+        choices: [
+        "vaswani", "msmarco_document", "msmarco_passage",
+        "trec-covid","trec-deep-learning-docs","trec-deep-learning-passages",
+        ],
+    },
+    {
+        name: "Wmodel",
+        type: "select",
+        default: "BM25",
+        id: "wmodel",
+        choices: [
+        "BB2", "BM25", "BM25F", "CoordinateMatch", "DFIC", "DFIZ",
+        "DFR_BM25", "DFRee", "DFReeKLIM", "DFRWeightingModel", "DirichletLM", 
+        "Dl", "DLH", "DLH13", "DPH", "Hiemstra_LM", "IFB2", "In_expB2", "In_expC2",
+        "InB2", "InL2", "Js_KLs", "LemurTF_IDF", "LGD", "MDL2",
+        "ML2", "Null", "PL2", "TF_IDF", "XSqrA_M",
+        ],
+    },
+    {
+        name: "Index Variant",
+        type: "select",
+        default: "terrier_stemmed",
+        id: "index_variant",
+        choices: [
+        "terrier_stemmed", "terrier_stemmed_positions", "terrier_unstemmed", 
+        "terrier_stemmed_text", "terrier_unstemmed_text",
+        ],
+    },
+    {
+        name: "Num of result",
+        type: "number",
+        default: 5,
+        id: "num_results",
+    },
+    ]}
+     />
 
 BatchRetrieve is one of the most commonly used PyTerrier objects. It represents a retrieval transformation, in which queries are mapped to retrieved documents. BatchRetrieve uses a pre-existing Terrier index data structure, typically saved on disk.
