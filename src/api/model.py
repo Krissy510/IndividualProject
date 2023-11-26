@@ -12,7 +12,6 @@ class Query(TypedDict):
 
 class Document(TypedDict):
     docno: str
-    title: str
     body: str
 
 
