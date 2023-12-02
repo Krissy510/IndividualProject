@@ -1,17 +1,25 @@
 # Run command
 # uvicorn main:app --host 0.0.0.0 --port 8080 --reload
 
-from typing import List, TypedDict
+
+from typing import List
 
 import pyterrier as pt
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+
+from model import (MaxPassageRequest, MaxPassageResult, Result,
+                   RetrieveRequest, TextSlidingRequest, TextSlidingResult,
+                   InteractiveFeatureProps, Query)
+
+from generate import generate_columns, generate_parameters
 
 if not pt.started():
     pt.init()
 
 app = FastAPI()
+
+###### For develop only###########
 
 origins = [
     "http://localhost:3000",
@@ -26,72 +34,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Data Model
-class Query(TypedDict):
-    qid: str
-    query: str
-
-
-class Document(TypedDict):
-    docno: str
-    body: str
-
-
-class Result(TypedDict):
-    qid: str
-    query: str
-    docno: str
-    score: float
-
-
-class MaxPassageInput(TypedDict):
-    qid: str
-    query: str
-    docno: str
-    body: str
-    score: float
-
-
-# Request Model
-class RetrieveRequest(BaseModel):
-    index_variant: str
-    num_results: int | None = 10
-    wmodel: str
-    dataset: str
-    input: List[Query]
-
-
-class TextSlidingRequest(BaseModel):
-    num_results: int | None = 10
-    length: int | None = 150
-    stride: int | None = 75
-    input: List[Document]
-
-
-class MaxPassageRequest(BaseModel):
-    num_results: int | None = 10
-    input: List[MaxPassageInput]
-
-
-# Result Model
-class TextSlidingResult(TypedDict):
-    Index: int
-    docno: str
-    body: str
-
-
-class MaxPassageResult(TypedDict):
-    qid: str
-    query: str
-    body: str
-    score: float
-    docno: str
-    rank: int
+#################################
 
 
 @app.get("/")
 def hello():
-    return {"msg": "Hello World"}
+    return {"msg": "Hi, this is PyTerrier Doc API"}
+
+
+@app.get("/retreive")
+def get_terrier_retreive_fields() -> InteractiveFeatureProps:
+    return {
+        "example": [
+            {"qid": "0", "query": "how to retrieve text"},
+            {"qid": "1", "query": "what is an inverted index"},
+        ],
+        "columns": generate_columns(Query),
+        "parameters": generate_parameters(RetrieveRequest)
+    }
 
 
 @app.post("/retreive")
