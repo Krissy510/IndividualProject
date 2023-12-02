@@ -38,13 +38,20 @@ preset_parameters = {
         "id": "num_results",
     }
 }
+def generate_columns(cls:type) -> List[IColumns]:
+    return [{"name": field_name, "width": field_widths[field_name]}
+            for field_name in (get_type_hints(cls).keys())]
 
 
-def generate_columns(cls) -> Tuple[IColumns]:
-    return ({"name": field_name, "width": field_widths.get(field_name, None)}
-            for field_name in get_type_hints(cls).keys())
+def generate_parameters(cls:type) -> List[IParameters]:
+    parameters = list(get_type_hints(cls).keys())
+    parameters.remove("input")
+    return [preset_parameters[parameter] for parameter in parameters]
 
 
-def generate_parameters(cls) -> Tuple[IParameters]:
-    parameters = tuple(get_type_hints(cls).keys())[1::]
-    return (preset_parameters[parameter] for parameter in parameters)
+def generate_interactive_props(example: List[dict], col_class:type, param_cls:type):
+    return {
+        "example": example,
+        "columns": generate_columns(col_class),
+        "parameters": generate_parameters(param_cls)
+    }

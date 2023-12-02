@@ -12,7 +12,7 @@ from model import (MaxPassageRequest, MaxPassageResult, Result,
                    RetrieveRequest, TextSlidingRequest, TextSlidingResult,
                    InteractiveFeatureProps, Query)
 
-from generate import generate_columns, generate_parameters
+from generate import generate_interactive_props
 
 if not pt.started():
     pt.init()
@@ -44,14 +44,15 @@ def hello():
 
 @app.get("/retreive")
 def get_terrier_retreive_fields() -> InteractiveFeatureProps:
-    return {
-        "example": [
-            {"qid": "0", "query": "how to retrieve text"},
-            {"qid": "1", "query": "what is an inverted index"},
-        ],
-        "columns": generate_columns(Query),
-        "parameters": generate_parameters(RetrieveRequest)
+    return generate_interactive_props([
+        {"qid": "0", "query": "how to retrieve text"},
+        {"qid": "1", "query": "what is an inverted index"},
+    ],
+        Query,
+        RetrieveRequest
+    )
     }
+    )
 
 
 @app.post("/retreive")

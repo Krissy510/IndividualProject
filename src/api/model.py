@@ -26,7 +26,7 @@ class MaxPassageInput(Result):
 
 # Request Model
 class IRequest(BaseModel):
-    input: Tuple[TypedDict]
+    input: List[TypedDict]
 
 class RetrieveRequest(IRequest):
     dataset: str
@@ -37,14 +37,14 @@ class RetrieveRequest(IRequest):
 
 
 class TextSlidingRequest(BaseModel):
-    num_results: int | None = 10
-    length: int | None = 150
-    stride: int | None = 75
-    input: Tuple[Document]
+    num_results: int
+    length: int
+    stride: int
+    input: List[Document]
 
 
 class MaxPassageRequest(BaseModel):
-    num_results: int | None = 10
+    num_results: int
     input: List[MaxPassageInput]
 
 
