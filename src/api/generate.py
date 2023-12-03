@@ -7,9 +7,9 @@ from validation import *
 field_widths = {
     "qid": 30,
     "query": 400,
-    "docno": 50,
+    "docno": 100,
     "body": 300,
-    "score": 50,
+    "score": 100,
     "Index": 30,
     "rank": 30,
 }

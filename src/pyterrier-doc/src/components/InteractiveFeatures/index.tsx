@@ -2,7 +2,7 @@ import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
 import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
-import { GridRowsProp } from "@mui/x-data-grid";
+import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
 import PipelineInput from "@site/src/components/PipelineInput";
 import { useEffect, useState } from "react";
@@ -14,9 +14,14 @@ export default function InteractiveFeature({
   apiUrl,
 }: InteractiveFeatureProps) {
   const [inputRows, setInputRows] = useState<GridRowsProp>([]);
-  const [columns, setColumns] = useState([]);
+  const [input, setInput] = useState([]);
+  const [defineOutputColumns, setDefineOutputColumns] = useState<
+    Array<GridColDef>
+  >([]);
   const [parameters, setParameters] = useState([]);
   const [isApiProcessing, setIsApiProcessing] = useState(false);
+  const [displayMode, setDisplayMode] = useState("column");
+  const [outputRows, setOutputRows] = useState([]);
 
   useEffect(() => {
     setIsApiProcessing(true);
@@ -29,18 +34,27 @@ export default function InteractiveFeature({
             return { id: randomId(), ...row };
           })
         );
-        setColumns(response.data["columns"]);
+        setInput(response.data["input"]);
         setParameters(response.data["parameters"]);
+        setDefineOutputColumns([
+          ...response.data["output"].map((column): GridColDef => {
+            return {
+              field: column.name,
+              headerName: column.name,
+              width: column.width,
+              editable: false,
+            };
+          }),
+        ]);
       })
-      .catch((error) => {})
+      .catch((error) => {
+        // Console log for now will add exception handeling later.
+        console.log(`GET request to ${apiUrl} failed!`);
+      })
       .finally(() => {
         setIsApiProcessing(false);
       });
   }, []);
-
-  const [displayMode, setDisplayMode] = useState("column");
-
-  const [outputRows, setOutputRows] = useState([]);
 
   return (
     <Box sx={{ marginBottom: 3 }}>
@@ -77,14 +91,18 @@ export default function InteractiveFeature({
         <PipelineInput
           inputRows={inputRows}
           setInputRows={setInputRows}
-          columns={columns}
+          columns={input}
           parameters={parameters}
           apiUrl={apiUrl}
           setOutputRows={setOutputRows}
           isApiProcessing={isApiProcessing}
           setIsApiProcessing={setIsApiProcessing}
         />
-        <PipelineOutput outputRows={outputRows} displayMode={displayMode} />
+        <PipelineOutput
+          outputRows={outputRows}
+          defineOutputColumns={defineOutputColumns}
+          displayMode={displayMode}
+        />
       </Box>
     </Box>
   );

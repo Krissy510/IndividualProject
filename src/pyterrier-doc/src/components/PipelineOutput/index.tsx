@@ -1,34 +1,12 @@
-import {
-  Box,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import { Box } from "@mui/material";
+import { DataGrid, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
 
-export default function PipelineOutput({ outputRows, displayMode }) {
-  const [columns, setColumns] = useState([]);
-
-  useEffect(() => {
-    setColumns(outputRows.length > 0 ? Object.keys(outputRows[0]) : []);
-  }, [outputRows]);
-
-  const defineColumns: GridColDef[] = [
-    ...columns.map((column): GridColDef => {
-      return {
-        field: column,
-        headerName: column,
-        editable: false,
-      };
-    }),
-  ];
-
+export default function PipelineOutput({
+  defineOutputColumns,
+  outputRows,
+  displayMode,
+}) {
   const displayRows: GridRowsProp = outputRows.map((row) => {
     return { id: randomId(), ...row };
   });
@@ -49,7 +27,7 @@ export default function PipelineOutput({ outputRows, displayMode }) {
       <h4>Pipeline Output</h4>
       <DataGrid
         rows={displayRows}
-        columns={defineColumns}
+        columns={defineOutputColumns}
         rowSelection={false}
         initialState={{
           pagination: {
