@@ -1,6 +1,6 @@
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
-import { IconButton } from "@mui/material";
+import { CircularProgress, IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
@@ -19,12 +19,13 @@ export default function InteractiveFeature({
     Array<GridColDef>
   >([]);
   const [parameters, setParameters] = useState([]);
-  const [isApiProcessing, setIsApiProcessing] = useState(false);
+  const [isPostApiProcessing, setIsApiProcessing] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(false);
   const [displayMode, setDisplayMode] = useState("column");
   const [outputRows, setOutputRows] = useState([]);
 
   useEffect(() => {
-    setIsApiProcessing(true);
+    setIsPageLoading(true);
 
     axios
       .get(apiUrl)
@@ -52,58 +53,72 @@ export default function InteractiveFeature({
         console.log(`GET request to ${apiUrl} failed!`);
       })
       .finally(() => {
-        setIsApiProcessing(false);
+        // For testing only
+        // setTimeout(() => {
+        //   setIsPageLoading(false);
+        // }, 5000);
+
+        setIsPageLoading(false);
       });
   }, []);
 
   return (
     <Box sx={{ marginBottom: 3 }}>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <IconButton
-          color="primary"
-          disabled={displayMode === "row"}
-          onClick={() => setDisplayMode("row")}
-        >
-          <VerticalSplitIcon />
-        </IconButton>
+      {isPageLoading ? (
+        <Box>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <IconButton
+              color="primary"
+              disabled={displayMode === "row"}
+              onClick={() => setDisplayMode("row")}
+            >
+              <VerticalSplitIcon />
+            </IconButton>
 
-        <IconButton
-          color="primary"
-          disabled={displayMode === "column"}
-          onClick={() => setDisplayMode("column")}
-        >
-          <SplitscreenIcon />
-        </IconButton>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: displayMode,
-          gap: 3,
-        }}
-      >
-        <PipelineInput
-          inputRows={inputRows}
-          setInputRows={setInputRows}
-          columns={input}
-          parameters={parameters}
-          apiUrl={apiUrl}
-          setOutputRows={setOutputRows}
-          isApiProcessing={isApiProcessing}
-          setIsApiProcessing={setIsApiProcessing}
-        />
-        <PipelineOutput
-          outputRows={outputRows}
-          defineOutputColumns={defineOutputColumns}
-          displayMode={displayMode}
-        />
-      </Box>
+            <IconButton
+              color="primary"
+              disabled={displayMode === "column"}
+              onClick={() => setDisplayMode("column")}
+            >
+              <SplitscreenIcon />
+            </IconButton>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: displayMode,
+              gap: 3,
+            }}
+          >
+            <PipelineInput
+              inputRows={inputRows}
+              setInputRows={setInputRows}
+              columns={input}
+              parameters={parameters}
+              apiUrl={apiUrl}
+              setOutputRows={setOutputRows}
+              isPostApiProcessing={isPostApiProcessing}
+              setIsApiProcessing={setIsApiProcessing}
+            />
+            <PipelineOutput
+              outputRows={outputRows}
+              defineOutputColumns={defineOutputColumns}
+              displayMode={displayMode}
+              isPostApiProcessing={isPostApiProcessing}
+            />
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }

@@ -31,7 +31,7 @@ export default function PipelineInput({
   parameters,
   apiUrl,
   setOutputRows,
-  isApiProcessing,
+  isPostApiProcessing,
   setIsApiProcessing,
 }: PipelineInputProps) {
   useEffect(() => {
@@ -324,7 +324,7 @@ export default function PipelineInput({
           inputRows.length < 1 ||
           isAnyRowInEditMode() ||
           isAnyRowInvalid() ||
-          isApiProcessing
+          isPostApiProcessing
         }
       >
         Transform

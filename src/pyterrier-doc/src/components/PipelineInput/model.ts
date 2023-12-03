@@ -20,6 +20,6 @@ export interface PipelineInputProps {
   parameters: Array<IParameters>;
   apiUrl: string;
   setOutputRows: (newRows: Array<Object>) => void;
-  isApiProcessing: boolean;
-  setIsApiProcessing: (isApiProcessing: boolean) => void;
+  isPostApiProcessing: boolean;
+  setIsApiProcessing: (isPostApiProcessing: boolean) => void;
 }
