@@ -81,5 +81,9 @@ class IParameters(BaseModel):
 class InteractiveFeatureProps(BaseModel):
     example: List[dict]  # Array of objects, in Python it's a list of dictionaries
     defaultDisplayMode: str = None  # Optional, defaults to None if not provided
-    columns: List[IColumns]
     parameters: List[IParameters]
+    input: List[IColumns]
+    output: List[IColumns]
+
+
+    

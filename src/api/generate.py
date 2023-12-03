@@ -9,6 +9,9 @@ field_widths = {
     "query": 400,
     "docno": 50,
     "body": 300,
+    "score": 50,
+    "Index": 30,
+    "rank": 30,
 }
 
 preset_parameters = {
@@ -71,6 +74,6 @@ def generate_interactive_props(example: List[dict], requestClass:type, outputCla
     return {
         "example": example,
         "input": generate_columns(query_type),
-        "parameters": generate_parameters(param_cls)
+        "output": generate_columns(outputClass),
         "parameters": generate_parameters(requestClass)
     }
