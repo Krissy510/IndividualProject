@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from model import (MaxPassageRequest, MaxPassageResult, Result,
                    RetrieveRequest, TextSlidingRequest, TextSlidingResult,
-                   InteractiveFeatureProps, Query)
+                   InteractiveFeatureProps, Query, Document)
 
 from generate import generate_interactive_props
 
@@ -51,7 +51,18 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
         Query,
         RetrieveRequest
     )
-    }
+
+    
+@app.get("/text-sliding")
+def get_terrier_retreive_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props([
+        {
+            "docno": "d1",
+            "body": "a b c d"
+        }
+    ],
+        Document,
+        TextSlidingRequest
     )
 
 

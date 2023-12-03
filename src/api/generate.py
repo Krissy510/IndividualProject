@@ -5,8 +5,10 @@ from validation import *
 
 # Define a mapping of field names to their widths
 field_widths = {
-    "qid": 50,
-    "query": 100
+    "qid": 30,
+    "query": 400,
+    "docno": 50,
+    "body": 300,
 }
 
 preset_parameters = {
@@ -36,8 +38,22 @@ preset_parameters = {
         "type": "number",
         "default": 5,
         "id": "num_results",
-    }
+    },
+    "length": {
+        "name": "Length",
+        "type": "number",
+        "default": 150,
+        "id": "length",
+    },
+    "stride": {
+        "name": "Stride",
+        "type": "number",
+        "default": 75,
+        "id": "stride",
+    },
 }
+
+
 def generate_columns(cls:type) -> List[IColumns]:
     return [{"name": field_name, "width": field_widths[field_name]}
             for field_name in (get_type_hints(cls).keys())]
