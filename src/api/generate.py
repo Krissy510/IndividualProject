@@ -6,10 +6,10 @@ from validation import *
 # Define a mapping of field names to their widths
 field_widths = {
     "qid": 30,
-    "query": 400,
-    "docno": 70,
+    "query": 200,
+    "docno": 80,
     "body": 300,
-    "score": 100,
+    "score": 80,
     "Index": 30,
     "rank": 30,
 }
