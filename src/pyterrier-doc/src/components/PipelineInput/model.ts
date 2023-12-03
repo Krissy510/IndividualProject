@@ -14,8 +14,12 @@ export interface IParameters {
 }
 
 export interface PipelineInputProps {
-  exampleInputRows: GridRowsProp;
+  inputRows: GridRowsProp;
+  setInputRows: (newRows: GridRowsProp) => void;
   columns: Array<IColumns>;
   parameters: Array<IParameters>;
   apiUrl: string;
+  setOutputRows: (newRows: Array<Object>) => void;
+  isApiProcessing: boolean;
+  setIsApiProcessing: (isApiProcessing: boolean) => void;
 }

@@ -5,26 +5,45 @@ import Box from "@mui/material/Box";
 import { GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
 import PipelineInput from "@site/src/components/PipelineInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InteractiveFeatureProps } from "./model";
+import PipelineOutput from "../PipelineOutput";
+import axios from "axios";
 
 export default function InteractiveFeature({
-  example,
-  defaultDisplayMode,
-  columns,
-  parameters,
   apiUrl,
 }: InteractiveFeatureProps) {
-  const exampleInputRows: GridRowsProp = example.map((row) => {
-    return { id: randomId(), ...row };
-  });
+  const [inputRows, setInputRows] = useState<GridRowsProp>([]);
+  const [columns, setColumns] = useState([]);
+  const [parameters, setParameters] = useState([]);
+  const [isApiProcessing, setIsApiProcessing] = useState(false);
 
-  const [displayMode, setDisplayMode] = useState(
-    defaultDisplayMode ?? "column"
-  );
+  useEffect(() => {
+    setIsApiProcessing(true);
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        setInputRows(
+          response.data["example"].map((row) => {
+            return { id: randomId(), ...row };
+          })
+        );
+        setColumns(response.data["columns"]);
+        setParameters(response.data["parameters"]);
+      })
+      .catch((error) => {})
+      .finally(() => {
+        setIsApiProcessing(false);
+      });
+  }, []);
+
+  const [displayMode, setDisplayMode] = useState("column");
+
+  const [outputRows, setOutputRows] = useState([]);
 
   return (
-    <Box>
+    <Box sx={{ marginBottom: 3 }}>
       <Box
         sx={{
           width: "100%",
@@ -52,14 +71,20 @@ export default function InteractiveFeature({
         sx={{
           display: "flex",
           flexDirection: displayMode,
+          gap: 3,
         }}
       >
         <PipelineInput
-          exampleInputRows={exampleInputRows}
+          inputRows={inputRows}
+          setInputRows={setInputRows}
           columns={columns}
           parameters={parameters}
           apiUrl={apiUrl}
+          setOutputRows={setOutputRows}
+          isApiProcessing={isApiProcessing}
+          setIsApiProcessing={setIsApiProcessing}
         />
+        <PipelineOutput outputRows={outputRows} displayMode={displayMode} />
       </Box>
     </Box>
   );

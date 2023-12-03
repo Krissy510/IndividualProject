@@ -18,34 +18,43 @@ import {
   GridToolbarContainer,
 } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { NumberField } from "./NumberField";
 import { SelectField } from "./SelectField";
 import { PipelineInputProps } from "./model";
-import axios from "axios";
 
 export default function PipelineInput({
-  exampleInputRows,
+  inputRows,
+  setInputRows,
   columns,
   parameters,
   apiUrl,
+  setOutputRows,
+  isApiProcessing,
+  setIsApiProcessing,
 }: PipelineInputProps) {
-  const defaultValuesObject = parameters.reduce((obj, item) => {
-    obj[item.id] = item.default;
-    return obj;
-  }, {});
+  useEffect(() => {
+    setParamData(
+      parameters.reduce((obj, item) => {
+        obj[item.id] = item.default;
+        return obj;
+      }, {})
+    );
 
-  const initialValidity = parameters.reduce((acc, param) => {
-    if (param.type === "number") {
-      acc[param.id] = Number(param.default) > 0;
-    }
-    return acc;
-  }, {});
+    setParamValidity(
+      parameters.reduce((acc, param) => {
+        if (param.type === "number") {
+          acc[param.id] = Number(param.default) > 0;
+        }
+        return acc;
+      }, {})
+    );
+  }, [parameters]);
 
-  const [inputRows, setInputRows] = useState(exampleInputRows);
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
-  const [paramData, setParamData] = useState(defaultValuesObject);
-  const [paramValidity, setParamValidity] = useState(initialValidity);
+  const [paramData, setParamData] = useState({});
+  const [paramValidity, setParamValidity] = useState({});
 
   const isAnyParamInvalid = () => {
     return Object.values(paramValidity).some((value) => value === false);
@@ -101,21 +110,24 @@ export default function PipelineInput({
   };
 
   const handelTransform = () => {
-    const queries = inputRows.map(({ id, ...rest }) => rest);
+    const input = inputRows.map(({ id, ...rest }) => rest);
     const request = {
-      queries,
+      input,
       ...paramData,
     };
+
+    setIsApiProcessing(true);
 
     axios
       .post(apiUrl, request)
       .then((responese) => {
         if (responese.status === 200) {
-          console.log(responese.data);
+          setOutputRows(responese.data);
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((error) => {})
+      .finally(() => {
+        setIsApiProcessing(false);
       });
   };
 
@@ -125,10 +137,10 @@ export default function PipelineInput({
     );
   };
 
-  const isAnyRoleInvalid = (): boolean => {
-    return inputRows.some(
-      (row) => row.qid === "" || isNaN(Number(row.qid)) || row.query === ""
-    );
+  const isAnyRowInvalid = (): boolean => {
+    return inputRows.some((row) => {
+      return Object.values(row).some((value) => value === "");
+    });
   };
 
   const defineColumns: GridColDef[] = [
@@ -200,13 +212,14 @@ export default function PipelineInput({
 
     const handleClick = () => {
       const id = randomId();
-      setInputRows((oldRows) => [
-        { id, qid: "", query: "", isNew: true },
-        ...oldRows,
-      ]);
+      setInputRows((oldRows) => {
+        const newRow = { id, isNew: true };
+        columns.map((col) => (newRow[col.name] = ""));
+        return [newRow, ...oldRows];
+      });
       setRowModesModel((oldModel) => ({
         ...oldModel,
-        [id]: { mode: GridRowModes.Edit, fieldToFocus: "query" },
+        [id]: { mode: GridRowModes.Edit },
       }));
     };
 
@@ -225,7 +238,7 @@ export default function PipelineInput({
   }
 
   return (
-    <div
+    <Box
       style={{
         border: "1px solid #7E7E7E",
         borderRadius: 10,
@@ -310,11 +323,12 @@ export default function PipelineInput({
           isAnyParamInvalid() ||
           inputRows.length < 1 ||
           isAnyRowInEditMode() ||
-          isAnyRoleInvalid()
+          isAnyRowInvalid() ||
+          isApiProcessing
         }
       >
         Transform
       </Button>
-    </div>
+    </Box>
   );
 }
