@@ -65,9 +65,12 @@ def generate_parameters(cls:type) -> List[IParameters]:
     return [preset_parameters[parameter] for parameter in parameters]
 
 
-def generate_interactive_props(example: List[dict], col_class:type, param_cls:type):
+def generate_interactive_props(example: List[dict], requestClass:type, outputClass: type):
+    type_hints = get_type_hints(requestClass)
+    query_type = type_hints['input'].__args__[0] 
     return {
         "example": example,
-        "columns": generate_columns(col_class),
+        "input": generate_columns(query_type),
         "parameters": generate_parameters(param_cls)
+        "parameters": generate_parameters(requestClass)
     }

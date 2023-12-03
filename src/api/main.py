@@ -8,11 +8,10 @@ import pyterrier as pt
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from model import (MaxPassageRequest, MaxPassageResult, Result,
-                   RetrieveRequest, TextSlidingRequest, TextSlidingResult,
-                   InteractiveFeatureProps, Query, Document)
-
 from generate import generate_interactive_props
+from model import (InteractiveFeatureProps, MaxPassageRequest,
+                   MaxPassageResult, Result, RetrieveRequest,
+                   TextSlidingRequest, TextSlidingResult)
 
 if not pt.started():
     pt.init()
@@ -48,8 +47,8 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
         {"qid": "0", "query": "how to retrieve text"},
         {"qid": "1", "query": "what is an inverted index"},
     ],
-        Query,
-        RetrieveRequest
+        RetrieveRequest,
+        Result
     )
 
     
@@ -61,8 +60,8 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
             "body": "a b c d"
         }
     ],
-        Document,
-        TextSlidingRequest
+        TextSlidingRequest,
+        TextSlidingResult
     )
 
 
