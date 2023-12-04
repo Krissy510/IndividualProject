@@ -58,7 +58,11 @@ def get_text_sliding_fields() -> InteractiveFeatureProps:
     return generate_interactive_props([
         {
             "docno": "d1",
-            "body": "a b c d"
+            "body": "This document is about a palico cat that climbs a tower."
+        },
+        {
+            "docno": "d2",
+            "body": "This document is about a buisness man who took a trip and never came back."
         }
     ],
         TextSlidingRequest,
@@ -71,12 +75,12 @@ def get_text_scorer_fields() -> InteractiveFeatureProps:
     return generate_interactive_props([
         {
             "qid": "0",
-            "query": "document",
+            "query": "cat",
             "docno": "d1",
             "body": "This document is about a palico cat that climbs a tower."
         },
         {
-            "qid": "0",
+            "qid": "1",
             "query": "document",
             "docno": "d2",
             "body": "This document is about a buisness man who took a trip and never came back."
@@ -91,12 +95,12 @@ def get_max_passage_fields() -> InteractiveFeatureProps:
     return generate_interactive_props([
         {
             "qid": "0",
-            "query": "document",
+            "query": "cat",
             "docno": "d1",
             "body": "This document is about a palico cat that climbs a tower."
         },
         {
-            "qid": "0",
+            "qid": "1",
             "query": "document",
             "docno": "d2",
             "body": "This document is about a buisness man who took a trip and never came back."

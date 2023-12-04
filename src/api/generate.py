@@ -45,13 +45,13 @@ preset_parameters = {
     "length": {
         "name": "Length",
         "type": "number",
-        "default": 150,
+        "default": 5,
         "id": "length",
     },
     "stride": {
         "name": "Stride",
         "type": "number",
-        "default": 75,
+        "default": 1,
         "id": "stride",
     },
 }
