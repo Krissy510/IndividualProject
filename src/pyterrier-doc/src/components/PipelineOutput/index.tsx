@@ -1,13 +1,14 @@
 import { Box, CircularProgress } from "@mui/material";
 import { DataGrid, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
+import { PipelineOutputProps } from "./model";
 
 export default function PipelineOutput({
   defineOutputColumns,
   outputRows,
   displayMode,
   isPostApiProcessing,
-}) {
+}: PipelineOutputProps) {
   const displayRows: GridRowsProp = outputRows.map((row) => {
     return { id: randomId(), ...row };
   });

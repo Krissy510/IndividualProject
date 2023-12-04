@@ -22,4 +22,5 @@ export interface PipelineInputProps {
   setOutputRows: (newRows: Array<Object>) => void;
   isPostApiProcessing: boolean;
   setIsApiProcessing: (isPostApiProcessing: boolean) => void;
+  displayMode: string;
 }

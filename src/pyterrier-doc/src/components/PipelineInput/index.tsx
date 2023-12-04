@@ -33,6 +33,7 @@ export default function PipelineInput({
   setOutputRows,
   isPostApiProcessing,
   setIsApiProcessing,
+  displayMode,
 }: PipelineInputProps) {
   useEffect(() => {
     setParamData(

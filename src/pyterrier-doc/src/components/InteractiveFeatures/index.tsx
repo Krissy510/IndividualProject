@@ -1,14 +1,15 @@
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
-import { CircularProgress, IconButton } from "@mui/material";
+import { Button, CircularProgress, IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
 import PipelineInput from "@site/src/components/PipelineInput";
-import { useEffect, useState } from "react";
-import { InteractiveFeatureProps } from "./model";
-import PipelineOutput from "../PipelineOutput";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import PipelineOutput from "../PipelineOutput";
+import { InteractiveFeatureProps } from "./model";
 
 export default function InteractiveFeature({
   apiUrl,
@@ -23,6 +24,7 @@ export default function InteractiveFeature({
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [displayMode, setDisplayMode] = useState("column");
   const [outputRows, setOutputRows] = useState([]);
+  const [displayInteractive, setDisplayInteractive] = useState(false);
 
   useEffect(() => {
     setIsPageLoading(true);
@@ -62,7 +64,11 @@ export default function InteractiveFeature({
       });
   }, []);
 
-  return (
+  const handleTryButton = () => {
+    setDisplayInteractive(!displayInteractive);
+  };
+
+  return displayInteractive ? (
     <Box sx={{ marginBottom: 3 }}>
       {isPageLoading ? (
         <Box>
@@ -74,30 +80,40 @@ export default function InteractiveFeature({
             sx={{
               width: "100%",
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
+              marginBottom: 1,
             }}
           >
             <IconButton
-              color="primary"
-              disabled={displayMode === "row"}
-              onClick={() => setDisplayMode("row")}
+              onClick={handleTryButton}
+              aria-label="collapse-interactive"
             >
-              <VerticalSplitIcon />
+              <ExpandLessIcon />
             </IconButton>
+            <Box>
+              <IconButton
+                color="primary"
+                disabled={displayMode === "row"}
+                onClick={() => setDisplayMode("row")}
+              >
+                <VerticalSplitIcon />
+              </IconButton>
 
-            <IconButton
-              color="primary"
-              disabled={displayMode === "column"}
-              onClick={() => setDisplayMode("column")}
-            >
-              <SplitscreenIcon />
-            </IconButton>
+              <IconButton
+                color="primary"
+                disabled={displayMode === "column"}
+                onClick={() => setDisplayMode("column")}
+              >
+                <SplitscreenIcon />
+              </IconButton>
+            </Box>
           </Box>
           <Box
             sx={{
               display: "flex",
               flexDirection: displayMode,
               gap: 3,
+              marginRight: displayMode === "row" ? 3 : 0,
             }}
           >
             <PipelineInput
@@ -109,6 +125,7 @@ export default function InteractiveFeature({
               setOutputRows={setOutputRows}
               isPostApiProcessing={isPostApiProcessing}
               setIsApiProcessing={setIsApiProcessing}
+              displayMode={displayMode}
             />
             <PipelineOutput
               outputRows={outputRows}
@@ -120,5 +137,9 @@ export default function InteractiveFeature({
         </Box>
       )}
     </Box>
+  ) : (
+    <Button onClick={handleTryButton} variant="contained">
+      Try!
+    </Button>
   );
 }
