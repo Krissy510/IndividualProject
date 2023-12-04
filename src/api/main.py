@@ -53,7 +53,7 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
 
     
 @app.get("/text-sliding")
-def get_terrier_retreive_fields() -> InteractiveFeatureProps:
+def get_text_sliding_fields() -> InteractiveFeatureProps:
     return generate_interactive_props([
         {
             "docno": "d1",
