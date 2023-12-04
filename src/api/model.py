@@ -12,16 +12,17 @@ class Document(TypedDict):
     body: str
 
 
-class Result(TypedDict):
-    qid: str
-    query: str
+class Result(Query):
     docno: str
     score: float
 
 
 # Input model
-class MaxPassageInput(Result):
-    qid: str
+class TextScorerInput(Query,Document):
+    pass
+
+class MaxPassageInput(Result,Document):
+    pass
 
 
 # Request Model
@@ -43,16 +44,23 @@ class TextSlidingRequest(BaseModel):
     input: List[Document]
 
 
+class TextScorerRequest(TextSlidingRequest):
+    wmodel: str
+    input: List[TextScorerInput]
+
+
 class MaxPassageRequest(BaseModel):
     num_results: int
     input: List[MaxPassageInput]
 
 
 # Result Model
-class TextSlidingResult(TypedDict):
+class TextSlidingResult(Document):
     Index: int
-    docno: str
-    body: str
+
+
+class TextScorerResult(Result,Document):
+    rank: int
 
 
 class MaxPassageResult(TypedDict):

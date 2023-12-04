@@ -11,7 +11,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from generate import generate_interactive_props
 from model import (InteractiveFeatureProps, MaxPassageRequest,
                    MaxPassageResult, Result, RetrieveRequest,
-                   TextSlidingRequest, TextSlidingResult)
+                   TextScorerRequest, TextScorerResult, TextSlidingRequest,
+                   TextSlidingResult)
 
 if not pt.started():
     pt.init()
@@ -51,7 +52,7 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
         Result
     )
 
-    
+
 @app.get("/text-sliding")
 def get_text_sliding_fields() -> InteractiveFeatureProps:
     return generate_interactive_props([
@@ -62,6 +63,27 @@ def get_text_sliding_fields() -> InteractiveFeatureProps:
     ],
         TextSlidingRequest,
         TextSlidingResult
+    )
+
+
+@app.get("/text-scorer")
+def get_text_scorer_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props([
+        {
+            "qid": "0",
+            "query": "document",
+            "docno": "d1",
+            "body": "This document is about a palico cat that climbs a tower."
+        },
+        {
+            "qid": "0",
+            "query": "document",
+            "docno": "d2",
+            "body": "This document is about a buisness man who took a trip and never came back."
+        }
+    ],
+        TextScorerRequest,
+        TextScorerResult
     )
 
 
@@ -81,6 +103,15 @@ def text_sliding(request: TextSlidingRequest) -> List[TextSlidingResult]:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride,
                              prepend_title=False)(request.input)
+    return result.head(request.num_results).to_dict('records')
+
+
+@app.post("/text-scorer")
+def text_scorer(request: TextScorerRequest) -> List[TextScorerResult]:
+    pipeline = pt.text.sliding(length=request.length,
+                               stride=request.stride,
+                               prepend_title=False) >> pt.text.scorer(wmodel=request.wmodel)
+    result = pipeline(request.input)
     return result.head(request.num_results).to_dict('records')
 
 
