@@ -239,13 +239,13 @@ export default function PipelineInput({
 
   return (
     <Box
-      style={{
+      sx={{
         border: "1px solid #7E7E7E",
-        borderRadius: 10,
+        borderRadius: 5,
         display: "flex",
         flexDirection: "column",
-        gap: 10,
-        marginBottom: 10,
+        gap: 3,
+        width: displayMode === "row" ? "50%" : "100%",
       }}
     >
       <Box
