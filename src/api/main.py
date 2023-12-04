@@ -86,6 +86,26 @@ def get_text_scorer_fields() -> InteractiveFeatureProps:
         TextScorerResult
     )
 
+@app.get("/max-passage")
+def get_max_passage_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props([
+        {
+            "qid": "0",
+            "query": "document",
+            "docno": "d1",
+            "body": "This document is about a palico cat that climbs a tower."
+        },
+        {
+            "qid": "0",
+            "query": "document",
+            "docno": "d2",
+            "body": "This document is about a buisness man who took a trip and never came back."
+        }
+    ],
+    MaxPassageRequest,
+    MaxPassageResult
+    )
+
 
 @app.post("/retreive")
 def terrier_retreive(request: RetrieveRequest) -> List[Result]:
@@ -117,5 +137,8 @@ def text_scorer(request: TextScorerRequest) -> List[TextScorerResult]:
 
 @app.post("/max-passage")
 def max_passage(request: MaxPassageRequest) -> List[MaxPassageResult]:
-    result = pt.text.max_passage()(request.input)
+    pipeline = pt.text.sliding(length=request.length,
+                               stride=request.stride,
+                               prepend_title=False) >> pt.text.scorer(wmodel=request.wmodel) >> pt.text.max_passage()
+    result = pipeline(request.input)
     return result.head(request.num_results).to_dict('records')

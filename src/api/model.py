@@ -21,9 +21,6 @@ class Result(Query):
 class TextScorerInput(Query,Document):
     pass
 
-class MaxPassageInput(Result,Document):
-    pass
-
 
 # Request Model
 class IRequest(BaseModel):
@@ -49,9 +46,8 @@ class TextScorerRequest(TextSlidingRequest):
     input: List[TextScorerInput]
 
 
-class MaxPassageRequest(BaseModel):
-    num_results: int
-    input: List[MaxPassageInput]
+class MaxPassageRequest(TextScorerRequest):
+    pass
 
 
 # Result Model
@@ -63,13 +59,8 @@ class TextScorerResult(Result,Document):
     rank: int
 
 
-class MaxPassageResult(TypedDict):
-    qid: str
-    query: str
-    body: str
-    score: float
-    docno: str
-    rank: int
+class MaxPassageResult(TextScorerResult):
+    pass
 
 
 # Interactive Feature Props
