@@ -22,7 +22,7 @@ export default function InteractiveFeature({
   const [parameters, setParameters] = useState([]);
   const [isPostApiProcessing, setIsApiProcessing] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(false);
-  const [displayMode, setDisplayMode] = useState("column");
+  const [displayMode, setDisplayMode] = useState("row");
   const [outputRows, setOutputRows] = useState([]);
   const [displayInteractive, setDisplayInteractive] = useState(false);
 
@@ -138,7 +138,13 @@ export default function InteractiveFeature({
       )}
     </Box>
   ) : (
-    <Button onClick={handleTryButton} variant="contained">
+    <Button
+      onClick={handleTryButton}
+      variant="contained"
+      sx={{
+        marginBottom: 2,
+      }}
+    >
       Try!
     </Button>
   );
