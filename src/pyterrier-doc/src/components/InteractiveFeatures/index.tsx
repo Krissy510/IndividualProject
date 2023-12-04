@@ -15,7 +15,7 @@ export default function InteractiveFeature({
   apiUrl,
 }: InteractiveFeatureProps) {
   const [inputRows, setInputRows] = useState<GridRowsProp>([]);
-  const [input, setInput] = useState([]);
+  const [inputColumns, setInput] = useState([]);
   const [defineOutputColumns, setDefineOutputColumns] = useState<
     Array<GridColDef>
   >([]);
@@ -27,42 +27,44 @@ export default function InteractiveFeature({
   const [displayInteractive, setDisplayInteractive] = useState(false);
 
   useEffect(() => {
-    setIsPageLoading(true);
+    if (displayInteractive && inputColumns.length === 0) {
+      setIsPageLoading(true);
 
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        setInputRows(
-          response.data["example"].map((row) => {
-            return { id: randomId(), ...row };
-          })
-        );
-        setInput(response.data["input"]);
-        setParameters(response.data["parameters"]);
-        setDefineOutputColumns([
-          ...response.data["output"].map((column): GridColDef => {
-            return {
-              field: column.name,
-              headerName: column.name,
-              width: column.width,
-              editable: false,
-            };
-          }),
-        ]);
-      })
-      .catch((error) => {
-        // Console log for now will add exception handeling later.
-        console.log(`GET request to ${apiUrl} failed!`);
-      })
-      .finally(() => {
-        // For testing only
-        // setTimeout(() => {
-        //   setIsPageLoading(false);
-        // }, 5000);
+      axios
+        .get(apiUrl)
+        .then((response) => {
+          setInputRows(
+            response.data["example"].map((row) => {
+              return { id: randomId(), ...row };
+            })
+          );
+          setInput(response.data["input"]);
+          setParameters(response.data["parameters"]);
+          setDefineOutputColumns([
+            ...response.data["output"].map((column): GridColDef => {
+              return {
+                field: column.name,
+                headerName: column.name,
+                width: column.width,
+                editable: false,
+              };
+            }),
+          ]);
+        })
+        .catch((error) => {
+          // Console log for now will add exception handeling later.
+          console.log(`GET request to ${apiUrl} failed!`);
+        })
+        .finally(() => {
+          // For testing only
+          // setTimeout(() => {
+          //   setIsPageLoading(false);
+          // }, 5000);
 
-        setIsPageLoading(false);
-      });
-  }, []);
+          setIsPageLoading(false);
+        });
+    }
+  }, [displayInteractive]);
 
   const handleTryButton = () => {
     setDisplayInteractive(!displayInteractive);
@@ -119,7 +121,7 @@ export default function InteractiveFeature({
             <PipelineInput
               inputRows={inputRows}
               setInputRows={setInputRows}
-              columns={input}
+              columns={inputColumns}
               parameters={parameters}
               apiUrl={apiUrl}
               setOutputRows={setOutputRows}
