@@ -49,18 +49,22 @@ class TextScorerRequest(TextSlidingRequest):
 class MaxPassageRequest(TextScorerRequest):
     pass
 
+class SequentialDependenceRequest(RetrieveRequest):
+    pass
+
 
 # Result Model
 class TextSlidingResult(Document):
     Index: int
 
-
 class TextScorerResult(Result,Document):
     rank: int
 
-
 class MaxPassageResult(TextScorerResult):
     pass
+
+class SequentialDependenceResult(Result):
+    rank: int
 
 
 # Interactive Feature Props

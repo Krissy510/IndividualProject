@@ -1,11 +1,11 @@
-from generate import generate_interactive_props
-from model import (InteractiveFeatureProps, MaxPassageRequest,
-                     MaxPassageResult, Result, RetrieveRequest,
-                     TextScorerRequest, TextScorerResult, TextSlidingRequest,
-                     TextSlidingResult)
-
 from fastapi import APIRouter
 
+from generate import generate_interactive_props
+from model import (InteractiveFeatureProps, MaxPassageRequest,
+                   MaxPassageResult, Result, RetrieveRequest,
+                   SequentialDependenceRequest, SequentialDependenceResult,
+                   TextScorerRequest, TextScorerResult, TextSlidingRequest,
+                   TextSlidingResult)
 
 router = APIRouter()
 
@@ -76,4 +76,15 @@ def get_max_passage_fields() -> InteractiveFeatureProps:
     ],
         MaxPassageRequest,
         MaxPassageResult
+    )
+
+
+@router.get("/sequential-dependence")
+def get_sequential_dependence_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props([
+        {"qid": "0", "query": "how to retrieve text"},
+        {"qid": "1", "query": "what is an inverted index"},
+    ],
+        SequentialDependenceRequest,
+        SequentialDependenceResult
     )
