@@ -153,6 +153,8 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+
+  plugins: [require.resolve("@cmfcmf/docusaurus-search-local")]
 };
 
 export default config;
