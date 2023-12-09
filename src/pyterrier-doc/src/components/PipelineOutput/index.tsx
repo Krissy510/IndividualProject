@@ -50,6 +50,7 @@ export default function PipelineOutput({
               paginationModel: { pageSize: 25, page: 0 },
             },
           }}
+          getRowHeight={() => "auto"}
           sx={{
             height: "100%",
           }}

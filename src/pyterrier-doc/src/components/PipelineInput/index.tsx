@@ -252,7 +252,8 @@ export default function PipelineInput({
       <Box
         sx={{
           padding: 3,
-          paddingBottom: 1,
+          paddingBottom: 4,
+          height: "40vh",
         }}
       >
         <h4>Pipeline Input</h4>
@@ -277,7 +278,7 @@ export default function PipelineInput({
               paginationModel: { pageSize: 100, page: 0 },
             },
           }}
-          sx={{ height: "40vh" }}
+          getRowHeight={() => "auto"}
         />
       </Box>
       <Box
