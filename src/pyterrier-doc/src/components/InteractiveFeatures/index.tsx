@@ -22,7 +22,7 @@ export default function InteractiveFeature({
   const [parameters, setParameters] = useState([]);
   const [isPostApiProcessing, setIsApiProcessing] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(false);
-  const [displayMode, setDisplayMode] = useState("row");
+  const [displayMode, setDisplayMode] = useState("column");
   const [outputRows, setOutputRows] = useState([]);
   const [displayInteractive, setDisplayInteractive] = useState(false);
 
