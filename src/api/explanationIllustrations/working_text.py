@@ -3,9 +3,11 @@ from typing import List
 import pyterrier as pt
 from fastapi import APIRouter
 
-from model import (MaxPassageRequest, MaxPassageResult, Result,
-                   RetrieveRequest, TextScorerRequest, TextScorerResult,
-                   TextSlidingRequest, TextSlidingResult)
+from generate import generate_interactive_props
+from model import (InteractiveFeatureProps, MaxPassageRequest,
+                   MaxPassageResult, Result, RetrieveRequest,
+                   TextScorerRequest, TextScorerResult, TextSlidingRequest,
+                   TextSlidingResult)
 
 if not pt.started():
     pt.init()
@@ -14,15 +16,63 @@ if not pt.started():
 router = APIRouter()
 
 
-@router.post("/retreive")
-def terrier_retreive(request: RetrieveRequest) -> List[Result]:
-    pipeline = pt.BatchRetrieve.from_dataset(
-        num_results=request.num_results,
-        dataset=request.dataset,
-        variant=request.index_variant,
-        wmodel=request.wmodel)
-    result = pipeline(request.input)
-    return result.to_dict('records')
+@router.get("/text-sliding")
+def get_text_sliding_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props([
+        {
+            "docno": "d1",
+            "body": "This document is about a palico cat that climbs a tower."
+        },
+        {
+            "docno": "d2",
+            "body": "This document is about a buisness man who took a trip and never came back."
+        }
+    ],
+        TextSlidingRequest,
+        TextSlidingResult
+    )
+
+
+@router.get("/text-scorer")
+def get_text_scorer_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props([
+        {
+            "qid": "0",
+            "query": "cat",
+            "docno": "d1",
+            "body": "This document is about a palico cat that climbs a tower."
+        },
+        {
+            "qid": "1",
+            "query": "document",
+            "docno": "d2",
+            "body": "This document is about a buisness man who took a trip and never came back."
+        }
+    ],
+        TextScorerRequest,
+        TextScorerResult
+    )
+
+
+@router.get("/max-passage")
+def get_max_passage_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props([
+        {
+            "qid": "0",
+            "query": "cat",
+            "docno": "d1",
+            "body": "This document is about a palico cat that climbs a tower."
+        },
+        {
+            "qid": "1",
+            "query": "document",
+            "docno": "d2",
+            "body": "This document is about a buisness man who took a trip and never came back."
+        }
+    ],
+        MaxPassageRequest,
+        MaxPassageResult
+    )
 
 
 @router.post("/text-sliding")

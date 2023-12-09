@@ -7,16 +7,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from explanationIllustrations import working_text
 from gettingStarted import query_rewrite_and_expansion, retrival
-from interactiveProps import props
+
 
 if not pt.started():
     pt.init()
 
 app = FastAPI()
 
-
-# Interactive Feature props
-app.include_router(props.router)
+## Add API section here!
 # Getting started
 app.include_router(retrival.router)
 app.include_router(query_rewrite_and_expansion.router)
