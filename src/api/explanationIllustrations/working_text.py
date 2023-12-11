@@ -39,13 +39,13 @@ def get_text_scorer_fields() -> InteractiveFeatureProps:
         {
             "qid": "0",
             "query": "cat",
-            "docno": "d1",
+            "docno": "d1%p0",
             "body": "This document is about a palico cat that climbs a tower."
         },
         {
-            "qid": "1",
-            "query": "document",
-            "docno": "d2",
+            "qid": "0",
+            "query": "cat",
+            "docno": "d2%p0",
             "body": "This document is about a buisness man who took a trip and never came back."
         }
     ],
@@ -60,14 +60,16 @@ def get_max_passage_fields() -> InteractiveFeatureProps:
         {
             "qid": "0",
             "query": "cat",
-            "docno": "d1",
-            "body": "This document is about a palico cat that climbs a tower."
+            "docno": "d1%p0",
+            "body": "This document is about a palico cat that climbs a tower.",
+            "score": "0.813855"
         },
         {
-            "qid": "1",
-            "query": "document",
-            "docno": "d2",
-            "body": "This document is about a buisness man who took a trip and never came back."
+            "qid": "0",
+            "query": "cat",
+            "docno": "d2%p0",
+            "body": "This document is about a buisness man who took a trip and never came back.",
+            "score": "0.00000"
         }
     ],
         MaxPassageRequest,
@@ -85,17 +87,11 @@ def text_sliding(request: TextSlidingRequest) -> List[TextSlidingResult]:
 
 @router.post("/text-scorer")
 def text_scorer(request: TextScorerRequest) -> List[TextScorerResult]:
-    pipeline = pt.text.sliding(length=request.length,
-                               stride=request.stride,
-                               prepend_title=False) >> pt.text.scorer(wmodel=request.wmodel)
-    result = pipeline(request.input)
-    return result.head(request.num_results).to_dict('records')
+    result = pt.text.scorer(wmodel=request.wmodel)(request.input)
+    return result.to_dict('records')
 
 
 @router.post("/max-passage")
 def max_passage(request: MaxPassageRequest) -> List[MaxPassageResult]:
-    pipeline = pt.text.sliding(length=request.length,
-                               stride=request.stride,
-                               prepend_title=False) >> pt.text.scorer(wmodel=request.wmodel) >> pt.text.max_passage()
-    result = pipeline(request.input)
-    return result.head(request.num_results).to_dict('records')
+    result = pt.text.max_passage()(request.input)
+    return result.to_dict('records')

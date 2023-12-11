@@ -26,10 +26,5 @@ def get_sequential_dependence_fields() -> InteractiveFeatureProps:
 
 @router.post("/sequential-dependence")
 def sequential_dependence(request: SequentialDependenceRequest) -> List[SequentialDependenceResult]:
-    pipeline = pt.BatchRetrieve.from_dataset(
-        num_results=request.num_results,
-        dataset=request.dataset,
-        variant=request.index_variant,
-        wmodel=request.wmodel) >> pt.rewrite.SequentialDependence()
-    result = pipeline(request.input)
+    result = pt.rewrite.SequentialDependence() (request.input)
     return result.to_dict('records')

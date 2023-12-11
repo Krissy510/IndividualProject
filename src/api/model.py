@@ -34,37 +34,36 @@ class RetrieveRequest(IRequest):
     input: List[Query]
 
 
-class TextSlidingRequest(BaseModel):
+class TextSlidingRequest(IRequest):
     num_results: int
     length: int
     stride: int
     input: List[Document]
 
 
-class TextScorerRequest(TextSlidingRequest):
+class TextScorerRequest(IRequest):
     wmodel: str
     input: List[TextScorerInput]
 
+class MaxPassageRequest(IRequest):
+    input: List[Result]
 
-class MaxPassageRequest(TextScorerRequest):
-    pass
-
-class SequentialDependenceRequest(RetrieveRequest):
-    pass
+class SequentialDependenceRequest(IRequest):
+    input: List[Query]
 
 
 # Result Model
 class TextSlidingResult(Document):
-    Index: int
+    pass
 
-class TextScorerResult(Result,Document):
+class TextScorerResult(Result):
     rank: int
 
 class MaxPassageResult(TextScorerResult):
     pass
 
-class SequentialDependenceResult(Result):
-    rank: int
+class SequentialDependenceResult(Query):
+    query_0: str
 
 
 # Interactive Feature Props
