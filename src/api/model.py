@@ -35,7 +35,6 @@ class RetrieveRequest(IRequest):
 
 
 class TextSlidingRequest(IRequest):
-    num_results: int
     length: int
     stride: int
     input: List[Document]
@@ -53,6 +52,7 @@ class SequentialDependenceRequest(IRequest):
 
 
 # Result Model
+
 class TextSlidingResult(Document):
     pass
 
@@ -65,6 +65,9 @@ class MaxPassageResult(TextScorerResult):
 class SequentialDependenceResult(Query):
     query_0: str
 
+class ApiResponse(BaseModel):
+    result: List
+    code: str
 
 # Interactive Feature Props
 class IColumns(BaseModel):

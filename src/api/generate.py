@@ -57,23 +57,33 @@ preset_parameters = {
 }
 
 
-def generate_columns(cls:type) -> List[IColumns]:
+def generate_columns(cls: type) -> List[IColumns]:
     return [{"name": field_name, "width": field_widths[field_name]}
             for field_name in (get_type_hints(cls).keys())]
 
 
-def generate_parameters(cls:type) -> List[IParameters]:
+def generate_parameters(cls: type) -> List[IParameters]:
     parameters = list(get_type_hints(cls).keys())
     parameters.remove("input")
     return [preset_parameters[parameter] for parameter in parameters]
 
 
-def generate_interactive_props(example: List[dict], requestClass:type, outputClass: type):
+def generate_interactive_props(example: List[dict], requestClass: type, outputClass: type):
     type_hints = get_type_hints(requestClass)
-    query_type = type_hints['input'].__args__[0] 
+    query_type = type_hints['input'].__args__[0]
     return {
         "example": example,
         "input": generate_columns(query_type),
         "output": generate_columns(outputClass),
         "parameters": generate_parameters(requestClass)
     }
+
+
+def generate_api_response(result: List[BaseModel], input: List, pipeline: str) -> ApiResponse:
+
+    input_str = '[' + ",\n   ".join(map(str, input)) + ']'
+
+    return ({
+        "result": result,
+        "code": f"import pyterrier as pt\nif not pt.started():\n    pt.init()\ninput = {input_str}\npipeline = {pipeline}\nresult = pipeline(input)"
+    })
