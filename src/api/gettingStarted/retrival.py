@@ -3,8 +3,8 @@ from typing import List
 import pyterrier as pt
 from fastapi import APIRouter
 
-from generate import generate_interactive_props
-from model import InteractiveFeatureProps, Result, RetrieveRequest
+from generate import generate_interactive_props, generate_api_response
+from model import InteractiveFeatureProps, Result, RetrieveRequest, ApiResponse
 
 if not pt.started():
     pt.init()
@@ -25,11 +25,18 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
 
 
 @router.post("/retreive")
-def terrier_retreive(request: RetrieveRequest) -> List[Result]:
-    pipeline = pt.BatchRetrieve.from_dataset(
+def terrier_retreive(request: RetrieveRequest) -> ApiResponse:
+    result = pt.BatchRetrieve.from_dataset(
         num_results=request.num_results,
         dataset=request.dataset,
         variant=request.index_variant,
-        wmodel=request.wmodel)
-    result = pipeline(request.input)
-    return result.to_dict('records')
+        wmodel=request.wmodel)(request.input)
+    return generate_api_response(
+        result.to_dict('records'), 
+        request.input,
+        f"""pt.BatchRetrieve.from_dataset(
+            num_results={request.num_results},
+            dataset=\"{request.dataset}\",
+            variant=\"{request.index_variant}\",
+            wmodel=\"{request.wmodel}\")"""
+    )
