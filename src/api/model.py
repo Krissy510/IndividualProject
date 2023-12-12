@@ -51,6 +51,9 @@ class SequentialDependenceRequest(IRequest):
 class Bo1QueryExpansionRequest(MaxPassageRequest):
     pass
 
+class KLQueryExpansionRequest(Bo1QueryExpansionRequest):
+    pass
+
 # Result Model
 
 class TextSlidingResult(Document):
@@ -66,6 +69,9 @@ class SequentialDependenceResult(Query):
     query_0: str
 
 class Bo1QueryExpansionResult(SequentialDependenceResult):
+    pass
+
+class KLQueryExpansionResult(Bo1QueryExpansionResult):
     pass
 
 class ApiResponse(BaseModel):
