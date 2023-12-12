@@ -1,11 +1,9 @@
-from typing import List
-
 import pyterrier as pt
 from fastapi import APIRouter
 
-from generate import generate_interactive_props
+from generate import generate_interactive_props, generate_api_response
 from model import (InteractiveFeatureProps, SequentialDependenceRequest,
-                   SequentialDependenceResult)
+                   SequentialDependenceResult, ApiResponse)
 
 if not pt.started():
     pt.init()
@@ -25,6 +23,10 @@ def get_sequential_dependence_fields() -> InteractiveFeatureProps:
 
 
 @router.post("/sequential-dependence")
-def sequential_dependence(request: SequentialDependenceRequest) -> List[SequentialDependenceResult]:
+def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     result = pt.rewrite.SequentialDependence() (request.input)
-    return result.to_dict('records')
+    return generate_api_response(
+        result.to_dict('records'), 
+        request.input,
+        f"pt.rewrite.SequentialDependence()"
+    )
