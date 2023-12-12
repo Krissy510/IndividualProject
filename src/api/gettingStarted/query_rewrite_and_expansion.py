@@ -4,6 +4,7 @@ from fastapi import APIRouter
 from generate import generate_api_response, generate_interactive_props
 from model import (ApiResponse, Bo1QueryExpansionRequest,
                    Bo1QueryExpansionResult, InteractiveFeatureProps,
+                   KLQueryExpansionRequest, KLQueryExpansionResult,
                    SequentialDependenceRequest, SequentialDependenceResult)
 
 if not pt.started():
@@ -58,6 +59,14 @@ def get_bo1_query_expansion() -> InteractiveFeatureProps:
                                       )
 
 
+@router.get("/kl-query-expansion")
+def get_kl_query_expansion() -> InteractiveFeatureProps:
+    return generate_interactive_props(sample_result,
+                                      KLQueryExpansionRequest,
+                                      KLQueryExpansionResult
+                                      )
+
+
 @router.post("/sequential-dependence")
 def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     result = pt.rewrite.SequentialDependence()(request.input)
@@ -70,9 +79,21 @@ def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
 
 @router.post("/bo1-query-expansion")
 def bo1_query_expansion(request: Bo1QueryExpansionRequest) -> ApiResponse:
-    result = pt.rewrite.Bo1QueryExpansion(index)(request.input)
+    result = pt.rewrite.Bo1QueryExpansion(index, fb_docs=request.fb_docs,
+                                          fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
         result.to_dict('records'),
         request.input,
         f"pt.rewrite.Bo1QueryExpansion(index)"
+    )
+
+
+@router.post("/kl-query-expansion")
+def kl_query_expansion(request: KLQueryExpansionRequest) -> ApiResponse:
+    result = pt.rewrite.KLQueryExpansion(indexindex, fb_docs=request.fb_docs,
+                                         fb_terms=request.fb_terms)(request.input)
+    return generate_api_response(
+        result.to_dict('records'),
+        request.input,
+        f"pt.rewrite.KLQueryExpansion(index)"
     )

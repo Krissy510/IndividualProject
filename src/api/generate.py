@@ -1,5 +1,6 @@
-from typing import TypedDict, get_type_hints, List, Dict, Tuple
 from enum import Enum
+from typing import Dict, List, Tuple, TypedDict, get_type_hints
+
 from model import *
 from validation import *
 
@@ -54,6 +55,18 @@ preset_parameters = {
         "default": 1,
         "id": "stride",
     },
+    "fb_terms" : {
+        "name": "fb_terms",
+        "type": "number",
+        "default": 10,
+        "id": "fb_terms"
+    },
+    "fb_docs": {
+        "name": "fb_docs",
+        "type": "number",
+        "default": 3,
+        "id": "fb_docs"
+    }
 }
 
 
