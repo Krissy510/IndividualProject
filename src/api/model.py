@@ -33,12 +33,10 @@ class RetrieveRequest(IRequest):
     num_results: int
     input: List[Query]
 
-
 class TextSlidingRequest(IRequest):
     length: int
     stride: int
     input: List[Document]
-
 
 class TextScorerRequest(IRequest):
     wmodel: str
@@ -50,6 +48,8 @@ class MaxPassageRequest(IRequest):
 class SequentialDependenceRequest(IRequest):
     input: List[Query]
 
+class Bo1QueryExpansionRequest(MaxPassageRequest):
+    pass
 
 # Result Model
 
@@ -64,6 +64,9 @@ class MaxPassageResult(TextScorerResult):
 
 class SequentialDependenceResult(Query):
     query_0: str
+
+class Bo1QueryExpansionResult(SequentialDependenceResult):
+    pass
 
 class ApiResponse(BaseModel):
     result: List
