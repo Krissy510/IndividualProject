@@ -5,4 +5,5 @@ export interface PipelineOutputProps {
   outputRows: GridRowsProp;
   displayMode: string;
   isPostApiProcessing: boolean;
+  code: string;
 }

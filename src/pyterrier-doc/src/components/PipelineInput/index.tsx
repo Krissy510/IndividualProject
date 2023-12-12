@@ -34,6 +34,7 @@ export default function PipelineInput({
   isPostApiProcessing,
   setIsApiProcessing,
   displayMode,
+  setGeneratedCode,
 }: PipelineInputProps) {
   useEffect(() => {
     setParamData(
@@ -123,7 +124,8 @@ export default function PipelineInput({
       .post(apiUrl, request)
       .then((responese) => {
         if (responese.status === 200) {
-          setOutputRows(responese.data);
+          setOutputRows(responese.data.result);
+          setGeneratedCode(responese.data.code);
         }
       })
       .catch((error) => {})

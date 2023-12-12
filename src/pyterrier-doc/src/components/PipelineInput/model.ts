@@ -23,4 +23,5 @@ export interface PipelineInputProps {
   isPostApiProcessing: boolean;
   setIsApiProcessing: (isPostApiProcessing: boolean) => void;
   displayMode: string;
+  setGeneratedCode: (code: string) => void;
 }

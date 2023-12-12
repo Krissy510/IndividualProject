@@ -25,6 +25,7 @@ export default function InteractiveFeature({
   const [displayMode, setDisplayMode] = useState("column");
   const [outputRows, setOutputRows] = useState([]);
   const [displayInteractive, setDisplayInteractive] = useState(false);
+  const [generatedCode, setGeneratedCode] = useState<string>("");
 
   useEffect(() => {
     if (displayInteractive && inputColumns.length === 0) {
@@ -128,12 +129,14 @@ export default function InteractiveFeature({
               isPostApiProcessing={isPostApiProcessing}
               setIsApiProcessing={setIsApiProcessing}
               displayMode={displayMode}
+              setGeneratedCode={setGeneratedCode}
             />
             <PipelineOutput
               outputRows={outputRows}
               defineOutputColumns={defineOutputColumns}
               displayMode={displayMode}
               isPostApiProcessing={isPostApiProcessing}
+              code={generatedCode}
             />
           </Box>
         </Box>
