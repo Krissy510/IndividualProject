@@ -3,8 +3,8 @@ from typing import List
 import pyterrier as pt
 from fastapi import APIRouter
 
-from generate import generate_interactive_props
-from model import (InteractiveFeatureProps, MaxPassageRequest,
+from generate import generate_interactive_props, generate_api_response
+from model import (ApiResponse, InteractiveFeatureProps, MaxPassageRequest,
                    MaxPassageResult, Result, RetrieveRequest,
                    TextScorerRequest, TextScorerResult, TextSlidingRequest,
                    TextSlidingResult)
@@ -78,11 +78,16 @@ def get_max_passage_fields() -> InteractiveFeatureProps:
 
 
 @router.post("/text-sliding")
-def text_sliding(request: TextSlidingRequest) -> List[TextSlidingResult]:
+def text_sliding(request: TextSlidingRequest) -> ApiResponse:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride,
                              prepend_title=False)(request.input)
-    return result.head(request.num_results).to_dict('records')
+    return generate_api_response(result.to_dict('records'),
+    request.input,
+    f"""pt.text.sliding(length=request.length,
+    stride=request.stride,
+    prepend_title=False)"""
+    )
 
 
 @router.post("/text-scorer")
