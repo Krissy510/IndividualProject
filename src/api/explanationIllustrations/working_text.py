@@ -83,11 +83,11 @@ def text_sliding(request: TextSlidingRequest) -> ApiResponse:
                              stride=request.stride,
                              prepend_title=False)(request.input)
     return generate_api_response(result.to_dict('records'),
-    request.input,
-    f"""pt.text.sliding(length=request.length,
+                                 request.input,
+                                 f"""pt.text.sliding(length=request.length,
     stride=request.stride,
     prepend_title=False)"""
-    )
+                                 )
 
 
 @router.post("/text-scorer")
