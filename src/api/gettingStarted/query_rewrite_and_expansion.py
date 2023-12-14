@@ -40,7 +40,7 @@ sample_result = [
 router = APIRouter()
 
 
-@router.get("/sequential-dependence")
+@router.get("/rewrite/sequential-dependence")
 def get_sequential_dependence_fields() -> InteractiveFeatureProps:
     return generate_interactive_props([
         {"qid": "0", "query": "how to retrieve text"},
@@ -51,23 +51,23 @@ def get_sequential_dependence_fields() -> InteractiveFeatureProps:
     )
 
 
-@router.get("/bo1-query-expansion")
-def get_bo1_query_expansion() -> InteractiveFeatureProps:
+@router.get("/rewrite/bo1")
+def get_bo1_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(sample_result,
                                       Bo1QueryExpansionRequest,
                                       Bo1QueryExpansionResult
                                       )
 
 
-@router.get("/kl-query-expansion")
-def get_kl_query_expansion() -> InteractiveFeatureProps:
+@router.get("/rewrite/kl")
+def get_kl_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(sample_result,
                                       KLQueryExpansionRequest,
                                       KLQueryExpansionResult
                                       )
 
 
-@router.post("/sequential-dependence")
+@router.post("/rewrite/sequential-dependence")
 def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     result = pt.rewrite.SequentialDependence()(request.input)
     return generate_api_response(
@@ -77,23 +77,25 @@ def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     )
 
 
-@router.post("/bo1-query-expansion")
-def bo1_query_expansion(request: Bo1QueryExpansionRequest) -> ApiResponse:
+@router.post("/rewrite/bo1")
+def bo1(request: Bo1QueryExpansionRequest) -> ApiResponse:
     result = pt.rewrite.Bo1QueryExpansion(index, fb_docs=request.fb_docs,
                                           fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f"pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})"
+        f"pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={
+            request.fb_terms})"
     )
 
 
-@router.post("/kl-query-expansion")
-def kl_query_expansion(request: KLQueryExpansionRequest) -> ApiResponse:
-    result = pt.rewrite.KLQueryExpansion(indexindex, fb_docs=request.fb_docs,
+@router.post("/rewrite/kl")
+def kl(request: KLQueryExpansionRequest) -> ApiResponse:
+    result = pt.rewrite.KLQueryExpansion(index, fb_docs=request.fb_docs,
                                          fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f"pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})"
+        f"pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={
+            request.fb_terms})"
     )
