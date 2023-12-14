@@ -1,14 +1,14 @@
 import pyterrier as pt
 from fastapi import APIRouter
 
-from generate import generate_interactive_props, generate_api_response
+from generate import generate_api_response, generate_interactive_props
+from helper import pyterrier_init
 from model import (ApiResponse, InteractiveFeatureProps, MaxPassageRequest,
                    MaxPassageResult, Result, RetrieveRequest,
                    TextScorerRequest, TextScorerResult, TextSlidingRequest,
                    TextSlidingResult)
 
-if not pt.started():
-    pt.init()
+pyterrier_init()
 
 
 router = APIRouter()

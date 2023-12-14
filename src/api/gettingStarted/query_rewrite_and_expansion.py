@@ -2,13 +2,13 @@ import pyterrier as pt
 from fastapi import APIRouter
 
 from generate import generate_api_response, generate_interactive_props
+from helper import pyterrier_init
 from model import (ApiResponse, Bo1QueryExpansionRequest,
                    Bo1QueryExpansionResult, InteractiveFeatureProps,
                    KLQueryExpansionRequest, KLQueryExpansionResult,
                    SequentialDependenceRequest, SequentialDependenceResult)
 
-if not pt.started():
-    pt.init()
+pyterrier_init()
 
 folder_path = "./index"
 

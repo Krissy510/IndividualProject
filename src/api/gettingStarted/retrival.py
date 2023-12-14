@@ -5,10 +5,9 @@ from fastapi import APIRouter
 
 from generate import generate_interactive_props, generate_api_response
 from model import InteractiveFeatureProps, Result, RetrieveRequest, ApiResponse
+from helper import pyterrier_init
 
-if not pt.started():
-    pt.init()
-
+pyterrier_init()
 
 router = APIRouter()
 
