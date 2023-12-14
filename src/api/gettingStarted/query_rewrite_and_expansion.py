@@ -3,7 +3,7 @@ from fastapi import APIRouter
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import (ApiResponse, Bo1Request,
+from model import (ApiResponse, Bo1Request, AQERequest, AQEResult,
                    Bo1Result, InteractiveFeatureProps,
                    KLRequest, KLResult,
                    RM3Request, RM3Result,

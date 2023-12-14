@@ -59,6 +59,9 @@ class KLRequest(Bo1Request):
 class RM3Request(Bo1Request):
     fb_lambda: float
 
+class AQERequest(Bo1Request):
+    pass
+
 # Result Model
 
 class TextSlidingResult(Document):
@@ -80,6 +83,9 @@ class KLResult(Bo1Result):
     pass
 
 class RM3Result(KLResult):
+    pass
+
+class AQEResult(RM3Result):
     pass
 
 class ApiResponse(BaseModel):
