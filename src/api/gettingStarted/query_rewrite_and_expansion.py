@@ -123,7 +123,6 @@ def kl(request: KLRequest) -> ApiResponse:
 def rm3(request: RM3Request):
     result = pt.rewrite.RM3(index, fb_docs=request.fb_docs,
                             fb_terms=request.fb_terms, fb_lambda=request.fb_lambda)(request.input)
-    print(result)
     return generate_api_response(
         result.to_dict('records'),
         request.input,
