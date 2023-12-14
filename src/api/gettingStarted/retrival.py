@@ -35,8 +35,8 @@ def terrier_retreive(request: RetrieveRequest) -> ApiResponse:
         result.to_dict('records'), 
         request.input,
         f"""pt.BatchRetrieve.from_dataset(
-            num_results={request.num_results},
-            dataset=\"{request.dataset}\",
-            variant=\"{request.index_variant}\",
-            wmodel=\"{request.wmodel}\")"""
+            num_results={repr(request.num_results)},
+            dataset={repr(request.dataset)},
+            variant={repr(request.index_variant)},
+            wmodel={repr(request.wmodel)})"""
     )

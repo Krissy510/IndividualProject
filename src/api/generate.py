@@ -93,7 +93,7 @@ def generate_interactive_props(example: List[dict], requestClass: type, outputCl
 
 
 def generate_api_response(result: List[BaseModel], input: List, pipeline: str) -> ApiResponse:
-    input_str = '[' + ",\n   ".join(map(str, input)) + ']'
+    input_str = '[\n' + ",\n".join(map(str, input)) + '\n]'
     return ({
         "result": result,
         "code": f"import pyterrier as pt\nif not pt.started():\n    pt.init()\ninput = {input_str}\npipeline = {pipeline}\nresult = pipeline(input)"

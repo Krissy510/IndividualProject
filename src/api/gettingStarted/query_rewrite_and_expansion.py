@@ -73,7 +73,7 @@ def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f"pt.rewrite.SequentialDependence()"
+        "pt.rewrite.SequentialDependence()"
     )
 
 
@@ -84,7 +84,7 @@ def bo1_query_expansion(request: Bo1QueryExpansionRequest) -> ApiResponse:
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f"pt.rewrite.Bo1QueryExpansion(index)"
+        f"pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})"
     )
 
 
@@ -95,5 +95,5 @@ def kl_query_expansion(request: KLQueryExpansionRequest) -> ApiResponse:
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f"pt.rewrite.KLQueryExpansion(index)"
+        f"pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})"
     )
