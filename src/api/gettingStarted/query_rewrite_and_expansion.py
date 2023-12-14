@@ -3,11 +3,10 @@ from fastapi import APIRouter
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import (ApiResponse, Bo1Request, AQERequest, AQEResult,
-                   Bo1Result, InteractiveFeatureProps,
-                   KLRequest, KLResult,
-                   RM3Request, RM3Result,
-                   SequentialDependenceRequest, SequentialDependenceResult)
+from model import (ApiResponse, AQERequest, AQEResult, Bo1Request, Bo1Result,
+                   InteractiveFeatureProps, KLRequest, KLResult, RM3Request,
+                   RM3Result, SequentialDependenceRequest,
+                   SequentialDependenceResult)
 
 pyterrier_init()
 
@@ -41,6 +40,7 @@ sample_result = [
 router = APIRouter()
 
 
+# GET API start here!
 @router.get("/rewrite/sequential-dependence")
 def get_sequential_dependence_fields() -> InteractiveFeatureProps:
     return generate_interactive_props([
@@ -76,6 +76,15 @@ def get_rm3_fields() -> InteractiveFeatureProps:
                                       )
 
 
+@router.get("/rewrite/aqe")
+def get_aqe_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props(sample_result,
+                                      AQERequest,
+                                      AQEResult
+                                      )
+
+
+# POST API start here!
 @router.post("/rewrite/sequential-dependence")
 def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     result = pt.rewrite.SequentialDependence()(request.input)
