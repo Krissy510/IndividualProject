@@ -48,7 +48,8 @@ class MaxPassageRequest(IRequest):
 class SequentialDependenceRequest(IRequest):
     input: List[Query]
 
-class Bo1QueryExpansionRequest(MaxPassageRequest):
+class Bo1QueryExpansionRequest(IRequest):
+    input: List[Result]
     fb_terms: int
     fb_docs: int
 
