@@ -66,6 +66,12 @@ preset_parameters = {
         "type": "number",
         "default": 3,
         "id": "fb_docs"
+    },
+    "fb_lambda": {
+        "name": "fb_lambda",
+        "type": "number",
+        "default": 0.6,
+        "id": "fb_lambda"
     }
 }
 

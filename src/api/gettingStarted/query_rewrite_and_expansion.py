@@ -3,9 +3,10 @@ from fastapi import APIRouter
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import (ApiResponse, Bo1QueryExpansionRequest,
-                   Bo1QueryExpansionResult, InteractiveFeatureProps,
-                   KLQueryExpansionRequest, KLQueryExpansionResult,
+from model import (ApiResponse, Bo1Request,
+                   Bo1Result, InteractiveFeatureProps,
+                   KLRequest, KLResult,
+                   RM3Request, RM3Result,
                    SequentialDependenceRequest, SequentialDependenceResult)
 
 pyterrier_init()
@@ -54,16 +55,24 @@ def get_sequential_dependence_fields() -> InteractiveFeatureProps:
 @router.get("/rewrite/bo1")
 def get_bo1_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(sample_result,
-                                      Bo1QueryExpansionRequest,
-                                      Bo1QueryExpansionResult
+                                      Bo1Request,
+                                      Bo1Result
                                       )
 
 
 @router.get("/rewrite/kl")
 def get_kl_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(sample_result,
-                                      KLQueryExpansionRequest,
-                                      KLQueryExpansionResult
+                                      KLRequest,
+                                      KLResult
+                                      )
+
+
+@router.get("/rewrite/rm3")
+def get_rm3_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props(sample_result,
+                                      RM3Request,
+                                      RM3Result
                                       )
 
 
@@ -78,7 +87,7 @@ def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
 
 
 @router.post("/rewrite/bo1")
-def bo1(request: Bo1QueryExpansionRequest) -> ApiResponse:
+def bo1(request: Bo1Request) -> ApiResponse:
     result = pt.rewrite.Bo1QueryExpansion(index, fb_docs=request.fb_docs,
                                           fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
@@ -90,7 +99,7 @@ def bo1(request: Bo1QueryExpansionRequest) -> ApiResponse:
 
 
 @router.post("/rewrite/kl")
-def kl(request: KLQueryExpansionRequest) -> ApiResponse:
+def kl(request: KLRequest) -> ApiResponse:
     result = pt.rewrite.KLQueryExpansion(index, fb_docs=request.fb_docs,
                                          fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
@@ -98,4 +107,17 @@ def kl(request: KLQueryExpansionRequest) -> ApiResponse:
         request.input,
         f"pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={
             request.fb_terms})"
+    )
+
+
+@router.post("/rewrite/rm3")
+def rm3(request: RM3Request):
+    result = pt.rewrite.RM3(index, fb_docs=request.fb_docs,
+                            fb_terms=request.fb_terms, fb_lambda=request.fb_lambda)(request.input)
+    print(result)
+    return generate_api_response(
+        result.to_dict('records'),
+        request.input,
+        f"pt.rewrite.RM3(index, fb_docs={request.fb_docs}, fb_terms={
+            request.fb_terms}, fb_lambda={request.fb_lambda})"
     )

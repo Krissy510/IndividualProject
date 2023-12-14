@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export function NumberField({ data, onChange, setParamValidity }) {
   const [value, setValue] = useState(data.default);
-  const isError = value < 1;
+  const isError = !(value > 0);
 
   return (
     <TextField
@@ -18,7 +18,7 @@ export function NumberField({ data, onChange, setParamValidity }) {
       }}
       defaultValue={data.default}
       error={isError}
-      helperText={isError ? "Value must be greater than or equal to 1" : ""}
+      helperText={isError ? "Value must be greater than 0" : ""}
     />
   );
 }

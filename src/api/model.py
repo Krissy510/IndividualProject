@@ -48,13 +48,16 @@ class MaxPassageRequest(IRequest):
 class SequentialDependenceRequest(IRequest):
     input: List[Query]
 
-class Bo1QueryExpansionRequest(IRequest):
+class Bo1Request(IRequest):
     input: List[Result]
     fb_terms: int
     fb_docs: int
 
-class KLQueryExpansionRequest(Bo1QueryExpansionRequest):
+class KLRequest(Bo1Request):
     pass
+
+class RM3Request(Bo1Request):
+    fb_lambda: float
 
 # Result Model
 
@@ -70,10 +73,13 @@ class MaxPassageResult(TextScorerResult):
 class SequentialDependenceResult(Query):
     query_0: str
 
-class Bo1QueryExpansionResult(SequentialDependenceResult):
+class Bo1Result(SequentialDependenceResult):
     pass
 
-class KLQueryExpansionResult(Bo1QueryExpansionResult):
+class KLResult(Bo1Result):
+    pass
+
+class RM3Result(KLResult):
     pass
 
 class ApiResponse(BaseModel):
@@ -91,7 +97,7 @@ class IParameters(BaseModel):
     id: str
     type: str
     choices: List[str] = None  # Optional, defaults to None if not provided
-    default: Union[str, int]  # Can be either string or integer
+    default: Union[str, int, float]  # Can be either string or integer or float
 
 
 class InteractiveFeatureProps(BaseModel):
