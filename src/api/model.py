@@ -48,19 +48,22 @@ class MaxPassageRequest(IRequest):
 class SequentialDependenceRequest(IRequest):
     input: List[Query]
 
-class Bo1Request(IRequest):
+class QueryExpanssionRequest(IRequest):
     input: List[Result]
     fb_terms: int
     fb_docs: int
 
-class KLRequest(Bo1Request):
+class Bo1Request(QueryExpanssionRequest):
     pass
 
-class RM3Request(Bo1Request):
+class KLRequest(QueryExpanssionRequest):
+    pass
+
+class RM3Request(QueryExpanssionRequest):
     fb_lambda: float
 
-class AxiomaticRequest(Bo1Request):
-    pass
+class AxiomaticRequest(QueryExpanssionRequest):
+    fb_lambda: float
 
 # Result Model
 
@@ -73,19 +76,22 @@ class TextScorerResult(Result):
 class MaxPassageResult(TextScorerResult):
     pass
 
-class SequentialDependenceResult(Query):
+class QueryExpansionResult(Query):
     query_0: str
 
-class Bo1Result(SequentialDependenceResult):
+class SequentialDependenceResult(QueryExpansionResult):
     pass
 
-class KLResult(Bo1Result):
+class Bo1Result(QueryExpansionResult):
     pass
 
-class RM3Result(KLResult):
+class KLResult(QueryExpansionResult):
     pass
 
-class AxiomaticResult(RM3Result):
+class RM3Result(QueryExpansionResult):
+    pass
+
+class AxiomaticResult(QueryExpansionResult):
     pass
 
 class ApiResponse(BaseModel):
