@@ -73,6 +73,9 @@ class QEResetRequest(IRequest):
 class TokeniseRequest(IRequest):
     input: List[Query]
 
+class StashRequest(IRequest):
+    input: List[Result]
+
 
 # Result Model
 class TextSlidingResult(Document):
@@ -101,6 +104,9 @@ class AxiomaticResult(QueryExpansionResult):
 
 class TokeniseResult(QueryExpansionResult):
     pass
+
+class StashResult(Result):
+    stashed_results_0: str
 
 class ApiResponse(BaseModel):
     result: List
