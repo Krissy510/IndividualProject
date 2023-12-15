@@ -70,6 +70,9 @@ class AxiomaticRequest(QueryExpanssionRequest):
 class QEResetRequest(IRequest):
     input: List[QueryExpansionResult]
 
+class TokeniseRequest(IRequest):
+    input: List[Query]
+
 
 # Result Model
 class TextSlidingResult(Document):
@@ -94,6 +97,9 @@ class RM3Result(QueryExpansionResult):
     pass
 
 class AxiomaticResult(QueryExpansionResult):
+    pass
+
+class TokeniseResult(QueryExpansionResult):
     pass
 
 class ApiResponse(BaseModel):
