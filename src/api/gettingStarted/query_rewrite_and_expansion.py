@@ -5,9 +5,10 @@ from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
 from model import (ApiResponse, AxiomaticRequest, AxiomaticResult, Bo1Request,
                    Bo1Result, InteractiveFeatureProps, KLRequest, KLResult,
-                   QEResetRequest, Query, RM3Request, RM3Result,
-                   SequentialDependenceRequest, SequentialDependenceResult,
-                   StashRequest, StashResult, TokeniseRequest, TokeniseResult)
+                   QEResetRequest, Query, ResetStashRequest, ResetStashResult,
+                   RM3Request, RM3Result, SequentialDependenceRequest,
+                   SequentialDependenceResult, StashRequest, StashResult,
+                   TokeniseRequest, TokeniseResult)
 
 pyterrier_init()
 
@@ -90,6 +91,7 @@ def get_axiomatic_fields() -> InteractiveFeatureProps:
                                       AxiomaticResult
                                       )
 
+
 @router.get('/rewrite/reset')
 def get_reset_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
@@ -97,6 +99,7 @@ def get_reset_fields() -> InteractiveFeatureProps:
         QEResetRequest,
         Query
     )
+
 
 @router.get('/rewrite/tokenise')
 def get_tokenise_fields() -> InteractiveFeatureProps:
@@ -106,15 +109,26 @@ def get_tokenise_fields() -> InteractiveFeatureProps:
         TokeniseResult
     )
 
+
 @router.get('/rewrite/stash')
 def get_stash_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
         [{'qid': '1.5', 'docid': 10927, 'docno': '10928',
-     'score': 6.483154111971778, 'query': 'how to retrieve text'},],
+          'score': 6.483154111971778, 'query': 'how to retrieve text'},],
         StashRequest,
         StashResult
     )
- 
+
+
+@router.get('/rewrite/reset-stash')
+def get_reset_stash_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props(
+        [{'qid': '1.5', 'query': 'how to retrieve text',
+          'stashed_results_0': "[{'docid': 10927, 'docno': '10928', 'qid': '1.5', 'score': 6.483154111971778}]"}],
+        ResetStashRequest,
+        ResetStashResult
+    )
+
 
 # POST API start here!
 @router.post('/rewrite/sequential-dependence')
@@ -177,7 +191,7 @@ def axiomatic(request: AxiomaticRequest):
 
 @router.post('/rewrite/reset')
 def qe_reset(request: QEResetRequest) -> ApiResponse:
-    result = pt.rewrite.reset() (request.input)
+    result = pt.rewrite.reset()(request.input)
     return generate_api_response(
         result.to_dict('records'),
         request.input,
@@ -187,20 +201,36 @@ def qe_reset(request: QEResetRequest) -> ApiResponse:
 
 @router.post('/rewrite/tokenise')
 def tokenise(request: TokeniseRequest) -> ApiResponse:
-    result = pt.rewrite.tokenise() (request.input)
+    result = pt.rewrite.tokenise()(request.input)
     return generate_api_response(
         result.to_dict('records'),
         request.input,
         'pt.rewrite.tokenise()'
     )
 
+
 @router.post('/rewrite/stash')
 def stash(request: StashRequest) -> ApiResponse:
-    results = pt.rewrite.stash_results() (request.input)
+    results = pt.rewrite.stash_results()(request.input)
     results = results.to_dict('records')
-    results = [{**result, 'stashed_results_0': repr(result['stashed_results_0'])} for result in results]
+    for result in results:
+        result['stashed_results_0'] = repr(result['stashed_results_0'])
     return generate_api_response(
         results,
         request.input,
         'pt.rewrite.tokenise()'
-    ) 
+    )
+
+
+@router.post('/rewrite/reset-stash')
+def reset_stash(request: ResetStashRequest) -> ApiResponse:
+    rows = request.input
+    for row in rows:
+        row['stashed_results_0'] = eval(row['stashed_results_0'])
+    results = pt.rewrite.reset_results()(rows)
+    results = results.to_dict('records')
+    return generate_api_response(
+        results,
+        rows,
+        'pt.rewrite.tokenise()'
+    )
