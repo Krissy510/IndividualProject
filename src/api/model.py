@@ -105,7 +105,7 @@ class AxiomaticResult(QueryExpansionResult):
 class TokeniseResult(QueryExpansionResult):
     pass
 
-class StashResult(Result):
+class StashResult(Query):
     stashed_results_0: str
 
 class ApiResponse(BaseModel):

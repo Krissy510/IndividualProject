@@ -13,6 +13,7 @@ field_widths = {
     "body": 300,
     "score": 80,
     "rank": 30,
+    "stashed_results_0": 300,
 }
 
 preset_parameters = {
