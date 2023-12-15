@@ -14,27 +14,32 @@ folder_path = "./index"
 
 index = pt.IndexFactory.of(folder_path)
 
+sample_query = [
+    {"qid": "0", "query": "how to retrieve text"},
+    {"qid": "1", "query": "what is an inverted index"}
+]
+
 sample_result = [
-    {'qid': '1.5', 'docid': 10927, 'docno': '10928',
-     'score': 6.483154111971778, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 543, 'docno': '544',
-     'score': 4.482228021407042, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 8091, 'docno': '8092',
-     'score': 4.482228021407042, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 9394, 'docno': '9395',
-     'score': 4.482228021407042, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 8624, 'docno': '8625',
-     'score': 4.480573037616728, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 490, 'docno': '491',
-     'score': 4.477928999593801, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 9007, 'docno': '9008',
-     'score': 4.477928999593801, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 5597, 'docno': '5598',
-     'score': 4.476080163023496, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 8253, 'docno': '8254',
-     'score': 4.476080163023496, 'query': 'how to retrieve text'},
-    {'qid': '1.5', 'docid': 5134, 'docno': '5135',
-     'score': 4.462212559101825, 'query': 'how to retrieve text'}
+    {"qid": "1.5", "docid": 10927, "docno": "10928",
+     "score": 6.483154111971778, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 543, "docno": "544",
+     "score": 4.482228021407042, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 8091, "docno": "8092",
+     "score": 4.482228021407042, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 9394, "docno": "9395",
+     "score": 4.482228021407042, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 8624, "docno": "8625",
+     "score": 4.480573037616728, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 490, "docno": "491",
+     "score": 4.477928999593801, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 9007, "docno": "9008",
+     "score": 4.477928999593801, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 5597, "docno": "5598",
+     "score": 4.476080163023496, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 8253, "docno": "8254",
+     "score": 4.476080163023496, "query": "how to retrieve text"},
+    {"qid": "1.5", "docid": 5134, "docno": "5135",
+     "score": 4.462212559101825, "query": "how to retrieve text"}
 ]
 
 router = APIRouter()
@@ -43,10 +48,8 @@ router = APIRouter()
 # GET API start here!
 @router.get("/rewrite/sequential-dependence")
 def get_sequential_dependence_fields() -> InteractiveFeatureProps:
-    return generate_interactive_props([
-        {"qid": "0", "query": "how to retrieve text"},
-        {"qid": "1", "query": "what is an inverted index"},
-    ],
+    return generate_interactive_props(
+        sample_query,
         SequentialDependenceRequest,
         SequentialDependenceResult
     )
@@ -89,7 +92,7 @@ def get_axiomatic_fields() -> InteractiveFeatureProps:
 def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     result = pt.rewrite.SequentialDependence()(request.input)
     return generate_api_response(
-        result.to_dict('records'),
+        result.to_dict("records"),
         request.input,
         "pt.rewrite.SequentialDependence()"
     )
@@ -100,7 +103,7 @@ def bo1(request: Bo1Request) -> ApiResponse:
     result = pt.rewrite.Bo1QueryExpansion(index, fb_docs=request.fb_docs,
                                           fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
+        result.to_dict("records"),
         request.input,
         f"pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={
             request.fb_terms})"
@@ -112,7 +115,7 @@ def kl(request: KLRequest) -> ApiResponse:
     result = pt.rewrite.KLQueryExpansion(index, fb_docs=request.fb_docs,
                                          fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
+        result.to_dict("records"),
         request.input,
         f"pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={
             request.fb_terms})"
@@ -124,20 +127,20 @@ def rm3(request: RM3Request):
     result = pt.rewrite.RM3(index, fb_docs=request.fb_docs,
                             fb_terms=request.fb_terms, fb_lambda=request.fb_lambda)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
+        result.to_dict("records"),
         request.input,
         f"pt.rewrite.RM3(index, fb_docs={request.fb_docs}, fb_terms={
             request.fb_terms}, fb_lambda={request.fb_lambda})"
     )
 
+
 @router.post("/rewrite/axiomatic")
 def axiomatic(request: AxiomaticRequest):
     result = pt.rewrite.AxiomaticQE(index, fb_docs=request.fb_docs,
-                            fb_terms=request.fb_terms)(request.input)
+                                    fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
+        result.to_dict("records"),
         request.input,
         f"pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={
             request.fb_terms})"
     )
-
