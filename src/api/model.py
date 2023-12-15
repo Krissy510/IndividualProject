@@ -31,6 +31,8 @@ class QueryExpansionResult(Query):
 class TextScorerInput(Query,Document):
     pass
 
+class ResetStashInput(Query):
+    stashed_results_0: str
 
 # Request Model
 class RetrieveRequest(IRequest):
@@ -76,6 +78,9 @@ class TokeniseRequest(IRequest):
 class StashRequest(IRequest):
     input: List[Result]
 
+class ResetStashRequest(IRequest):
+    input: List[ResetStashInput]
+
 
 # Result Model
 class TextSlidingResult(Document):
@@ -103,6 +108,9 @@ class AxiomaticResult(QueryExpansionResult):
     pass
 
 class TokeniseResult(QueryExpansionResult):
+    pass
+
+class ResetStashResult(Result):
     pass
 
 class StashResult(Query):
