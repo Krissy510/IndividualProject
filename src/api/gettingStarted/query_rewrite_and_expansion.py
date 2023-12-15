@@ -158,7 +158,7 @@ def axiomatic(request: AxiomaticRequest):
 
 
 @router.post("/rewrite/reset")
-def qe_reset(request: QEResetRequest):
+def qe_reset(request: QEResetRequest) -> ApiResponse:
     result = pt.rewrite.reset() (request.input)
     return generate_api_response(
         result.to_dict("records"),
