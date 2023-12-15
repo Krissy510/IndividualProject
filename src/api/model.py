@@ -1,20 +1,30 @@
 from typing import List, TypedDict, Union, Tuple
 from pydantic import BaseModel
     
-# Common Data Model
+# Base Model
 class Query(TypedDict):
     qid: str
     query: str
-
 
 class Document(TypedDict):
     docno: str
     body: str
 
-
 class Result(Query):
     docno: str
     score: float
+
+class IRequest(BaseModel):
+    input: List[TypedDict]
+
+class QueryExpanssionRequest(IRequest):
+    input: List[Result]
+    fb_terms: int
+    fb_docs: int
+
+class QueryExpansionResult(Query):
+    query_0: str
+
 
 
 # Input model
@@ -23,9 +33,6 @@ class TextScorerInput(Query,Document):
 
 
 # Request Model
-class IRequest(BaseModel):
-    input: List[TypedDict]
-
 class RetrieveRequest(IRequest):
     dataset: str
     wmodel: str
@@ -48,11 +55,6 @@ class MaxPassageRequest(IRequest):
 class SequentialDependenceRequest(IRequest):
     input: List[Query]
 
-class QueryExpanssionRequest(IRequest):
-    input: List[Result]
-    fb_terms: int
-    fb_docs: int
-
 class Bo1Request(QueryExpanssionRequest):
     pass
 
@@ -65,8 +67,11 @@ class RM3Request(QueryExpanssionRequest):
 class AxiomaticRequest(QueryExpanssionRequest):
     fb_lambda: float
 
-# Result Model
+class QEResetRequest(IRequest):
+    input: List[QueryExpansionResult]
 
+
+# Result Model
 class TextSlidingResult(Document):
     pass
 
@@ -75,9 +80,6 @@ class TextScorerResult(Result):
 
 class MaxPassageResult(TextScorerResult):
     pass
-
-class QueryExpansionResult(Query):
-    query_0: str
 
 class SequentialDependenceResult(QueryExpansionResult):
     pass
