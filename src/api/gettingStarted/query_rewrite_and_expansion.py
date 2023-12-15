@@ -3,9 +3,9 @@ from fastapi import APIRouter
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import (ApiResponse, AQERequest, AQEResult, Bo1Request, Bo1Result,
-                   InteractiveFeatureProps, KLRequest, KLResult, RM3Request,
-                   RM3Result, SequentialDependenceRequest,
+from model import (ApiResponse, AxiomaticRequest, AxiomaticResult, Bo1Request,
+                   Bo1Result, InteractiveFeatureProps, KLRequest, KLResult,
+                   RM3Request, RM3Result, SequentialDependenceRequest,
                    SequentialDependenceResult)
 
 pyterrier_init()
@@ -76,11 +76,11 @@ def get_rm3_fields() -> InteractiveFeatureProps:
                                       )
 
 
-@router.get("/rewrite/aqe")
-def get_aqe_fields() -> InteractiveFeatureProps:
+@router.get("/rewrite/axiomatic")
+def get_axiomatic_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(sample_result,
-                                      AQERequest,
-                                      AQEResult
+                                      AxiomaticRequest,
+                                      AxiomaticResult
                                       )
 
 
@@ -128,4 +128,15 @@ def rm3(request: RM3Request):
         request.input,
         f"pt.rewrite.RM3(index, fb_docs={request.fb_docs}, fb_terms={
             request.fb_terms}, fb_lambda={request.fb_lambda})"
+    )
+
+@router.post("/rewrite/axiomatic")
+def axiomatic(request: AxiomaticRequest):
+    result = pt.rewrite.AxiomaticQE(index, fb_docs=request.fb_docs,
+                            fb_terms=request.fb_terms)(request.input)
+    return generate_api_response(
+        result.to_dict('records'),
+        request.input,
+        f"pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={
+            request.fb_terms})"
     )
