@@ -5,8 +5,8 @@ from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
 from model import (ApiResponse, AxiomaticRequest, AxiomaticResult, Bo1Request,
                    Bo1Result, InteractiveFeatureProps, KLRequest, KLResult,
-                   RM3Request, RM3Result, SequentialDependenceRequest,
-                   SequentialDependenceResult)
+                   QEResetRequest, Query, RM3Request, RM3Result,
+                   SequentialDependenceRequest, SequentialDependenceResult)
 
 pyterrier_init()
 
@@ -41,6 +41,9 @@ sample_result = [
     {"qid": "1.5", "docid": 5134, "docno": "5135",
      "score": 4.462212559101825, "query": "how to retrieve text"}
 ]
+
+sample_expanded_query = [{"qid": "1.5", "query_0": "how to retrieve text",
+                          "query": "applypipeline:off retriev^1.540056510 text^1.669648748 english^0.740023547 field^0.313734530 given^0.257464040 theori^0.248589949 magnet^0.220788358 influenc^0.000000000 cours^0.000000000 ionospher^0.000000000"}]
 
 router = APIRouter()
 
@@ -85,6 +88,14 @@ def get_axiomatic_fields() -> InteractiveFeatureProps:
                                       AxiomaticRequest,
                                       AxiomaticResult
                                       )
+
+@router.get("/rewrite/reset")
+def get_reset_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props(
+        sample_expanded_query,
+        QEResetRequest,
+        Query
+    )
 
 
 # POST API start here!
@@ -143,4 +154,14 @@ def axiomatic(request: AxiomaticRequest):
         request.input,
         f"pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={
             request.fb_terms})"
+    )
+
+
+@router.post("/rewrite/reset")
+def qe_reset(request: QEResetRequest):
+    result = pt.rewrite.reset() (request.input)
+    return generate_api_response(
+        result.to_dict("records"),
+        request.input,
+        "pt.rewrite.reset()"
     )
