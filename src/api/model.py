@@ -59,7 +59,7 @@ class KLRequest(Bo1Request):
 class RM3Request(Bo1Request):
     fb_lambda: float
 
-class AQERequest(Bo1Request):
+class AxiomaticRequest(Bo1Request):
     pass
 
 # Result Model
@@ -85,7 +85,7 @@ class KLResult(Bo1Result):
 class RM3Result(KLResult):
     pass
 
-class AQEResult(RM3Result):
+class AxiomaticResult(RM3Result):
     pass
 
 class ApiResponse(BaseModel):
