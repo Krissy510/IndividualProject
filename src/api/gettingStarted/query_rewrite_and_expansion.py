@@ -6,7 +6,8 @@ from helper import pyterrier_init
 from model import (ApiResponse, AxiomaticRequest, AxiomaticResult, Bo1Request,
                    Bo1Result, InteractiveFeatureProps, KLRequest, KLResult,
                    QEResetRequest, Query, RM3Request, RM3Result,
-                   SequentialDependenceRequest, SequentialDependenceResult)
+                   SequentialDependenceRequest, SequentialDependenceResult,
+                   TokeniseRequest, TokeniseResult)
 
 pyterrier_init()
 
@@ -97,6 +98,14 @@ def get_reset_fields() -> InteractiveFeatureProps:
         Query
     )
 
+@router.get("/rewrite/tokenise")
+def get_tokenise_fields() -> InteractiveFeatureProps:
+    return generate_interactive_props(
+        [{"qid": "0", "query": "Question with 'capitals' and other stuff?"},],
+        TokeniseRequest,
+        TokeniseResult
+    )
+ 
 
 # POST API start here!
 @router.post("/rewrite/sequential-dependence")
@@ -164,4 +173,14 @@ def qe_reset(request: QEResetRequest) -> ApiResponse:
         result.to_dict("records"),
         request.input,
         "pt.rewrite.reset()"
+    )
+
+
+@router.post("/rewrite/tokenise")
+def tokenise(request: TokeniseRequest) -> ApiResponse:
+    result = pt.rewrite.tokenise() (request.input)
+    return generate_api_response(
+        result.to_dict("records"),
+        request.input,
+        "pt.rewrite.tokenise()"
     )
