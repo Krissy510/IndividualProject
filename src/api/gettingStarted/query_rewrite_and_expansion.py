@@ -15,7 +15,7 @@ folder_path = "./index"
 index = pt.IndexFactory.of(folder_path)
 
 sample_result = [
-    {'qid': '1.5', 'docid': 10927, 'docno': '10928', 'rank': 0,
+    {'qid': '1.5', 'docid': 10927, 'docno': '10928',
      'score': 6.483154111971778, 'query': 'how to retrieve text'},
     {'qid': '1.5', 'docid': 543, 'docno': '544',
      'score': 4.482228021407042, 'query': 'how to retrieve text'},
@@ -140,3 +140,4 @@ def axiomatic(request: AxiomaticRequest):
         f"pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={
             request.fb_terms})"
     )
+
