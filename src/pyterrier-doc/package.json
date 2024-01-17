@@ -28,6 +28,7 @@
     "@types/node": "^20.10.0",
     "axios": "^1.6.2",
     "clsx": "^1.2.1",
+    "docusaurus2-dotenv": "^1.4.0",
     "prism-react-renderer": "^2.1.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

@@ -30,9 +30,12 @@ export default function InteractiveFeature({
   useEffect(() => {
     if (displayInteractive && inputColumns.length === 0) {
       setIsPageLoading(true);
-
       axios
-        .get(apiUrl)
+        .get(apiUrl, {
+          headers: {
+            "X-PYTERRIERAPI-KEY": process.env.API_KEY,
+          },
+        })
         .then((response) => {
           setInputRows(
             response.data["example"].map((row) => {
