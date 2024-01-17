@@ -7,4 +7,4 @@ src/api/__pycache__/
 
 __pycache__/
 
-src/api/.env
+*.env
