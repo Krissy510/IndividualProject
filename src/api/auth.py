@@ -3,7 +3,7 @@ from fastapi import Security, HTTPException, Depends
 from starlette.status import HTTP_403_FORBIDDEN
 from config import Settings, get_settings
 
-api_key_header = APIKeyHeader(name="access_token", auto_error=False)
+api_key_header = APIKeyHeader(name="X-PYTERRIERAPI-KEY", auto_error=False)
 
 
 async def get_api_key(settings: Settings = Depends(get_settings), api_key_header: str = Security(api_key_header)):
