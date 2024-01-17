@@ -12,22 +12,60 @@ from model import (ApiResponse, InteractiveFeatureProps, MaxPassageRequest,
 
 pyterrier_init()
 
+# Sample data
+TEXT_SLIDING_SAMPEL = [
+    {
+        "docno": "d1",
+        "body": "This document is about a palico cat that climbs a tower."
+    },
+    {
+        "docno": "d2",
+        "body": "This document is about a buisness man who took a trip and never came back."
+    }
+]
+TEXT_SCORER_SAMPEL = [
+    {'qid': '0', 'query': 'cat', 'docno': 'd1%p0',
+            'body': 'This document is about a'},
+    {'qid': '0', 'query': 'cat', 'docno': 'd1%p1',
+            'body': 'document is about a palico'},
+    {'qid': '0', 'query': 'cat', 'docno': 'd1%p2',
+            'body': 'is about a palico cat'},
+    {'qid': '0', 'query': 'cat', 'docno': 'd1%p3',
+            'body': 'about a palico cat that'},
+    {'qid': '0', 'query': 'cat', 'docno': 'd1%p4',
+            'body': 'a palico cat that climbs'},
+    {'qid': '0', 'query': 'cat', 'docno': 'd1%p5',
+            'body': 'palico cat that climbs a'},
+    {'qid': '0', 'query': 'cat', 'docno': 'd1%p6',
+            'body': 'cat that climbs a tower.'},
+]
+MAX_PASSAGE_SAMPLE = [
+    {'qid': '0', 'docno': 'd1%p0', 'body': 'This document is about a',
+            'rank': 5, 'score': 0.0, 'query': 'cat'},
+    {'qid': '0', 'docno': 'd1%p1', 'body': 'document is about a palico',
+            'rank': 6, 'score': 0.0, 'query': 'cat'},
+    {'qid': '0', 'docno': 'd1%p2', 'body': 'is about a palico cat',
+            'rank': 0, 'score': 1.4219103623953206, 'query': 'cat'},
+    {'qid': '0', 'docno': 'd1%p3', 'body': 'about a palico cat that',
+            'rank': 1, 'score': 1.4219103623953206, 'query': 'cat'},
+    {'qid': '0', 'docno': 'd1%p4', 'body': 'a palico cat that climbs',
+            'rank': 2, 'score': 1.2094108432919608, 'query': 'cat'},
+    {'qid': '0', 'docno': 'd1%p5', 'body': 'palico cat that climbs a',
+            'rank': 3, 'score': 1.2094108432919608, 'query': 'cat'},
+    {'qid': '0', 'docno': 'd1%p6', 'body': 'cat that climbs a tower.',
+            'rank': 4, 'score': 1.2094108432919608, 'query': 'cat'},
+]
 
+# API implementation starts here
 router = APIRouter()
+
+# GET API start here!
 
 
 @router.get("/text-sliding")
 def get_text_sliding_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
-    return generate_interactive_props([
-        {
-            "docno": "d1",
-            "body": "This document is about a palico cat that climbs a tower."
-        },
-        {
-            "docno": "d2",
-            "body": "This document is about a buisness man who took a trip and never came back."
-        }
-    ],
+    return generate_interactive_props(
+        TEXT_SLIDING_SAMPEL,
         TextSlidingRequest,
         TextSlidingResult
     )
@@ -35,48 +73,20 @@ def get_text_sliding_fields(api_key: APIKey = Security(get_api_key)) -> Interact
 
 @router.get("/text-scorer")
 def get_text_scorer_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
-    return generate_interactive_props([
-        {'qid': '0', 'query': 'cat', 'docno': 'd1%p0',
-            'body': 'This document is about a'},
-        {'qid': '0', 'query': 'cat', 'docno': 'd1%p1',
-            'body': 'document is about a palico'},
-        {'qid': '0', 'query': 'cat', 'docno': 'd1%p2',
-            'body': 'is about a palico cat'},
-        {'qid': '0', 'query': 'cat', 'docno': 'd1%p3',
-            'body': 'about a palico cat that'},
-        {'qid': '0', 'query': 'cat', 'docno': 'd1%p4',
-            'body': 'a palico cat that climbs'},
-        {'qid': '0', 'query': 'cat', 'docno': 'd1%p5',
-            'body': 'palico cat that climbs a'},
-        {'qid': '0', 'query': 'cat', 'docno': 'd1%p6',
-            'body': 'cat that climbs a tower.'},
-    ],
-        TextScorerRequest,
-        TextScorerResult
-    )
+    return generate_interactive_props(TEXT_SCORER_SAMPEL,
+                                      TextScorerRequest,
+                                      TextScorerResult
+                                      )
 
 
 @router.get("/max-passage")
 def get_max_passage_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
-    return generate_interactive_props([
-        {'qid': '0', 'docno': 'd1%p0', 'body': 'This document is about a',
-            'rank': 5, 'score': 0.0, 'query': 'cat'},
-        {'qid': '0', 'docno': 'd1%p1', 'body': 'document is about a palico',
-            'rank': 6, 'score': 0.0, 'query': 'cat'},
-        {'qid': '0', 'docno': 'd1%p2', 'body': 'is about a palico cat',
-            'rank': 0, 'score': 1.4219103623953206, 'query': 'cat'},
-        {'qid': '0', 'docno': 'd1%p3', 'body': 'about a palico cat that',
-            'rank': 1, 'score': 1.4219103623953206, 'query': 'cat'},
-        {'qid': '0', 'docno': 'd1%p4', 'body': 'a palico cat that climbs',
-            'rank': 2, 'score': 1.2094108432919608, 'query': 'cat'},
-        {'qid': '0', 'docno': 'd1%p5', 'body': 'palico cat that climbs a',
-            'rank': 3, 'score': 1.2094108432919608, 'query': 'cat'},
-        {'qid': '0', 'docno': 'd1%p6', 'body': 'cat that climbs a tower.',
-            'rank': 4, 'score': 1.2094108432919608, 'query': 'cat'},
-    ],
-        MaxPassageRequest,
-        MaxPassageResult
-    )
+    return generate_interactive_props(MAX_PASSAGE_SAMPLE,
+                                      MaxPassageRequest,
+                                      MaxPassageResult
+                                      )
+
+# POST API start here!
 
 
 @router.post("/text-sliding")

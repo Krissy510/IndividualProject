@@ -13,16 +13,19 @@ pyterrier_init()
 
 router = APIRouter()
 
+# Sample data
+RETREIVE_SAMPLE = [
+    {"qid": "0", "query": "how to retrieve text"},
+    {"qid": "1", "query": "what is an inverted index"},
+]
+
 
 @router.get("/retreive")
 def get_terrier_retreive_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
-    return generate_interactive_props([
-        {"qid": "0", "query": "how to retrieve text"},
-        {"qid": "1", "query": "what is an inverted index"},
-    ],
-        RetrieveRequest,
-        Result
-    )
+    return generate_interactive_props(RETREIVE_SAMPLE,
+                                      RetrieveRequest,
+                                      Result
+                                      )
 
 
 @router.post("/retreive")

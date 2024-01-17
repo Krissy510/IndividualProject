@@ -18,12 +18,13 @@ folder_path = './index'
 
 index = pt.IndexFactory.of(folder_path)
 
-sample_query = [
+# Sample data
+QUERY_SAMPLE = [
     {'qid': '0', 'query': 'how to retrieve text'},
     {'qid': '1', 'query': 'what is an inverted index'}
 ]
 
-sample_result = [
+RESULT_SAMPLE = [
     {'qid': '1.5', 'docid': 10927, 'docno': '10928',
      'score': 6.483154111971778, 'query': 'how to retrieve text'},
     {'qid': '1.5', 'docid': 543, 'docno': '544',
@@ -46,17 +47,27 @@ sample_result = [
      'score': 4.462212559101825, 'query': 'how to retrieve text'}
 ]
 
-sample_expanded_query = [{'qid': '1.5', 'query_0': 'how to retrieve text',
+EXPANDED_QUERY_SAMPLE = [{'qid': '1.5', 'query_0': 'how to retrieve text',
                           'query': 'applypipeline:off retriev^1.540056510 text^1.669648748 english^0.740023547 field^0.313734530 given^0.257464040 theori^0.248589949 magnet^0.220788358 influenc^0.000000000 cours^0.000000000 ionospher^0.000000000'}]
 
-router = APIRouter()
+TOKENISE_SAMPLE = [
+    {'qid': '0', 'query': "Question with 'capitals' and other stuff?"},]
 
+STASH_SAMPLE = [{'qid': '1.5', 'docid': 10927, 'docno': '10928',
+                 'score': 6.483154111971778, 'query': 'how to retrieve text'},]
+
+RESET_STASH_SAMPLE = [{'qid': '1.5', 'query': 'how to retrieve text',
+                       'stashed_results_0': "[{'docid': 10927, 'docno': '10928', 'qid': '1.5', 'score': 6.483154111971778}]"}]
+
+
+# API implementation starts here
+router = APIRouter()
 
 # GET API start here!
 @router.get('/rewrite/sequential-dependence')
 def get_sequential_dependence_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
     return generate_interactive_props(
-        sample_query,
+        QUERY_SAMPLE,
         SequentialDependenceRequest,
         SequentialDependenceResult
     )
@@ -64,7 +75,7 @@ def get_sequential_dependence_fields(api_key: APIKey = Security(get_api_key)) ->
 
 @router.get('/rewrite/bo1')
 def get_bo1_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
-    return generate_interactive_props(sample_result,
+    return generate_interactive_props(RESULT_SAMPLE,
                                       Bo1Request,
                                       Bo1Result
                                       )
@@ -72,7 +83,7 @@ def get_bo1_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatur
 
 @router.get('/rewrite/kl')
 def get_kl_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
-    return generate_interactive_props(sample_result,
+    return generate_interactive_props(RESULT_SAMPLE,
                                       KLRequest,
                                       KLResult
                                       )
@@ -80,7 +91,7 @@ def get_kl_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeature
 
 @router.get('/rewrite/rm3')
 def get_rm3_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
-    return generate_interactive_props(sample_result,
+    return generate_interactive_props(RESULT_SAMPLE,
                                       RM3Request,
                                       RM3Result
                                       )
@@ -88,7 +99,7 @@ def get_rm3_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatur
 
 @router.get('/rewrite/axiomatic')
 def get_axiomatic_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
-    return generate_interactive_props(sample_result,
+    return generate_interactive_props(RESULT_SAMPLE,
                                       AxiomaticRequest,
                                       AxiomaticResult
                                       )
@@ -97,7 +108,7 @@ def get_axiomatic_fields(api_key: APIKey = Security(get_api_key)) -> Interactive
 @router.get('/rewrite/reset')
 def get_reset_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
     return generate_interactive_props(
-        sample_expanded_query,
+        EXPANDED_QUERY_SAMPLE,
         QEResetRequest,
         Query
     )
@@ -106,7 +117,7 @@ def get_reset_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeat
 @router.get('/rewrite/tokenise')
 def get_tokenise_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
     return generate_interactive_props(
-        [{'qid': '0', 'query': "Question with 'capitals' and other stuff?"},],
+        TOKENISE_SAMPLE,
         TokeniseRequest,
         TokeniseResult
     )
@@ -115,8 +126,7 @@ def get_tokenise_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveF
 @router.get('/rewrite/stash')
 def get_stash_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
     return generate_interactive_props(
-        [{'qid': '1.5', 'docid': 10927, 'docno': '10928',
-          'score': 6.483154111971778, 'query': 'how to retrieve text'},],
+        STASH_SAMPLE,
         StashRequest,
         StashResult
     )
@@ -125,8 +135,7 @@ def get_stash_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeat
 @router.get('/rewrite/reset-stash')
 def get_reset_stash_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
-        [{'qid': '1.5', 'query': 'how to retrieve text',
-          'stashed_results_0': "[{'docid': 10927, 'docno': '10928', 'qid': '1.5', 'score': 6.483154111971778}]"}],
+        RESET_STASH_SAMPLE,
         ResetStashRequest,
         ResetStashResult
     )
