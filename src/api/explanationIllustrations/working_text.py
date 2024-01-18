@@ -1,8 +1,6 @@
 import pyterrier as pt
-from fastapi import APIRouter, Security
-from fastapi.security.api_key import APIKey
+from fastapi import APIRouter
 
-from auth import get_api_key
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
 from model import (ApiResponse, InteractiveFeatureProps, MaxPassageRequest,
@@ -63,7 +61,7 @@ router = APIRouter()
 
 
 @router.get("/text-sliding")
-def get_text_sliding_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_text_sliding_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
         TEXT_SLIDING_SAMPEL,
         TextSlidingRequest,
@@ -72,7 +70,7 @@ def get_text_sliding_fields(api_key: APIKey = Security(get_api_key)) -> Interact
 
 
 @router.get("/text-scorer")
-def get_text_scorer_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_text_scorer_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(TEXT_SCORER_SAMPEL,
                                       TextScorerRequest,
                                       TextScorerResult
@@ -80,7 +78,7 @@ def get_text_scorer_fields(api_key: APIKey = Security(get_api_key)) -> Interacti
 
 
 @router.get("/max-passage")
-def get_max_passage_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_max_passage_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(MAX_PASSAGE_SAMPLE,
                                       MaxPassageRequest,
                                       MaxPassageResult
@@ -90,7 +88,7 @@ def get_max_passage_fields(api_key: APIKey = Security(get_api_key)) -> Interacti
 
 
 @router.post("/text-sliding")
-def text_sliding(request: TextSlidingRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def text_sliding(request: TextSlidingRequest) -> ApiResponse:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride,
                              prepend_title=False)(request.input)
@@ -100,7 +98,7 @@ def text_sliding(request: TextSlidingRequest, api_key: APIKey = Security(get_api
 
 
 @router.post("/text-scorer")
-def text_scorer(request: TextScorerRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def text_scorer(request: TextScorerRequest) -> ApiResponse:
     result = pt.text.scorer(wmodel=request.wmodel)(request.input)
     return generate_api_response(result.to_dict('records'),
                                  request.input,
@@ -108,7 +106,7 @@ def text_scorer(request: TextScorerRequest, api_key: APIKey = Security(get_api_k
 
 
 @router.post("/max-passage")
-def max_passage(request: MaxPassageRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def max_passage(request: MaxPassageRequest) -> ApiResponse:
     result = pt.text.max_passage()(request.input)
     return generate_api_response(result.to_dict('records'),
                                  request.input,

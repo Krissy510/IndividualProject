@@ -1,8 +1,6 @@
 import pyterrier as pt
-from fastapi import APIRouter, Security
-from fastapi.security.api_key import APIKey
+from fastapi import APIRouter
 
-from auth import get_api_key
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
 from model import (ApiResponse, AxiomaticRequest, AxiomaticResult, Bo1Request,
@@ -64,8 +62,10 @@ RESET_STASH_SAMPLE = [{'qid': '1.5', 'query': 'how to retrieve text',
 router = APIRouter()
 
 # GET API start here!
+
+
 @router.get('/rewrite/sequential-dependence')
-def get_sequential_dependence_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_sequential_dependence_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
         QUERY_SAMPLE,
         SequentialDependenceRequest,
@@ -74,7 +74,7 @@ def get_sequential_dependence_fields(api_key: APIKey = Security(get_api_key)) ->
 
 
 @router.get('/rewrite/bo1')
-def get_bo1_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_bo1_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(RESULT_SAMPLE,
                                       Bo1Request,
                                       Bo1Result
@@ -82,7 +82,7 @@ def get_bo1_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatur
 
 
 @router.get('/rewrite/kl')
-def get_kl_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_kl_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(RESULT_SAMPLE,
                                       KLRequest,
                                       KLResult
@@ -90,7 +90,7 @@ def get_kl_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeature
 
 
 @router.get('/rewrite/rm3')
-def get_rm3_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_rm3_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(RESULT_SAMPLE,
                                       RM3Request,
                                       RM3Result
@@ -98,7 +98,7 @@ def get_rm3_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatur
 
 
 @router.get('/rewrite/axiomatic')
-def get_axiomatic_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_axiomatic_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(RESULT_SAMPLE,
                                       AxiomaticRequest,
                                       AxiomaticResult
@@ -106,7 +106,7 @@ def get_axiomatic_fields(api_key: APIKey = Security(get_api_key)) -> Interactive
 
 
 @router.get('/rewrite/reset')
-def get_reset_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_reset_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
         EXPANDED_QUERY_SAMPLE,
         QEResetRequest,
@@ -115,7 +115,7 @@ def get_reset_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeat
 
 
 @router.get('/rewrite/tokenise')
-def get_tokenise_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_tokenise_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
         TOKENISE_SAMPLE,
         TokeniseRequest,
@@ -124,7 +124,7 @@ def get_tokenise_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveF
 
 
 @router.get('/rewrite/stash')
-def get_stash_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_stash_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
         STASH_SAMPLE,
         StashRequest,
@@ -143,7 +143,7 @@ def get_reset_stash_fields() -> InteractiveFeatureProps:
 
 # POST API start here!
 @router.post('/rewrite/sequential-dependence')
-def sequential_dependence(request: SequentialDependenceRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     result = pt.rewrite.SequentialDependence()(request.input)
     return generate_api_response(
         result.to_dict('records'),
@@ -153,7 +153,7 @@ def sequential_dependence(request: SequentialDependenceRequest, api_key: APIKey 
 
 
 @router.post('/rewrite/bo1')
-def bo1(request: Bo1Request, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def bo1(request: Bo1Request) -> ApiResponse:
     result = pt.rewrite.Bo1QueryExpansion(index, fb_docs=request.fb_docs,
                                           fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
@@ -165,7 +165,7 @@ def bo1(request: Bo1Request, api_key: APIKey = Security(get_api_key)) -> ApiResp
 
 
 @router.post('/rewrite/kl')
-def kl(request: KLRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def kl(request: KLRequest) -> ApiResponse:
     result = pt.rewrite.KLQueryExpansion(index, fb_docs=request.fb_docs,
                                          fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
@@ -177,7 +177,7 @@ def kl(request: KLRequest, api_key: APIKey = Security(get_api_key)) -> ApiRespon
 
 
 @router.post('/rewrite/rm3')
-def rm3(request: RM3Request, api_key: APIKey = Security(get_api_key)):
+def rm3(request: RM3Request):
     result = pt.rewrite.RM3(index, fb_docs=request.fb_docs,
                             fb_terms=request.fb_terms, fb_lambda=request.fb_lambda)(request.input)
     return generate_api_response(
@@ -189,7 +189,7 @@ def rm3(request: RM3Request, api_key: APIKey = Security(get_api_key)):
 
 
 @router.post('/rewrite/axiomatic')
-def axiomatic(request: AxiomaticRequest, api_key: APIKey = Security(get_api_key)):
+def axiomatic(request: AxiomaticRequest):
     result = pt.rewrite.AxiomaticQE(index, fb_docs=request.fb_docs,
                                     fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
@@ -201,7 +201,7 @@ def axiomatic(request: AxiomaticRequest, api_key: APIKey = Security(get_api_key)
 
 
 @router.post('/rewrite/reset')
-def qe_reset(request: QEResetRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def qe_reset(request: QEResetRequest) -> ApiResponse:
     result = pt.rewrite.reset()(request.input)
     return generate_api_response(
         result.to_dict('records'),
@@ -211,7 +211,7 @@ def qe_reset(request: QEResetRequest, api_key: APIKey = Security(get_api_key)) -
 
 
 @router.post('/rewrite/tokenise')
-def tokenise(request: TokeniseRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def tokenise(request: TokeniseRequest) -> ApiResponse:
     result = pt.rewrite.tokenise()(request.input)
     return generate_api_response(
         result.to_dict('records'),
@@ -221,7 +221,7 @@ def tokenise(request: TokeniseRequest, api_key: APIKey = Security(get_api_key)) 
 
 
 @router.post('/rewrite/stash')
-def stash(request: StashRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def stash(request: StashRequest) -> ApiResponse:
     results = pt.rewrite.stash_results()(request.input)
     results = results.to_dict('records')
     for result in results:
@@ -234,7 +234,7 @@ def stash(request: StashRequest, api_key: APIKey = Security(get_api_key)) -> Api
 
 
 @router.post('/rewrite/reset-stash')
-def reset_stash(request: ResetStashRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def reset_stash(request: ResetStashRequest) -> ApiResponse:
     rows = request.input
     for row in rows:
         row['stashed_results_0'] = eval(row['stashed_results_0'])

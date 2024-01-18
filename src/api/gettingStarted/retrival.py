@@ -1,10 +1,8 @@
 from typing import List
 
 import pyterrier as pt
-from fastapi import APIRouter, Security
-from fastapi.security.api_key import APIKey
+from fastapi import APIRouter
 
-from auth import get_api_key
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
 from model import ApiResponse, InteractiveFeatureProps, Result, RetrieveRequest
@@ -21,7 +19,7 @@ RETREIVE_SAMPLE = [
 
 
 @router.get("/retreive")
-def get_terrier_retreive_fields(api_key: APIKey = Security(get_api_key)) -> InteractiveFeatureProps:
+def get_terrier_retreive_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(RETREIVE_SAMPLE,
                                       RetrieveRequest,
                                       Result
@@ -29,7 +27,7 @@ def get_terrier_retreive_fields(api_key: APIKey = Security(get_api_key)) -> Inte
 
 
 @router.post("/retreive")
-def terrier_retreive(request: RetrieveRequest, api_key: APIKey = Security(get_api_key)) -> ApiResponse:
+def terrier_retreive(request: RetrieveRequest) -> ApiResponse:
     result = pt.BatchRetrieve.from_dataset(
         num_results=request.num_results,
         dataset=request.dataset,
