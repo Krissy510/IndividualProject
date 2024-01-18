@@ -159,8 +159,7 @@ def bo1(request: Bo1Request) -> ApiResponse:
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f'pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={
-            request.fb_terms})'
+        f'pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
     )
 
 
@@ -171,8 +170,7 @@ def kl(request: KLRequest) -> ApiResponse:
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f'pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={
-            request.fb_terms})'
+        f'pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
     )
 
 
@@ -183,8 +181,7 @@ def rm3(request: RM3Request):
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f'pt.rewrite.RM3(index, fb_docs={request.fb_docs}, fb_terms={
-            request.fb_terms}, fb_lambda={request.fb_lambda})'
+        f'pt.rewrite.RM3(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms}, fb_lambda={request.fb_lambda})'
     )
 
 
@@ -195,8 +192,7 @@ def axiomatic(request: AxiomaticRequest):
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f'pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={
-            request.fb_terms})'
+        f'pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
     )
 
 
