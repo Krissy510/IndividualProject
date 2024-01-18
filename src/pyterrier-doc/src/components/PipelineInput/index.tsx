@@ -121,11 +121,7 @@ export default function PipelineInput({
     setIsApiProcessing(true);
 
     axios
-      .post(apiUrl, request, {
-        headers: {
-          "X-PYTERRIERAPI-KEY": process.env.API_KEY,
-        },
-      })
+      .post(apiUrl, request)
       .then((responese) => {
         if (responese.status === 200) {
           setOutputRows(responese.data.result);
