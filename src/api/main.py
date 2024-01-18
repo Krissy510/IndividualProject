@@ -21,11 +21,9 @@ app.include_router(query_rewrite_and_expansion.router)
 # Explanation & Illustrations
 app.include_router(working_text.router)
 
-###### For local develop only###########
-
+###### CORS ###########
 origins = [
-    "http://localhost:3000",
-    "http://localhost:8080",
+    "https://pyterrier-documentation.vercel.app"
 ]
 
 app.add_middleware(
