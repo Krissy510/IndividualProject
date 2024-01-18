@@ -23,6 +23,8 @@ app.include_router(working_text.router)
 
 ###### CORS ###########
 origins = [
+    "http://localhost:3000",
+    "http://localhost:8080",
     "https://pyterrier-documentation.vercel.app"
 ]
 
