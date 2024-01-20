@@ -1,14 +1,5 @@
-FROM python:3.10
+FROM kris310/pyterrier-base:py3.10
  
-# Update the package lists and install necessary packages
-RUN apt update && apt-get update
-
-# Install pcre to resolve pyautocorpus issue
-RUN apt install libpcre3-dev -y
-
-# Install JDK
-RUN apt install default-jdk -y
-
 # Set work dir
 WORKDIR /app
 
