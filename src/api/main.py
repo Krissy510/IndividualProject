@@ -5,11 +5,12 @@ import pyterrier as pt
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
+from helper import pyterrier_init
 from explanationIllustrations import working_text
 from gettingStarted import query_rewrite_and_expansion, retrival
 
-if not pt.started():
-    pt.init()
+pyterrier_init()
+
 
 app = FastAPI()
 
