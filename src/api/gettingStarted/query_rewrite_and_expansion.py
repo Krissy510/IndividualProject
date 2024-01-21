@@ -61,9 +61,7 @@ RESET_STASH_SAMPLE = [{'qid': '1.5', 'query': 'how to retrieve text',
 # API implementation starts here
 router = APIRouter()
 
-# GET API start here!
-
-
+# Interactive feature GET API
 @router.get('/rewrite/sequential-dependence')
 def get_sequential_dependence_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(

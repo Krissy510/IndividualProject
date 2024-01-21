@@ -17,7 +17,7 @@ RETREIVE_SAMPLE = [
     {"qid": "1", "query": "what is an inverted index"},
 ]
 
-
+# Interactive feature GET API
 @router.get("/retreive")
 def get_terrier_retreive_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(RETREIVE_SAMPLE,
@@ -25,7 +25,7 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
                                       Result
                                       )
 
-
+# POST API start here!
 @router.post("/retreive")
 def terrier_retreive(request: RetrieveRequest) -> ApiResponse:
     result = pt.BatchRetrieve.from_dataset(

@@ -22,21 +22,21 @@ preset_parameters = {
         'type': 'select',
         'default': 'msmarco_passage',
         'id': 'dataset',
-        'choices': valid_dataset
+        'choices': VALID_DATASET
     },
     'wmodel': {
         'name': 'Wmodel',
         'type': 'select',
         'default': 'BM25',
         'id': 'wmodel',
-        'choices': valid_wmodel,
+        'choices': VALID_WMODEL,
     },
     'index_variant': {
         'name': 'Index Variant',
         'type': 'select',
         'default': 'terrier_stemmed',
         'id': 'index_variant',
-        'choices': valid_index_variant,
+        'choices': VALID_INDEX_VARIANT,
     },
     'num_results': {
         'name': 'Num of result',

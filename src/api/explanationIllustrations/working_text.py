@@ -57,9 +57,7 @@ MAX_PASSAGE_SAMPLE = [
 # API implementation starts here
 router = APIRouter()
 
-# GET API start here!
-
-
+# Interactive feature GET API
 @router.get("/text-sliding")
 def get_text_sliding_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
@@ -85,8 +83,6 @@ def get_max_passage_fields() -> InteractiveFeatureProps:
                                       )
 
 # POST API start here!
-
-
 @router.post("/text-sliding")
 def text_sliding(request: TextSlidingRequest) -> ApiResponse:
     result = pt.text.sliding(length=request.length,
