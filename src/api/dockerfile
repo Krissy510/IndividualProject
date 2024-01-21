@@ -1,4 +1,4 @@
-FROM kris310/pyterrier-base:py3.10
+FROM kris310/base-pyterrier-py3.10:V1.0
  
 # Set work dir
 WORKDIR /app
