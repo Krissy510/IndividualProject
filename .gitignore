@@ -3,3 +3,4 @@ Interviews/
 __pycache__/
 *.env
 env/
+index/
