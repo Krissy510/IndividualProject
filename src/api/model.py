@@ -26,6 +26,9 @@ class QueryExpanssionRequest(IRequest):
 class QueryExpansionResult(Query):
     query_0: str
 
+class T5Model(Result):
+    rank: int
+    text: str
 
 
 # Input model
@@ -34,6 +37,7 @@ class TextScorerInput(Query,Document):
 
 class ResetStashInput(Query):
     stashed_results_0: str
+
 
 # Request Model
 class RetrieveRequest(IRequest):
@@ -82,6 +86,10 @@ class StashRequest(IRequest):
 class ResetStashRequest(IRequest):
     input: List[ResetStashInput]
 
+class T5Request(IRequest):
+    batch_size: int
+    input: List[T5Model]
+
 
 # Result Model
 class TextSlidingResult(Document):
@@ -116,6 +124,9 @@ class ResetStashResult(Result):
 
 class StashResult(Query):
     stashed_results_0: str
+
+class T5Result(T5Model):
+    pass
 
 class ApiResponse(BaseModel):
     result: List
