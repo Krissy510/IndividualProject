@@ -40,4 +40,4 @@ app.add_middleware(
 
 @app.get("/")
 def hello():
-    return {"msg": "Hi, this is PyTerrier Doc API (secure)"}
+    return {"msg": "Hi, this is PyTerrier Doc API."}
