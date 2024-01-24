@@ -11,6 +11,7 @@ field_widths = {
     'query_0': 200,
     'docno': 80,
     'body': 300,
+    'text': 300,
     'score': 80,
     'rank': 30,
     'stashed_results_0': 300,
@@ -73,6 +74,12 @@ preset_parameters = {
         'type': 'number',
         'default': 0.6,
         'id': 'fb_lambda'
+    },
+    'batch_size': {
+        'name': 'batch_size',
+        'type': 'number',
+        'default': 4,
+        'id': 'batch_size'
     }
 }
 
