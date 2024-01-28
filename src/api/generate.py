@@ -15,6 +15,8 @@ field_widths = {
     'score': 80,
     'rank': 30,
     'stashed_results_0': 300,
+    'query_vec': 300,
+    'doc_vec': 300,
 }
 
 preset_parameters = {
@@ -105,8 +107,14 @@ def generate_interactive_props(example: List[dict], requestClass: type, outputCl
         'parameters': generate_parameters(requestClass)
     }
 
+def generate_pyterrier_dr_interactive_props(examples: List[List[dict]], requestClasses: List[type], outputClasses: List[type]):
+    options = []
+    for i in range(len(requestClasses)):
+        options.append(generate_interactive_props(examples[i], requestClasses[i], outputClasses[i]))
+    return {'options': options}
 
-def generate_api_response(result: List[BaseModel], input: List, pipeline: str) -> ApiResponse:
+
+def generate_api_response(result: List, input: List, pipeline: str) -> ApiResponse:
     input_str = '[\n' + ',\n'.join(map(str, input)) + '\n]'
     return ({
         'result': result,

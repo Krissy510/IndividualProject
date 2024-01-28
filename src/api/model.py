@@ -177,5 +177,5 @@ class InteractiveFeatureProps(BaseModel):
     input: List[IColumns]
     output: List[IColumns]
 
-
-    
+class MultiInteractiveFeatureProps(BaseModel):
+    options: List[InteractiveFeatureProps]
