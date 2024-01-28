@@ -91,7 +91,7 @@ def get_duo_t5_fields() -> InteractiveFeatureProps:
         T5Result
     )
 
-
+# POST API start here!
 @router.post('/plugins/pyterrier-t5/mono')
 def mono_t5_re_ranker(request: T5Request) -> ApiResponse:
     result = MonoT5ReRanker(batch_size=request.batch_size) (request.input)
