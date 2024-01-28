@@ -30,6 +30,9 @@ class T5Model(Result):
     rank: int
     text: str
 
+class DocumentText(TypedDict):
+    docno: int
+    text: str
 
 # Input model
 class TextScorerInput(Query,Document):
