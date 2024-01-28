@@ -96,6 +96,14 @@ class T5Request(IRequest):
     batch_size: int
     input: List[T5Model]
 
+class DrQueryRequest(IRequest):
+    input: List[Query]
+
+class DrDocumentRequest(IRequest):
+    input: List[DocumentText]
+
+class DrScorerRequest(IRequest):
+    input: List[DrScorerInput]
 
 # Result Model
 class TextSlidingResult(Document):
