@@ -142,6 +142,16 @@ class StashResult(Query):
 class T5Result(T5Model):
     pass
 
+class DrQueryResult(Query):
+    query_vec: str
+
+class DrDocumentResult(DocumentText):
+    doc_vec: str
+
+class DrScorerResult(DrScorerInput):
+    score: float
+    rank: int
+
 class ApiResponse(BaseModel):
     result: List
     code: str
