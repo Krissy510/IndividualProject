@@ -41,6 +41,9 @@ class TextScorerInput(Query,Document):
 class ResetStashInput(Query):
     stashed_results_0: str
 
+class DrScorerInput(Query,DocumentText):
+    pass
+
 
 # Request Model
 class RetrieveRequest(IRequest):
