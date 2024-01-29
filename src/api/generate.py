@@ -59,7 +59,7 @@ preset_parameters = {
         'default': 1,
         'id': 'stride',
     },
-    'fb_terms' : {
+    'fb_terms': {
         'name': 'fb_terms',
         'type': 'number',
         'default': 10,
@@ -82,7 +82,7 @@ preset_parameters = {
         'type': 'number',
         'default': 4,
         'id': 'batch_size'
-    }
+    },
 }
 
 
@@ -107,11 +107,28 @@ def generate_interactive_props(example: List[dict], requestClass: type, outputCl
         'parameters': generate_parameters(requestClass)
     }
 
-def generate_pyterrier_dr_interactive_props(examples: List[List[dict]], requestClasses: List[type], outputClasses: List[type]):
-    options = []
+
+def generate_multi_interactive_props(optionsName: List[str], defaultOption: str, examples: List[List[dict]], requestClasses: List[type], outputClasses: List[type]):
+    options = dict()
     for i in range(len(requestClasses)):
-        options.append(generate_interactive_props(examples[i], requestClasses[i], outputClasses[i]))
-    return {'options': options}
+        type_hints = get_type_hints(requestClasses[i])
+        query_type = type_hints['input'].__args__[0]
+        options[optionsName[i]] = {
+            'example': examples[i],
+            'input': generate_columns(query_type),
+            'output': generate_columns(outputClasses[i]),
+        }
+    return {
+        'options': options,
+        'parameters': [{
+            'name': 'Type',
+            'type': 'select',
+            'default': defaultOption,
+            'id': 'type',
+            'choices': optionsName
+        }
+        ]
+    }
 
 
 def generate_api_response(result: List, input: List, pipeline: str) -> ApiResponse:
