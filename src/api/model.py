@@ -96,14 +96,23 @@ class T5Request(IRequest):
     batch_size: int
     input: List[T5Model]
 
-class DrQueryRequest(IRequest):
+class DrRequest(IRequest):
+    input: List
+    type: str
+
+class DrQueryRequest(DrRequest):
     input: List[Query]
 
-class DrDocumentRequest(IRequest):
+class DrDocumentRequest(DrRequest):
     input: List[DocumentText]
 
-class DrScorerRequest(IRequest):
+class DrScorerRequest(DrRequest):
     input: List[DrScorerInput]
+
+class DrMultiRequest(DrRequest):
+    input: List
+    # Don't know why scorer does not work
+    # input: Union[List[Query],List[DocumentText],List[DrScorerInput]]
 
 # Result Model
 class TextSlidingResult(Document):
@@ -169,13 +178,12 @@ class IParameters(BaseModel):
     choices: List[str] = None  # Optional, defaults to None if not provided
     default: Union[str, int, float]  # Can be either string or integer or float
 
-
 class InteractiveFeatureProps(BaseModel):
     example: List[dict]  # Array of objects, in Python it's a list of dictionaries
-    defaultDisplayMode: str = None  # Optional, defaults to None if not provided
     parameters: List[IParameters]
     input: List[IColumns]
     output: List[IColumns]
 
 class MultiInteractiveFeatureProps(BaseModel):
-    options: List[InteractiveFeatureProps]
+    options: dict
+    parameters: List
