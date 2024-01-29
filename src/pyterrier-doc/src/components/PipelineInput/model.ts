@@ -19,9 +19,11 @@ export interface PipelineInputProps {
   columns: Array<IColumns>;
   parameters: Array<IParameters>;
   apiUrl: string;
+  paramData: Object;
   setOutputRows: (newRows: Array<Object>) => void;
   isPostApiProcessing: boolean;
   setIsApiProcessing: (isPostApiProcessing: boolean) => void;
+  setParamData: (paramData: Object) => void;
   displayMode: string;
   setGeneratedCode: (code: string) => void;
 }

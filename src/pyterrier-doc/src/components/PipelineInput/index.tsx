@@ -30,11 +30,13 @@ export default function PipelineInput({
   columns,
   parameters,
   apiUrl,
+  paramData,
   setOutputRows,
   isPostApiProcessing,
   setIsApiProcessing,
   displayMode,
   setGeneratedCode,
+  setParamData,
 }: PipelineInputProps) {
   useEffect(() => {
     setParamData(
@@ -55,7 +57,6 @@ export default function PipelineInput({
   }, [parameters]);
 
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
-  const [paramData, setParamData] = useState({});
   const [paramValidity, setParamValidity] = useState({});
 
   const isAnyParamInvalid = () => {
@@ -119,6 +120,8 @@ export default function PipelineInput({
     };
 
     setIsApiProcessing(true);
+
+    console.log(request);
 
     axios
       .post(apiUrl, request)

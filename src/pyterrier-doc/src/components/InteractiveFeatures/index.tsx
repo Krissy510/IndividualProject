@@ -26,31 +26,44 @@ export default function InteractiveFeature({
   const [outputRows, setOutputRows] = useState([]);
   const [displayInteractive, setDisplayInteractive] = useState(false);
   const [generatedCode, setGeneratedCode] = useState<string>("");
+  const [options, setOptions] = useState({});
+  const [isMulti, setIsMulti] = useState(false);
+  const [paramData, setParamData] = useState({});
 
+  const updateState = (data: object) => {
+    setInputRows(
+      data["example"].map((row) => {
+        return { id: randomId(), ...row };
+      })
+    );
+    setInput(data["input"]);
+    setDefineOutputColumns([
+      ...data["output"].map((column): GridColDef => {
+        return {
+          field: column.name,
+          headerName: column.name,
+          width: column.width,
+          editable: false,
+        };
+      }),
+    ]);
+  };
+
+  // Initial load
   useEffect(() => {
     if (displayInteractive && inputColumns.length === 0) {
       setIsPageLoading(true);
-
       axios
         .get(apiUrl)
         .then((response) => {
-          setInputRows(
-            response.data["example"].map((row) => {
-              return { id: randomId(), ...row };
-            })
-          );
-          setInput(response.data["input"]);
-          setParameters(response.data["parameters"]);
-          setDefineOutputColumns([
-            ...response.data["output"].map((column): GridColDef => {
-              return {
-                field: column.name,
-                headerName: column.name,
-                width: column.width,
-                editable: false,
-              };
-            }),
-          ]);
+          const data = response.data;
+          setParameters(data["parameters"]);
+          if (data.hasOwnProperty("options")) {
+            setOptions(data.options);
+            setIsMulti(true);
+          } else {
+            updateState(data);
+          }
         })
         .catch((error) => {
           // Console log for now will add exception handeling later.
@@ -61,11 +74,17 @@ export default function InteractiveFeature({
           // setTimeout(() => {
           //   setIsPageLoading(false);
           // }, 5000);
-
           setIsPageLoading(false);
         });
     }
   }, [displayInteractive]);
+
+  useEffect(() => {
+    if (isMulti) {
+      updateState(options[paramData["type"]]);
+      setOutputRows([]);
+    }
+  }, [paramData]);
 
   const handleTryButton = () => {
     setDisplayInteractive(!displayInteractive);
@@ -130,6 +149,8 @@ export default function InteractiveFeature({
               setIsApiProcessing={setIsApiProcessing}
               displayMode={displayMode}
               setGeneratedCode={setGeneratedCode}
+              paramData={paramData}
+              setParamData={setParamData}
             />
             <PipelineOutput
               outputRows={outputRows}
