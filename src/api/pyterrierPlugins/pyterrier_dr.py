@@ -6,7 +6,7 @@ from generate import (generate_api_response, generate_interactive_props,
                       generate_multi_interactive_props)
 from helper import pyterrier_init
 from model import (ApiResponse, DrDocumentRequest, DrDocumentResult,
-                   DrQueryRequest, DrQueryResult, DrRequest, DrScorerRequest,
+                   DrQueryRequest, DrQueryResult, DrMultiRequest, DrScorerRequest,
                    DrScorerResult, InteractiveFeatureProps,
                    MultiInteractiveFeatureProps)
 
@@ -39,13 +39,23 @@ router = APIRouter()
 
 
 def generate_dr_multi_fields() -> MultiInteractiveFeatureProps:
-    return generate_multi_interactive_props(
+    props = generate_multi_interactive_props(
         optionsName=["query_encoder", "doc_encoder", "scorer"],
         defaultOption="query_encoder",
         examples=[SAMPLE_QUERY, SAMPLE_DOC, SAMPLE_QUERY_DOC],
         requestClasses=[DrQueryRequest, DrDocumentRequest, DrScorerRequest],
         outputClasses=[DrQueryResult, DrDocumentResult, DrScorerResult]
     )
+
+    props['parameters'].append({
+            'name': 'Model',
+            'type': 'select',
+            'default': "castorini/tct_colbert-msmarco",
+            'id': 'model',
+            'choices': ["castorini/tct_colbert-msmarco"],
+            'read_only': True,
+        })
+    return props
 
 # Interactive feature GET API
 
@@ -54,6 +64,10 @@ def generate_dr_multi_fields() -> MultiInteractiveFeatureProps:
 def get_tct_bol_bert_fields() -> MultiInteractiveFeatureProps:
     return generate_dr_multi_fields()
 
+
+@router.get('/plugins/pyterrier-dr/tasb')
+def get_tasB_fields() -> MultiInteractiveFeatureProps:
+    return generate_dr_multi_fields()
 
 @router.get('/plugins/pyterrier-dr/ance')
 def get_ance_fields() -> MultiInteractiveFeatureProps:
@@ -78,15 +92,20 @@ def dr_processing(result, request_type, request_input, code):
 
 # POST API start here!
 @router.post('/plugins/pyterrier-dr/tct-bol-bert')
-def tct_bol_bert(request: DrRequest) -> ApiResponse:
-    result = TctColBert()(request.input)
-    return dr_processing(result, request.type, request.input, "pyterrier_dr.TctColBert()")
+def tct_bol_bert(request: DrMultiRequest) -> ApiResponse:
+    result = TctColBert(request.model)(request.input)
+    return dr_processing(result, request.type, request.input, f"pyterrier_dr.TctColBert({repr(request.model)})")
 
+
+@router.post('/plugins/pyterrier-dr/tasb')
+def tasB(request: DrMultiRequest) -> ApiResponse:
+    result = TasB(request.model)(request.input)
+    return dr_processing(result, request.type, request.input, f"pyterrier_dr.TasB({repr(request.model)})")
 
 @router.post('/plugins/pyterrier-dr/ance')
-def tct_bol_bert(request: DrRequest) -> ApiResponse:
-    result = Ance()(request.input)
-    return dr_processing(result, request.type, request.input, "pyterrier_dr.Ance()")
+def ance(request: DrMultiRequest) -> ApiResponse:
+    result = Ance(request.model)(request.input)
+    return dr_processing(result, request.type, request.input, f"pyterrier_dr.Ance({repr(request.model)})")
 
 
 @router.post('/plugins/pyterrier-dr/query-2-query')

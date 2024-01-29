@@ -96,21 +96,19 @@ class T5Request(IRequest):
     batch_size: int
     input: List[T5Model]
 
-class DrRequest(IRequest):
-    input: List
-    type: str
-
-class DrQueryRequest(DrRequest):
+class DrQueryRequest(IRequest):
     input: List[Query]
 
-class DrDocumentRequest(DrRequest):
+class DrDocumentRequest(IRequest):
     input: List[DocumentText]
 
-class DrScorerRequest(DrRequest):
+class DrScorerRequest(IRequest):
     input: List[DrScorerInput]
 
-class DrMultiRequest(DrRequest):
+class DrMultiRequest(IRequest):
     input: List
+    type: str
+    model: str
     # Don't know why scorer does not work
     # input: Union[List[Query],List[DocumentText],List[DrScorerInput]]
 
@@ -177,6 +175,7 @@ class IParameters(BaseModel):
     type: str
     choices: List[str] = None  # Optional, defaults to None if not provided
     default: Union[str, int, float]  # Can be either string or integer or float
+    read_only: bool = False
 
 class InteractiveFeatureProps(BaseModel):
     example: List[dict]  # Array of objects, in Python it's a list of dictionaries
@@ -186,4 +185,4 @@ class InteractiveFeatureProps(BaseModel):
 
 class MultiInteractiveFeatureProps(BaseModel):
     options: dict
-    parameters: List
+    parameters: List[IParameters]
