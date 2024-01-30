@@ -22,6 +22,7 @@ class QueryExpanssionRequest(IRequest):
     input: List[Result]
     fb_terms: int
     fb_docs: int
+    qre_dataset: str
 
 class QueryExpansionResult(Query):
     query_0: str

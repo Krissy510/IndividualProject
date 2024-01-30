@@ -83,6 +83,13 @@ preset_parameters = {
         'default': 4,
         'id': 'batch_size'
     },
+    'qre_dataset':{
+        'name': 'Dataset',
+        'type': 'select',
+        'default': 'vaswani',
+        'id': 'qre_dataset',
+        'choices': ['vaswani'],
+    }
 }
 
 
