@@ -51,9 +51,9 @@ def generate_dr_multi_fields() -> MultiInteractiveFeatureProps:
     props['parameters'].append({
             'name': 'Model',
             'type': 'select',
-            'default': "castorini/tct_colbert-msmarco",
+            'default': 'castorini/tct_colbert-msmarco',
             'id': 'model',
-            'choices': ["castorini/tct_colbert-msmarco"],
+            'choices': ['castorini/tct_colbert-msmarco'],
             'read_only': True,
         })
     return props
