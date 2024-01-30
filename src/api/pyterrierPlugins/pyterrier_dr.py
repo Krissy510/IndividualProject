@@ -12,6 +12,7 @@ from model import (ApiResponse, DrDocumentRequest, DrDocumentResult,
 
 pyterrier_init()
 
+# Sample data
 SAMPLE_QUERY = [
     {'qid': '0', 'query': 'Hello Terrier'},
     {'qid': '1', 'query': 'find me some documents'},
