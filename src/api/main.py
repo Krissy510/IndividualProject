@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from explanationIllustrations import working_text
 from gettingStarted import query_rewrite_and_expansion, retrival
-from pyterrierPlugins import pyterrier_t5, pyterrier_dr
+from pyterrierPlugins import pyterrier_t5, pyterrier_dr, pyterrier_pisa
 from helper import pyterrier_init
 
 pyterrier_init()
@@ -24,6 +24,7 @@ app.include_router(working_text.router)
 # Pyterrier Plugins
 app.include_router(pyterrier_t5.router)
 app.include_router(pyterrier_dr.router)
+app.include_router(pyterrier_pisa.router)
 
 ###### CORS ###########
 origins = [

@@ -113,6 +113,22 @@ class DrMultiRequest(IRequest):
     # Don't know why scorer does not work
     # input: Union[List[Query],List[DocumentText],List[DrScorerInput]]
 
+class PisaRequest(IRequest):
+    input: List[Query]
+
+class PisaDphRequest(PisaRequest):
+    pass
+
+class PisaBm25Request(PisaRequest):
+    k1: float
+    b: float
+
+class PisaPl2Request(PisaRequest):
+    c: float
+
+class PisaQldRequest(PisaRequest):
+    mu: float    
+
 # Result Model
 class TextSlidingResult(Document):
     pass
@@ -158,6 +174,9 @@ class DrDocumentResult(DocumentText):
 
 class DrScorerResult(DrScorerInput):
     score: float
+    rank: int
+
+class PisaRetrieveResult(Result):
     rank: int
 
 class ApiResponse(BaseModel):

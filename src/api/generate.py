@@ -83,11 +83,42 @@ preset_parameters = {
         'default': 4,
         'id': 'batch_size'
     },
+    'k1': {
+        'name': 'k1',
+        'type': 'number',
+        'default': 1.2,
+        'id': 'k1'
+    },
+    'b': {
+        'name': 'b',
+        'type': 'number',
+        'default': 0.4,
+        'id': 'b'
+    },
+    'c': {
+        'name': 'c',
+        'type': 'number',
+        'default': 1.0,
+        'id': 'c'
+    },
+    'mu': {
+        'name': 'mu',
+        'type': 'number',
+        'default': 1000,
+        'id': 'mu'
+    },
     'qre_dataset':{
         'name': 'Dataset',
         'type': 'select',
         'default': 'vaswani',
         'id': 'qre_dataset',
+        'choices': ['vaswani'],
+    },
+    'pisa_dataset':{
+        'name': 'Dataset',
+        'type': 'select',
+        'default': 'vaswani',
+        'id': 'pisa_dataset',
         'choices': ['vaswani'],
     }
 }
