@@ -15,6 +15,7 @@ export function SelectField({ data, onChange }) {
         label={data.name}
         select
         fullWidth
+        disabled={data.read_only}
       >
         {data.choices.map((choice, index) => (
           <MenuItem key={index} value={choice}>
