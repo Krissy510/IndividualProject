@@ -107,19 +107,39 @@ preset_parameters = {
         'default': 1000,
         'id': 'mu'
     },
-    'qre_dataset':{
+    'qre_dataset': {
         'name': 'Dataset',
         'type': 'select',
         'default': 'vaswani',
         'id': 'qre_dataset',
         'choices': ['vaswani'],
+        'read_only': True
     },
-    'pisa_dataset':{
+    'pisa_dataset': {
         'name': 'Dataset',
         'type': 'select',
-        'default': 'vaswani',
+        'default': 'antique',
         'id': 'pisa_dataset',
-        'choices': ['vaswani'],
+        'choices': ['antique'],
+        'read_only': True
+    },
+    'dr_model': {
+        'name': 'Model',
+        'type': 'select',
+        'default': 'castorini/tct_colbert-msmarco',
+        'id': 'model',
+        'choices': ['castorini/tct_colbert-msmarco'],
+        'read_only': True
+
+    },
+    'dr_ance_model': {
+        'name': 'Model',
+        'type': 'select',
+        'default': 'sentence-transformers/msmarco-roberta-base-ance-firstp',
+        'id': 'model',
+        'choices': ['sentence-transformers/msmarco-roberta-base-ance-firstp'],
+        'read_only': True
+
     }
 }
 
@@ -146,7 +166,7 @@ def generate_interactive_props(example: List[dict], requestClass: type, outputCl
     }
 
 
-def generate_multi_interactive_props(optionsName: List[str], defaultOption: str, examples: List[List[dict]], requestClasses: List[type], outputClasses: List[type]):
+def generate_multi_interactive_props(optionsName: List[str], defaultOption: str, examples: List[List[dict]], requestClasses: List[type], outputClasses: List[type], parameters: List[str]):
     options = dict()
     for i in range(len(requestClasses)):
         type_hints = get_type_hints(requestClasses[i])
@@ -156,16 +176,18 @@ def generate_multi_interactive_props(optionsName: List[str], defaultOption: str,
             'input': generate_columns(query_type),
             'output': generate_columns(outputClasses[i]),
         }
+
+    parameter = [preset_parameters[parameter] for parameter in parameters]
+    parameter.append({
+        'name': 'Type',
+        'type': 'select',
+        'default': defaultOption,
+        'id': 'type',
+        'choices': optionsName
+    })
     return {
         'options': options,
-        'parameters': [{
-            'name': 'Type',
-            'type': 'select',
-            'default': defaultOption,
-            'id': 'type',
-            'choices': optionsName
-        }
-        ]
+        'parameters': parameter
     }
 
 
