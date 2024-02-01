@@ -1,5 +1,5 @@
 import pyterrier as pt
-# from pyterrier_pisa import PisaIndex
+from pyterrier_pisa import PisaIndex
 from helper import pyterrier_init
 
 pyterrier_init()
