@@ -38,41 +38,40 @@ KEY_TYPE = {
 # API implementation starts here
 router = APIRouter()
 
-
-def generate_dr_multi_fields() -> MultiInteractiveFeatureProps:
-    props = generate_multi_interactive_props(
+# Interactive feature GET API
+@router.get('/plugins/pyterrier-dr/tct-bol-bert')
+def get_tct_bol_bert_fields() -> MultiInteractiveFeatureProps:
+    return generate_multi_interactive_props(
         optionsName=["query_encoder", "doc_encoder", "scorer"],
         defaultOption="query_encoder",
         examples=[SAMPLE_QUERY, SAMPLE_DOC, SAMPLE_QUERY_DOC],
         requestClasses=[DrQueryRequest, DrDocumentRequest, DrScorerRequest],
-        outputClasses=[DrQueryResult, DrDocumentResult, DrScorerResult]
+        outputClasses=[DrQueryResult, DrDocumentResult, DrScorerResult],
+        parameters=["dr_model"]
     )
-
-    props['parameters'].append({
-            'name': 'Model',
-            'type': 'select',
-            'default': 'castorini/tct_colbert-msmarco',
-            'id': 'model',
-            'choices': ['castorini/tct_colbert-msmarco'],
-            'read_only': True,
-        })
-    return props
-
-# Interactive feature GET API
-
-
-@router.get('/plugins/pyterrier-dr/tct-bol-bert')
-def get_tct_bol_bert_fields() -> MultiInteractiveFeatureProps:
-    return generate_dr_multi_fields()
 
 
 @router.get('/plugins/pyterrier-dr/tasb')
 def get_tasB_fields() -> MultiInteractiveFeatureProps:
-    return generate_dr_multi_fields()
+    return generate_multi_interactive_props(
+        optionsName=["query_encoder", "doc_encoder", "scorer"],
+        defaultOption="query_encoder",
+        examples=[SAMPLE_QUERY, SAMPLE_DOC, SAMPLE_QUERY_DOC],
+        requestClasses=[DrQueryRequest, DrDocumentRequest, DrScorerRequest],
+        outputClasses=[DrQueryResult, DrDocumentResult, DrScorerResult],
+        parameters=["dr_model"]
+    )
 
 @router.get('/plugins/pyterrier-dr/ance')
 def get_ance_fields() -> MultiInteractiveFeatureProps:
-    return generate_dr_multi_fields()
+    return generate_multi_interactive_props(
+        optionsName=["query_encoder", "doc_encoder", "scorer"],
+        defaultOption="query_encoder",
+        examples=[SAMPLE_QUERY, SAMPLE_DOC, SAMPLE_QUERY_DOC],
+        requestClasses=[DrQueryRequest, DrDocumentRequest, DrScorerRequest],
+        outputClasses=[DrQueryResult, DrDocumentResult, DrScorerResult],
+        parameters=["dr_ance_model"]
+    )
 
 
 @router.get('/plugins/pyterrier-dr/query-2-query')
