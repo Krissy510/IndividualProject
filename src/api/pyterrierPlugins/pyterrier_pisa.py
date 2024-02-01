@@ -12,7 +12,7 @@ from pyterrier_pisa import PisaIndex
 
 pyterrier_init()
 
-folder_path = './index'
+folder_path = './pisa-antique-index'
 
 idx = PisaIndex(folder_path)
 
