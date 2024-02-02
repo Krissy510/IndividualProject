@@ -4,9 +4,8 @@ from helper import pyterrier_init
 
 pyterrier_init()
 
-dataset = pt.get_dataset('vaswani')
-indexer = pt.TRECCollectionIndexer("./index")
-indexref = indexer.index(dataset.get_corpus())
+indexer = pt.IterDictIndexer('./vaswani.terrier')
+indexer.index(pt.get_dataset('irds:vaswani').get_corpus_iter())
 
 dataset_pisa = pt.get_dataset('irds:antique/test')
 idx = PisaIndex('./pisa-antique-index')
