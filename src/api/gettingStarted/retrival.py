@@ -9,6 +9,10 @@ from model import ApiResponse, InteractiveFeatureProps, Result, RetrieveRequest
 
 pyterrier_init()
 
+folder_path = './vaswani.terrier'
+
+index = pt.IndexFactory.of(folder_path)
+
 router = APIRouter()
 
 # Sample data
@@ -28,17 +32,13 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
 # POST API start here!
 @router.post("/retreive")
 def terrier_retreive(request: RetrieveRequest) -> ApiResponse:
-    result = pt.BatchRetrieve.from_dataset(
-        num_results=request.num_results,
-        dataset=request.dataset,
-        variant=request.index_variant,
-        wmodel=request.wmodel)(request.input)
+    result = pt.BatchRetrieve(index,
+                              num_results=request.num_results,
+                              wmodel=request.wmodel)(request.input)
     return generate_api_response(
         result.to_dict('records'),
         request.input,
-        f"""pt.BatchRetrieve.from_dataset(
+        f"""pt.BatchRetrieve.from_dataset(index,
             num_results={repr(request.num_results)},
-            dataset={repr(request.dataset)},
-            variant={repr(request.index_variant)},
             wmodel={repr(request.wmodel)})"""
     )

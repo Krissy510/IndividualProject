@@ -50,7 +50,6 @@ class DrScorerInput(Query,DocumentText):
 class RetrieveRequest(IRequest):
     dataset: str
     wmodel: str
-    index_variant: str
     num_results: int
     input: List[Query]
 

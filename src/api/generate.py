@@ -23,9 +23,10 @@ preset_parameters = {
     'dataset': {
         'name': 'Dataset',
         'type': 'select',
-        'default': 'msmarco_passage',
+        'default': 'vaswani',
         'id': 'dataset',
-        'choices': VALID_DATASET
+        'choices': VALID_DATASET,
+        'read_only': True,
     },
     'wmodel': {
         'name': 'Wmodel',

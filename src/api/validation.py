@@ -4,8 +4,7 @@ VALID_WMODEL = ("BB2", "BM25", "BM25F", "CoordinateMatch", "DFIC", "DFIZ",
                 "InB2", "InL2", "Js_KLs", "LemurTF_IDF", "LGD", "MDL2",
                 "ML2", "Null", "PL2", "TF_IDF", "XSqrA_M",)
 
-VALID_DATASET = ("vaswani", "msmarco_document", "msmarco_passage",
-                 "trec-covid", "trec-deep-learning-docs", "trec-deep-learning-passages",)
+VALID_DATASET = ["vaswani"]
 
 VALID_INDEX_VARIANT = ("terrier_stemmed", "terrier_stemmed_positions", "terrier_unstemmed",
                        "terrier_stemmed_text", "terrier_unstemmed_text",)
