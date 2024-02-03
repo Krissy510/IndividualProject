@@ -12,7 +12,7 @@ from model import (ApiResponse, AxiomaticRequest, AxiomaticResult, Bo1Request,
 
 pyterrier_init()
 
-folder_path = './index'
+folder_path = './vaswani.terrier'
 
 index = pt.IndexFactory.of(folder_path)
 

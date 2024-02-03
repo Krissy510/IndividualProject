@@ -8,7 +8,7 @@ from model import ApiResponse, InteractiveFeatureProps, T5Request, T5Result
 
 pyterrier_init()
 
-folder_path = './index'
+folder_path = './vaswani.terrier'
 
 index = pt.IndexFactory.of(folder_path)
 
