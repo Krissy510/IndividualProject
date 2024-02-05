@@ -8,3 +8,5 @@ VALID_DATASET = ['vaswani']
 
 VALID_INDEX_VARIANT = ('terrier_stemmed', 'terrier_stemmed_positions', 'terrier_unstemmed',
                        'terrier_stemmed_text', 'terrier_unstemmed_text',)
+
+BASE_CODE = 'import pyterrier as pt\nif not pt.started():\n    pt.init()\n'
