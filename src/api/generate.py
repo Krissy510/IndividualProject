@@ -2,7 +2,7 @@ from enum import Enum
 from typing import Dict, List, Tuple, TypedDict, get_type_hints
 
 from model import *
-from validation import *
+from constant import *
 
 # Define a mapping of field names to their widths
 field_widths = {
@@ -192,9 +192,9 @@ def generate_multi_interactive_props(optionsName: List[str], defaultOption: str,
     }
 
 
-def generate_api_response(result: List, input: List, pipeline: str) -> ApiResponse:
+def generate_api_response(result: List, input: List, pipeline: str, template: str = BASE_CODE, ) -> ApiResponse:
     input_str = '[\n' + ',\n'.join(map(str, input)) + '\n]'
     return ({
         'result': result,
-        'code': f'import pyterrier as pt\nif not pt.started():\n    pt.init()\ninput = {input_str}\npipeline = {pipeline}\nresult = pipeline(input)'
+        'code': f'{template}input = {input_str}\npipeline = {pipeline}\nresult = pipeline(input)'
     })
