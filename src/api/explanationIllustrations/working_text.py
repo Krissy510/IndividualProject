@@ -13,12 +13,12 @@ pyterrier_init()
 # Sample data
 TEXT_SLIDING_SAMPEL = [
     {
-        "docno": "d1",
-        "body": "This document is about a palico cat that climbs a tower."
+        'docno': 'd1',
+        'body': 'This document is about a palico cat that climbs a tower.'
     },
     {
-        "docno": "d2",
-        "body": "This document is about a buisness man who took a trip and never came back."
+        'docno': 'd2',
+        'body': 'This document is about a buisness man who took a trip and never came back.'
     }
 ]
 TEXT_SCORER_SAMPEL = [
@@ -58,7 +58,7 @@ MAX_PASSAGE_SAMPLE = [
 router = APIRouter()
 
 # Interactive feature GET API
-@router.get("/text-sliding")
+@router.get('/text-sliding')
 def get_text_sliding_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
         TEXT_SLIDING_SAMPEL,
@@ -67,7 +67,7 @@ def get_text_sliding_fields() -> InteractiveFeatureProps:
     )
 
 
-@router.get("/text-scorer")
+@router.get('/text-scorer')
 def get_text_scorer_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(TEXT_SCORER_SAMPEL,
                                       TextScorerRequest,
@@ -75,7 +75,7 @@ def get_text_scorer_fields() -> InteractiveFeatureProps:
                                       )
 
 
-@router.get("/max-passage")
+@router.get('/max-passage')
 def get_max_passage_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(MAX_PASSAGE_SAMPLE,
                                       MaxPassageRequest,
@@ -83,27 +83,27 @@ def get_max_passage_fields() -> InteractiveFeatureProps:
                                       )
 
 # POST API start here!
-@router.post("/text-sliding")
+@router.post('/text-sliding')
 def text_sliding(request: TextSlidingRequest) -> ApiResponse:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride,
                              prepend_title=False)(request.input)
     return generate_api_response(result.to_dict('records'),
                                  request.input,
-                                 f"pt.text.sliding(length={request.length},stride={request.stride},prepend_title=False)")
+                                 f'pt.text.sliding(length={request.length},stride={request.stride},prepend_title=False)')
 
 
-@router.post("/text-scorer")
+@router.post('/text-scorer')
 def text_scorer(request: TextScorerRequest) -> ApiResponse:
     result = pt.text.scorer(wmodel=request.wmodel)(request.input)
     return generate_api_response(result.to_dict('records'),
                                  request.input,
-                                 f"pt.text.scorer(wmodel={repr(request.wmodel)})")
+                                 f'pt.text.scorer(wmodel={repr(request.wmodel)})')
 
 
-@router.post("/max-passage")
+@router.post('/max-passage')
 def max_passage(request: MaxPassageRequest) -> ApiResponse:
     result = pt.text.max_passage()(request.input)
     return generate_api_response(result.to_dict('records'),
                                  request.input,
-                                 "pt.text.max_passage()")
+                                 'pt.text.max_passage()')
