@@ -1,17 +1,17 @@
 import CloseIcon from "@mui/icons-material/Close";
 import CodeIcon from "@mui/icons-material/Code";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Box, Button, CircularProgress, IconButton } from "@mui/material";
 import { DataGrid, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PipelineOutputProps } from "./model";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  a11yDark,
+  oneLight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useColorMode } from "@docusaurus/theme-common";
 
 export default function PipelineOutput({
   defineOutputColumns,
@@ -25,6 +25,7 @@ export default function PipelineOutput({
   });
   const [codeExpand, setCodeExpand] = useState(false);
   const [copyText, setCopyText] = useState("Copy");
+  const { colorMode, setColorMode } = useColorMode();
 
   const copyToClipboard = () => {
     navigator.clipboard
@@ -92,19 +93,13 @@ export default function PipelineOutput({
         <>
           {codeExpand ? (
             <Box>
-              <Box
-                sx={{
-                  backgroundColor: "#f5f5f5",
-                  borderRadius: 1,
-                  padding: 2,
-                  overflowX: "auto",
-                  whiteSpace: "pre-wrap",
-                }}
+              <SyntaxHighlighter
+                language="python"
+                style={colorMode === "dark" ? a11yDark : oneLight}
               >
-                {code.split("\n").map((line, index) => (
-                  <Typography key={index}>{line}</Typography>
-                ))}
-              </Box>
+                {code}
+              </SyntaxHighlighter>
+
               <Button
                 onClick={copyToClipboard}
                 variant="contained"
