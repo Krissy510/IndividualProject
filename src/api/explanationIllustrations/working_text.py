@@ -88,22 +88,32 @@ def text_sliding(request: TextSlidingRequest) -> ApiResponse:
     result = pt.text.sliding(length=request.length,
                              stride=request.stride,
                              prepend_title=False)(request.input)
-    return generate_api_response(result.to_dict('records'),
-                                 request.input,
-                                 f'pt.text.sliding(length={request.length},stride={request.stride},prepend_title=False)')
+    return generate_api_response(
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'pt.text.sliding(length={request.length},stride={request.stride},prepend_title=False)',
+        index_template='none'
+        )
+
 
 
 @router.post('/text-scorer')
 def text_scorer(request: TextScorerRequest) -> ApiResponse:
     result = pt.text.scorer(wmodel=request.wmodel)(request.input)
-    return generate_api_response(result.to_dict('records'),
-                                 request.input,
-                                 f'pt.text.scorer(wmodel={repr(request.wmodel)})')
+    return generate_api_response(
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'pt.text.scorer(wmodel={repr(request.wmodel)})',
+        index_template='none'
+        )
 
 
 @router.post('/max-passage')
 def max_passage(request: MaxPassageRequest) -> ApiResponse:
     result = pt.text.max_passage()(request.input)
-    return generate_api_response(result.to_dict('records'),
-                                 request.input,
-                                 'pt.text.max_passage()')
+    return generate_api_response(
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline='pt.text.max_passage()',
+        index_template='none'
+        )
