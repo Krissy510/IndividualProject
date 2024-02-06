@@ -18,13 +18,13 @@ BASE_TEMPLATES = {
 
 
 BASE_INDEXES = {
-    'default': '''\ndataset = pt.get_dataset('irds:vaswani')
+    'default': '''dataset = pt.get_dataset('irds:vaswani')
 indexer = pt.IterDictIndexer('./vaswani.terrier')
 indexref = indexer.index(dataset.get_corpus_iter())
-index = pt.IndexFactory.of(indexref)\n''',
-    'pisa': '''\nfile_path = 'irds:antique/test'
+index = pt.IndexFactory.of(indexref)''',
+    'pisa': '''file_path = 'irds:antique/test'
 dataset_pisa = pt.get_dataset(file_path)
 idx = PisaIndex('./pisa-antique-index')
-idx.index(dataset_pisa.get_corpus_iter())\n''',
+idx.index(dataset_pisa.get_corpus_iter())''',
     'none': ''
 }
