@@ -85,9 +85,12 @@ def dr_processing(result, request_type, request_input, code):
         key = KEY_TYPE[request_type]
         for i in range(len(output)):
             output[i][key] = repr(output[i][key])
-    return generate_api_response(output,
-                                 request_input,
-                                 code)
+    return generate_api_response(result=output,
+                                 input=request_input,
+                                 pipeline=code,
+                                 base_template='DR',
+                                 index_template='none'
+                                 )
 
 
 # POST API start here!
@@ -114,6 +117,7 @@ def query_2_query(request: DrQueryRequest) -> ApiResponse:
     result = result.to_dict('records')
     for i in range(len(result)):
         result[i]['query_vec'] = repr(result[i]['query_vec'])
-    return generate_api_response(result,
-                                 request.input,
-                                 "pyterrier_dr.Query2Query()")
+    return generate_api_response(result=result,
+                                 input=request.input,
+                                 pipeline="pyterrier_dr.Query2Query()",
+                                 index_template='none')
