@@ -63,34 +63,42 @@ def get_pisa_qld_fields() -> InteractiveFeatureProps:
 def pisa_dph(request: PisaDphRequest) -> ApiResponse:
     result = idx.dph()(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f"idx.dph()"
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline='idx.dph()',
+        index_template='PISA',
+        base_template='PISA'
     )
 
 @router.post('/plugins/pisa/bm25')
 def pisa_bm25(request: PisaBm25Request) -> ApiResponse:
     result = idx.bm25(k1=request.k1,b=request.b)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f"idx.bm25(k1={request.k1},b={request.b})"
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'idx.bm25(k1={request.k1},b={request.b})',
+        index_template='PISA',
+        base_template='PISA'
     )
 
 @router.post('/plugins/pisa/pl2')
 def pisa_pl2(request: PisaPl2Request) -> ApiResponse:
     result = idx.pl2(c=request.c)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f"idx.pl2(c={request.c})"
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'idx.pl2(c={request.c})',
+        index_template='PISA',
+        base_template='PISA'
     )
 
 @router.post('/plugins/pisa/qld')
 def pisa_qld(request: PisaQldRequest) -> ApiResponse:
     result = idx.qld(mu=request.mu)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f"idx.qld(mu={request.mu})"
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'idx.qld(mu={request.mu})',
+        index_template='PISA',
+        base_template='PISA'
     )
