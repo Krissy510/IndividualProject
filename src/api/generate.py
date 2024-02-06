@@ -157,7 +157,7 @@ if not pt.started():
 
 def generate_index_code(index_template_name: str):
     index = INDEX_TEMPLATES[index_template_name]
-     if index != '':
+    if index != '':
         index += '\n'
     return index
 
