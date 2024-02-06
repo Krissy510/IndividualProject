@@ -9,4 +9,22 @@ VALID_DATASET = ['vaswani']
 VALID_INDEX_VARIANT = ('terrier_stemmed', 'terrier_stemmed_positions', 'terrier_unstemmed',
                        'terrier_stemmed_text', 'terrier_unstemmed_text',)
 
-BASE_CODE = 'import pyterrier as pt\nif not pt.started():\n    pt.init()\n'
+BASE_TEMPLATES = {
+    'T5': 'import pyterrier_t5',
+    'DR': 'import pyterrier_dr',
+    'PISA': 'import pyterrier_pisa',
+    'none': ''
+}
+
+
+BASE_INDEXES = {
+    'default': '''\ndataset = pt.get_dataset('irds:vaswani')
+indexer = pt.IterDictIndexer('./vaswani.terrier')
+indexref = indexer.index(dataset.get_corpus_iter())
+index = pt.IndexFactory.of(indexref)\n''',
+    'pisa': '''\nfile_path = 'irds:antique/test'
+dataset_pisa = pt.get_dataset(file_path)
+idx = PisaIndex('./pisa-antique-index')
+idx.index(dataset_pisa.get_corpus_iter())\n''',
+    'none': ''
+}
