@@ -145,12 +145,21 @@ preset_parameters = {
 }
 
 
-def generate_base_code(template_name: str):
+def generate_base_code(base_template_name: str):
+    base = BASE_TEMPLATES[base_template_name]
+    if base != '':
+        base += '\n'
     return f'''import pyterrier as pt
-{BASE_TEMPLATES[template_name]}
-\nif not pt.started():
+{base}
+if not pt.started():
     pt.init()
-\n'''
+'''
+
+def generate_index_code(index_template_name: str):
+    index = INDEX_TEMPLATES[index_template_name]
+     if index != '':
+        index += '\n'
+    return index
 
 
 def generate_columns(cls: type) -> List[IColumns]:
@@ -205,7 +214,7 @@ def generate_api_response(result: List, input: List, pipeline: str, base_templat
     return ({
         'result': result,
         'code': f'''{generate_base_code(base_template)}\n
-{BASE_INDEXES[index_template]}\n
+{generate_index_code(index_template)}
 input = {input_str}\n
 pipeline = {pipeline}
 result = pipeline(input)'''

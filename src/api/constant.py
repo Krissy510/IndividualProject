@@ -17,7 +17,7 @@ BASE_TEMPLATES = {
 }
 
 
-BASE_INDEXES = {
+INDEX_TEMPLATES = {
     'default': '''dataset = pt.get_dataset('irds:vaswani')
 indexer = pt.IterDictIndexer('./vaswani.terrier')
 indexref = indexer.index(dataset.get_corpus_iter())
