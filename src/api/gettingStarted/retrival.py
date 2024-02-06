@@ -17,12 +17,12 @@ router = APIRouter()
 
 # Sample data
 RETREIVE_SAMPLE = [
-    {"qid": "0", "query": "how to retrieve text"},
-    {"qid": "1", "query": "what is an inverted index"},
+    {'qid': '0', 'query': 'how to retrieve text'},
+    {'qid': '1', 'query': 'what is an inverted index'},
 ]
 
 # Interactive feature GET API
-@router.get("/retreive")
+@router.get('/retreive')
 def get_terrier_retreive_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(RETREIVE_SAMPLE,
                                       RetrieveRequest,
@@ -30,15 +30,13 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
                                       )
 
 # POST API start here!
-@router.post("/retreive")
+@router.post('/retreive')
 def terrier_retreive(request: RetrieveRequest) -> ApiResponse:
     result = pt.BatchRetrieve(index,
                               num_results=request.num_results,
                               wmodel=request.wmodel)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f"""pt.BatchRetrieve.from_dataset(index,
-            num_results={repr(request.num_results)},
-            wmodel={repr(request.wmodel)})"""
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'pt.BatchRetrieve(index, num_results={repr(request.num_results)}, wmodel={repr(request.wmodel)})',
     )
