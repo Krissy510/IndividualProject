@@ -144,9 +144,10 @@ def get_reset_stash_fields() -> InteractiveFeatureProps:
 def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
     result = pt.rewrite.SequentialDependence()(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        'pt.rewrite.SequentialDependence()'
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline='pt.rewrite.SequentialDependence()',
+        index_template='none'
     )
 
 
@@ -155,9 +156,9 @@ def bo1(request: Bo1Request) -> ApiResponse:
     result = pt.rewrite.Bo1QueryExpansion(index, fb_docs=request.fb_docs,
                                           fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f'pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
     )
 
 
@@ -166,9 +167,9 @@ def kl(request: KLRequest) -> ApiResponse:
     result = pt.rewrite.KLQueryExpansion(index, fb_docs=request.fb_docs,
                                          fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f'pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'pt.rewrite.KLQueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
     )
 
 
@@ -177,9 +178,9 @@ def rm3(request: RM3Request):
     result = pt.rewrite.RM3(index, fb_docs=request.fb_docs,
                             fb_terms=request.fb_terms, fb_lambda=request.fb_lambda)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f'pt.rewrite.RM3(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms}, fb_lambda={request.fb_lambda})'
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'pt.rewrite.RM3(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms}, fb_lambda={request.fb_lambda})'
     )
 
 
@@ -188,9 +189,9 @@ def axiomatic(request: AxiomaticRequest):
     result = pt.rewrite.AxiomaticQE(index, fb_docs=request.fb_docs,
                                     fb_terms=request.fb_terms)(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        f'pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline=f'pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
     )
 
 
@@ -198,9 +199,10 @@ def axiomatic(request: AxiomaticRequest):
 def qe_reset(request: QEResetRequest) -> ApiResponse:
     result = pt.rewrite.reset()(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        'pt.rewrite.reset()'
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline='pt.rewrite.reset()',
+        index_template='none'
     )
 
 
@@ -208,9 +210,10 @@ def qe_reset(request: QEResetRequest) -> ApiResponse:
 def tokenise(request: TokeniseRequest) -> ApiResponse:
     result = pt.rewrite.tokenise()(request.input)
     return generate_api_response(
-        result.to_dict('records'),
-        request.input,
-        'pt.rewrite.tokenise()'
+        result=result.to_dict('records'),
+        input=request.input,
+        pipeline='pt.rewrite.tokenise()',
+        index_template='none'
     )
 
 
@@ -221,9 +224,10 @@ def stash(request: StashRequest) -> ApiResponse:
     for result in results:
         result['stashed_results_0'] = repr(result['stashed_results_0'])
     return generate_api_response(
-        results,
-        request.input,
-        'pt.rewrite.tokenise()'
+        result=results,
+        input=request.input,
+        pipeline='pt.rewrite.stash_results()',
+        index_template='none'
     )
 
 
@@ -235,7 +239,8 @@ def reset_stash(request: ResetStashRequest) -> ApiResponse:
     results = pt.rewrite.reset_results()(rows)
     results = results.to_dict('records')
     return generate_api_response(
-        results,
-        rows,
-        'pt.rewrite.tokenise()'
+        result=results,
+        input=rows,
+        pipeline='pt.rewrite.reset_results()',
+        index_template='none'
     )
