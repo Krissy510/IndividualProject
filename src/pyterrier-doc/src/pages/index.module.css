@@ -12,7 +12,7 @@
 }
 
 [data-theme='dark'] .heroBanner {
-  background-color: #373030;
+  background-color: rgb(37, 37, 37);
 }
 
 @media screen and (max-width: 996px) {
