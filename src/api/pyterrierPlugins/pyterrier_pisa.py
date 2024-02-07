@@ -18,8 +18,8 @@ idx = PisaIndex(folder_path)
 
 # Sample data
 QUERY_SAMPLE = [
-    {'qid': '0', 'query': 'how to retrieve text'},
-    {'qid': '1', 'query': 'what is an inverted index'}
+    {'qid': '0', 'query': 'Cola'},
+    {'qid': '1', 'query': 'Sample'}
 ]
 
 # API implementation starts here
