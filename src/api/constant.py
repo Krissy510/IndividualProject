@@ -22,6 +22,9 @@ INDEX_TEMPLATES = {
 indexer = pt.IterDictIndexer('./vaswani.terrier')
 indexref = indexer.index(dataset.get_corpus_iter())
 index = pt.IndexFactory.of(indexref)''',
-    'PISA': "file_path = 'irds:antique/test'\ndataset_pisa = pt.get_dataset(file_path)\nidx = PisaIndex('./pisa-antique-index')\nidx.index(dataset_pisa.get_corpus_iter())",
+    'PISA': '''file_path = 'irds:antique/test'
+dataset_pisa = pt.get_dataset(file_path)
+idx = PisaIndex('./pisa-antique-index')
+idx.index(dataset_pisa.get_corpus_iter())''',
     'none': ''
 }
