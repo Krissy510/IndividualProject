@@ -149,16 +149,12 @@ def generate_base_code(base_template_name: str):
     base = BASE_TEMPLATES[base_template_name]
     if base != '':
         base += '\n'
-    return f'''import pyterrier as pt
-{base}
-if not pt.started():
-    pt.init()
-'''
+    return f'import pyterrier as pt\n{base}\nif not pt.started():\n\tpt.init()\n'
 
 def generate_index_code(index_template_name: str):
     index = INDEX_TEMPLATES[index_template_name]
     if index != '':
-        index += '\n'
+        index += '\n\n'
     return index
 
 
@@ -210,12 +206,9 @@ def generate_multi_interactive_props(optionsName: List[str], defaultOption: str,
 
 
 def generate_api_response(result: List, input: List, pipeline: str, base_template: str = 'none', index_template: str = 'default') -> ApiResponse:
-    input_str = '[\n' + ',\n'.join(map(str, input)) + '\n]'
+    input_str = '[\n' + ',\n'.join(map(str, input)) + '\n]\n'
+    generated_code = f'{generate_base_code(base_template)}\n{generate_index_code(index_template)}input = {input_str}\npipeline = {pipeline}\nresult = pipeline(input)'
     return ({
         'result': result,
-        'code': f'''{generate_base_code(base_template)}\n
-{generate_index_code(index_template)}
-input = {input_str}\n
-pipeline = {pipeline}
-result = pipeline(input)'''
+        'code': generated_code
     })
