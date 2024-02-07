@@ -4,7 +4,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { Box, Button, CircularProgress, IconButton } from "@mui/material";
 import { DataGrid, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PipelineOutputProps } from "./model";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
