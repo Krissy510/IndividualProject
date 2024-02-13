@@ -1,5 +1,6 @@
 import pyterrier as pt
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from jnius import JavaException
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
@@ -142,24 +143,30 @@ def get_reset_stash_fields() -> InteractiveFeatureProps:
 # POST API start here!
 @router.post('/rewrite/sequential-dependence')
 def sequential_dependence(request: SequentialDependenceRequest) -> ApiResponse:
-    result = pt.rewrite.SequentialDependence()(request.input)
-    return generate_api_response(
-        result=result.to_dict('records'),
-        input=request.input,
-        pipeline='pt.rewrite.SequentialDependence()',
-        index_template='none'
-    )
+    try:
+        result = pt.rewrite.SequentialDependence()(request.input)
+        return generate_api_response(
+            result=result.to_dict('records'),
+            input=request.input,
+            pipeline='pt.rewrite.SequentialDependence()',
+            index_template='none'
+        )
+    except:
+        raise HTTPException(status_code=400, detail="INVALID_INPUT")
 
 
 @router.post('/rewrite/bo1')
 def bo1(request: Bo1Request) -> ApiResponse:
-    result = pt.rewrite.Bo1QueryExpansion(index, fb_docs=request.fb_docs,
-                                          fb_terms=request.fb_terms)(request.input)
-    return generate_api_response(
-        result=result.to_dict('records'),
-        input=request.input,
-        pipeline=f'pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
-    )
+    try:
+        result = pt.rewrite.Bo1QueryExpansion(index, fb_docs=request.fb_docs,
+                                              fb_terms=request.fb_terms)(request.input)
+        return generate_api_response(
+            result=result.to_dict('records'),
+            input=request.input,
+            pipeline=f'pt.rewrite.Bo1QueryExpansion(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
+        )
+    except:
+        raise HTTPException(status_code=400, detail="INVALID_INPUT")
 
 
 @router.post('/rewrite/kl')
@@ -186,13 +193,16 @@ def rm3(request: RM3Request):
 
 @router.post('/rewrite/axiomatic')
 def axiomatic(request: AxiomaticRequest):
-    result = pt.rewrite.AxiomaticQE(index, fb_docs=request.fb_docs,
-                                    fb_terms=request.fb_terms)(request.input)
-    return generate_api_response(
-        result=result.to_dict('records'),
-        input=request.input,
-        pipeline=f'pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
-    )
+    try:
+        result = pt.rewrite.AxiomaticQE(index, fb_docs=request.fb_docs,
+                                        fb_terms=request.fb_terms)(request.input)
+        return generate_api_response(
+            result=result.to_dict('records'),
+            input=request.input,
+            pipeline=f'pt.rewrite.AxiomaticQE(index, fb_docs={request.fb_docs}, fb_terms={request.fb_terms})'
+        )
+    except:
+        raise HTTPException(status_code=400, detail="INVALID_INPUT")
 
 
 @router.post('/rewrite/reset')

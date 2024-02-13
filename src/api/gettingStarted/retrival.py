@@ -1,7 +1,8 @@
 from typing import List
 
 import pyterrier as pt
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from jnius import JavaException
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
@@ -32,11 +33,14 @@ def get_terrier_retreive_fields() -> InteractiveFeatureProps:
 # POST API start here!
 @router.post('/retreive')
 def terrier_retreive(request: RetrieveRequest) -> ApiResponse:
-    result = pt.BatchRetrieve(index,
-                              num_results=request.num_results,
-                              wmodel=request.wmodel)(request.input)
-    return generate_api_response(
-        result=result.to_dict('records'),
-        input=request.input,
-        pipeline=f'pt.BatchRetrieve(index, num_results={repr(request.num_results)}, wmodel={repr(request.wmodel)})',
-    )
+    try:
+        result = pt.BatchRetrieve(index,
+                                  num_results=request.num_results,
+                                  wmodel=request.wmodel)(request.input)
+        return generate_api_response(
+            result=result.to_dict('records'),
+            input=request.input,
+            pipeline=f'pt.BatchRetrieve(index, num_results={repr(request.num_results)}, wmodel={repr(request.wmodel)})',
+        )
+    except JavaException:
+        raise HTTPException(status_code=400, detail="INVALID_INPUT")

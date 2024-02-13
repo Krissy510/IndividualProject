@@ -1,5 +1,5 @@
 import pyterrier as pt
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
@@ -85,27 +85,30 @@ def get_max_passage_fields() -> InteractiveFeatureProps:
 # POST API start here!
 @router.post('/text-sliding')
 def text_sliding(request: TextSlidingRequest) -> ApiResponse:
-    result = pt.text.sliding(length=request.length,
-                             stride=request.stride,
-                             prepend_title=False)(request.input)
-    return generate_api_response(
-        result=result.to_dict('records'),
-        input=request.input,
-        pipeline=f'pt.text.sliding(length={request.length},stride={request.stride},prepend_title=False)',
-        index_template='none'
+        result = pt.text.sliding(length=request.length,
+                                 stride=request.stride,
+                                 prepend_title=False)(request.input)
+        return generate_api_response(
+            result=result.to_dict('records'),
+            input=request.input,
+            pipeline=f'pt.text.sliding(length={request.length},stride={request.stride},prepend_title=False)',
+            index_template='none'
         )
-
+    
 
 
 @router.post('/text-scorer')
 def text_scorer(request: TextScorerRequest) -> ApiResponse:
-    result = pt.text.scorer(wmodel=request.wmodel)(request.input)
-    return generate_api_response(
-        result=result.to_dict('records'),
-        input=request.input,
-        pipeline=f'pt.text.scorer(wmodel={repr(request.wmodel)})',
-        index_template='none'
+    try:
+        result = pt.text.scorer(wmodel=request.wmodel)(request.input)
+        return generate_api_response(
+                result=result.to_dict('records'),
+                input=request.input,
+                pipeline=f'pt.text.scorer(wmodel={repr(request.wmodel)})',
+                index_template='none'
         )
+    except:
+        raise HTTPException(status_code=400, detail="INVALID_INPUT")
 
 
 @router.post('/max-passage')
@@ -116,4 +119,4 @@ def max_passage(request: MaxPassageRequest) -> ApiResponse:
         input=request.input,
         pipeline='pt.text.max_passage()',
         index_template='none'
-        )
+    )
