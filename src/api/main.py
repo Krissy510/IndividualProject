@@ -1,6 +1,3 @@
-# Run command
-# uvicorn main:app --host 0.0.0.0 --port 8080 --reload
-
 import pyterrier as pt
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
