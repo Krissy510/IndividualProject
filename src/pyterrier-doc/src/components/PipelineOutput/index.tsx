@@ -1,5 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import CodeIcon from "@mui/icons-material/Code";
+import ErrorIcon from "@mui/icons-material/Error";
+
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { Box, Button, CircularProgress, IconButton } from "@mui/material";
 import { DataGrid, GridRowsProp } from "@mui/x-data-grid";
@@ -12,6 +14,7 @@ import {
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useColorMode } from "@docusaurus/theme-common";
+import { generateErrorMessage } from "../InteractiveFeatures/general";
 
 export default function PipelineOutput({
   defineOutputColumns,
@@ -19,6 +22,7 @@ export default function PipelineOutput({
   displayMode,
   isPostApiProcessing,
   code,
+  outputError,
 }: PipelineOutputProps) {
   const displayRows: GridRowsProp = outputRows.map((row) => {
     return { id: randomId(), ...row };
@@ -52,7 +56,7 @@ export default function PipelineOutput({
         flexDirection: "column",
         padding: 3,
         width: displayMode === "row" ? "50%" : "100%",
-        minHeight: "60vh",
+        minHeight: "30vh",
         maxHeight: "100vh",
       }}
     >
@@ -89,7 +93,7 @@ export default function PipelineOutput({
         >
           <CircularProgress />
         </Box>
-      ) : (
+      ) : outputError === "" ? (
         <>
           {codeExpand ? (
             <Box>
@@ -129,6 +133,21 @@ export default function PipelineOutput({
             />
           )}
         </>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            alignSelf: "center",
+            color: "red",
+            height: "10vh",
+            gap: 1,
+          }}
+        >
+          <ErrorIcon color="error" sx={{ fontSize: "72px" }} />
+          {generateErrorMessage(outputError, "center")}
+        </Box>
       )}
     </Box>
   );

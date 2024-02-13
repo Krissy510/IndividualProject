@@ -26,4 +26,5 @@ export interface PipelineInputProps {
   setParamData: (paramData: Object) => void;
   displayMode: string;
   setGeneratedCode: (code: string) => void;
+  setOutputError: (outputError: string) => void;
 }

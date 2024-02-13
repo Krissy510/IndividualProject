@@ -18,7 +18,7 @@ import {
   GridToolbarContainer,
 } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { NumberField } from "./NumberField";
 import { SelectField } from "./SelectField";
@@ -37,6 +37,7 @@ export default function PipelineInput({
   displayMode,
   setGeneratedCode,
   setParamData,
+  setOutputError,
 }: PipelineInputProps) {
   useEffect(() => {
     setParamData(
@@ -121,17 +122,24 @@ export default function PipelineInput({
 
     setIsApiProcessing(true);
 
-    console.log(request);
-
     axios
       .post(apiUrl, request)
       .then((responese) => {
-        if (responese.status === 200) {
-          setOutputRows(responese.data.result);
-          setGeneratedCode(responese.data.code);
+        setOutputError("");
+        setOutputRows(responese.data.result);
+        setGeneratedCode(responese.data.code);
+      })
+      .catch((err: Error | AxiosError) => {
+        if (axios.isAxiosError(err)) {
+          if (err.response) {
+            setOutputError(err.response.status.toString());
+          } else {
+            setOutputError(err.code);
+          }
+        } else {
+          console.log(err.message);
         }
       })
-      .catch((error) => {})
       .finally(() => {
         setIsApiProcessing(false);
       });

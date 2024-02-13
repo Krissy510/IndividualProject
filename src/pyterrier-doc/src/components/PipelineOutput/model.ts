@@ -6,4 +6,5 @@ export interface PipelineOutputProps {
   displayMode: string;
   isPostApiProcessing: boolean;
   code: string;
+  outputError: string;
 }

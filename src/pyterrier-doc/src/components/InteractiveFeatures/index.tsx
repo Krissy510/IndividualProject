@@ -1,3 +1,4 @@
+import ErrorIcon from "@mui/icons-material/Error";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import SplitscreenIcon from "@mui/icons-material/Splitscreen";
 import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
@@ -6,10 +7,11 @@ import Box from "@mui/material/Box";
 import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
 import PipelineInput from "@site/src/components/PipelineInput";
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import PipelineOutput from "../PipelineOutput";
-import { InteractiveFeatureProps } from "./model";
+import { generateErrorMessage, isPropValid } from "./general";
+import { InteractiveFeatureProps, ResponseProps } from "./model";
 
 export default function InteractiveFeature({
   apiUrl,
@@ -29,6 +31,8 @@ export default function InteractiveFeature({
   const [options, setOptions] = useState({});
   const [isMulti, setIsMulti] = useState(false);
   const [paramData, setParamData] = useState({});
+  const [inputError, setInputError] = useState("");
+  const [outputError, setOutputError] = useState("");
 
   const updateState = (data: object) => {
     setInputRows(
@@ -51,23 +55,40 @@ export default function InteractiveFeature({
 
   // Initial load
   useEffect(() => {
-    if (displayInteractive && inputColumns.length === 0) {
+    if (isMulti) {
+      updateState(options[paramData["type"]]);
+      setOutputRows([]);
+    }
+  }, [paramData]);
+
+  const handleTryButton = () => {
+    setDisplayInteractive(true);
+    if (inputColumns.length === 0) {
       setIsPageLoading(true);
       axios
-        .get(apiUrl)
-        .then((response) => {
+        .get<ResponseProps>(apiUrl)
+        .then((response: AxiosResponse<ResponseProps>) => {
           const data = response.data;
-          setParameters(data["parameters"]);
-          if (data.hasOwnProperty("options")) {
-            setOptions(data.options);
-            setIsMulti(true);
+          if (isPropValid(data)) {
+            setParameters(data["parameters"]);
+            if (data.hasOwnProperty("options")) {
+              setOptions(data.options);
+              setIsMulti(true);
+            } else {
+              updateState(data);
+            }
+            setInputError("");
           } else {
-            updateState(data);
+            throw new Error("INVALID_RESPONSE_PROPS");
           }
         })
-        .catch((error) => {
-          // Console log for now will add exception handeling later.
-          console.log(`GET request to ${apiUrl} failed!`);
+        .catch((err: Error | AxiosError) => {
+          setDisplayInteractive(false);
+          if (axios.isAxiosError(err)) {
+            setInputError(err.code);
+          } else {
+            setInputError(err.message);
+          }
         })
         .finally(() => {
           // For testing only
@@ -77,17 +98,6 @@ export default function InteractiveFeature({
           setIsPageLoading(false);
         });
     }
-  }, [displayInteractive]);
-
-  useEffect(() => {
-    if (isMulti) {
-      updateState(options[paramData["type"]]);
-      setOutputRows([]);
-    }
-  }, [paramData]);
-
-  const handleTryButton = () => {
-    setDisplayInteractive(!displayInteractive);
   };
 
   return displayInteractive ? (
@@ -107,7 +117,9 @@ export default function InteractiveFeature({
             }}
           >
             <IconButton
-              onClick={handleTryButton}
+              onClick={() => {
+                setDisplayInteractive(false);
+              }}
               aria-label="collapse-interactive"
             >
               <ExpandLessIcon />
@@ -151,6 +163,7 @@ export default function InteractiveFeature({
               setGeneratedCode={setGeneratedCode}
               paramData={paramData}
               setParamData={setParamData}
+              setOutputError={setOutputError}
             />
             <PipelineOutput
               outputRows={outputRows}
@@ -158,20 +171,45 @@ export default function InteractiveFeature({
               displayMode={displayMode}
               isPostApiProcessing={isPostApiProcessing}
               code={generatedCode}
+              outputError={outputError}
             />
           </Box>
         </Box>
       )}
     </Box>
   ) : (
-    <Button
-      onClick={handleTryButton}
-      variant="contained"
-      sx={{
-        marginBottom: 2,
-      }}
-    >
-      Try!
-    </Button>
+    <Box>
+      {inputError === "" ? (
+        <></>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "cols",
+            color: "red",
+            gap: 1,
+            border: "1px solid #7E7E7E",
+            borderRadius: 5,
+            paddingX: 2,
+            paddingY: 1,
+            marginBottom: 2,
+          }}
+        >
+          <ErrorIcon color={"error"} />
+          {generateErrorMessage(inputError, "left")}
+        </Box>
+      )}
+
+      <Button
+        onClick={handleTryButton}
+        variant="contained"
+        sx={{
+          marginBottom: 2,
+        }}
+        color={inputError === "" ? "primary" : "error"}
+      >
+        {inputError === "" ? "Try!" : "Retry!"}
+      </Button>
+    </Box>
   );
 }
