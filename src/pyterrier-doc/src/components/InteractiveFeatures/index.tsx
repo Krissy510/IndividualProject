@@ -186,7 +186,6 @@ export default function InteractiveFeature({
           sx={{
             display: "flex",
             flexDirection: "cols",
-            color: "red",
             gap: 1,
             border: "1px solid #7E7E7E",
             borderRadius: 5,
@@ -195,7 +194,7 @@ export default function InteractiveFeature({
             marginBottom: 2,
           }}
         >
-          <ErrorIcon color={"error"} />
+          <ErrorIcon sx={{ fill: "red" }} />
           {generateErrorMessage(inputError, "left")}
         </Box>
       )}

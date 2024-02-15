@@ -59,3 +59,20 @@
   border: none;
 }
 
+.dsla-search-wrapper{
+  width: 10rem;
+}
+
+
+[data-theme='dark'] .text--link {
+  color: var(--ifm-color-primary-lightest);
+}
+
+.error--elements {
+  color: red;
+}
+
+[data-theme='dark'] .error--elements {
+  color: rgb(250, 96, 96);
+  font-weight: bold;
+}
