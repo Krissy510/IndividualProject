@@ -31,14 +31,14 @@ idx.index(dataset_pisa.get_corpus_iter())''',
 
 # Define a mapping of field names to their widths
 FIELD_WIDTHS = {
-    'qid': 30,
+    'qid': 80,
     'query': 200,
     'query_0': 200,
     'docno': 80,
     'body': 300,
     'text': 300,
     'score': 80,
-    'rank': 30,
+    'rank': 80,
     'stashed_results_0': 300,
     'query_vec': 300,
     'doc_vec': 300,
