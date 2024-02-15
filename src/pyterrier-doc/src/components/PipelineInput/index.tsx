@@ -34,7 +34,6 @@ export default function PipelineInput({
   setOutputRows,
   isPostApiProcessing,
   setIsApiProcessing,
-  displayMode,
   setGeneratedCode,
   setParamData,
   setOutputError,
@@ -259,7 +258,7 @@ export default function PipelineInput({
         display: "flex",
         flexDirection: "column",
         gap: 3,
-        width: displayMode === "row" ? "50%" : "100%",
+        width: "100%",
       }}
     >
       <Box

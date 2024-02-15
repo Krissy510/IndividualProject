@@ -19,7 +19,6 @@ import { generateErrorMessage } from "../InteractiveFeatures/general";
 export default function PipelineOutput({
   defineOutputColumns,
   outputRows,
-  displayMode,
   isPostApiProcessing,
   code,
   outputError,
@@ -55,7 +54,7 @@ export default function PipelineOutput({
         display: "flex",
         flexDirection: "column",
         padding: 3,
-        width: displayMode === "row" ? "50%" : "100%",
+        width: "100%",
         minHeight: "30vh",
         maxHeight: "100vh",
       }}

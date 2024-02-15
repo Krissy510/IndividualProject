@@ -24,7 +24,6 @@ export default function InteractiveFeature({
   const [parameters, setParameters] = useState([]);
   const [isPostApiProcessing, setIsApiProcessing] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(false);
-  const [displayMode, setDisplayMode] = useState("column");
   const [outputRows, setOutputRows] = useState([]);
   const [displayInteractive, setDisplayInteractive] = useState(false);
   const [generatedCode, setGeneratedCode] = useState<string>("");
@@ -112,42 +111,9 @@ export default function InteractiveFeature({
             sx={{
               width: "100%",
               display: "flex",
-              justifyContent: "space-between",
-              marginBottom: 1,
-            }}
-          >
-            <IconButton
-              onClick={() => {
-                setDisplayInteractive(false);
-              }}
-              aria-label="collapse-interactive"
-            >
-              <ExpandLessIcon />
-            </IconButton>
-            <Box>
-              <IconButton
-                color="primary"
-                disabled={displayMode === "row"}
-                onClick={() => setDisplayMode("row")}
-              >
-                <VerticalSplitIcon />
-              </IconButton>
-
-              <IconButton
-                color="primary"
-                disabled={displayMode === "column"}
-                onClick={() => setDisplayMode("column")}
-              >
-                <SplitscreenIcon />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: displayMode,
+              flexDirection: "column",
               gap: 3,
-              marginRight: displayMode === "row" ? 3 : 0,
+              marginRight: 0,
             }}
           >
             <PipelineInput
@@ -159,7 +125,6 @@ export default function InteractiveFeature({
               setOutputRows={setOutputRows}
               isPostApiProcessing={isPostApiProcessing}
               setIsApiProcessing={setIsApiProcessing}
-              displayMode={displayMode}
               setGeneratedCode={setGeneratedCode}
               paramData={paramData}
               setParamData={setParamData}
@@ -168,7 +133,6 @@ export default function InteractiveFeature({
             <PipelineOutput
               outputRows={outputRows}
               defineOutputColumns={defineOutputColumns}
-              displayMode={displayMode}
               isPostApiProcessing={isPostApiProcessing}
               code={generatedCode}
               outputError={outputError}

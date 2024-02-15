@@ -24,7 +24,6 @@ export interface PipelineInputProps {
   isPostApiProcessing: boolean;
   setIsApiProcessing: (isPostApiProcessing: boolean) => void;
   setParamData: (paramData: Object) => void;
-  displayMode: string;
   setGeneratedCode: (code: string) => void;
   setOutputError: (outputError: string) => void;
 }
