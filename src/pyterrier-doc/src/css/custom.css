@@ -76,3 +76,7 @@
   color: rgb(250, 96, 96);
   font-weight: bold;
 }
+
+[data-theme='dark'] .MuiDataGrid-menuList {
+  background-color: #636363;
+}
