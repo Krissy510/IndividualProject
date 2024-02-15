@@ -41,7 +41,7 @@ function HomepageHeader() {
 
           <Link
             className="button button--secondary button--lg text-color"
-            to="/docs/intro"
+            to="https://github.com/Krissy510/IndividualProject/tree/main/src/"
           >
             <div className="flex center gap--5">
               <IoLibraryOutline />
