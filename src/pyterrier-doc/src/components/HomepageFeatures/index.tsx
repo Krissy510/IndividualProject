@@ -4,6 +4,7 @@ import styles from "./styles.module.css";
 import { BiLabel } from "react-icons/bi";
 import { TbCodePlus } from "react-icons/tb";
 import { BsGithub } from "react-icons/bs";
+import { Link } from "@mui/material";
 
 type FeatureItem = {
   title: string;
@@ -17,11 +18,14 @@ const FeatureList: FeatureItem[] = [
     Svg: <BsGithub size={100} />,
     description: (
       <>
-        PyTerrier is free and{" "}
-        <a href="https://github.com/terrier-org/pyterrier" target="_blank">
-          open source
+        <a
+          href="https://github.com/terrier-org/pyterrier"
+          target="_blank"
+          className="text--link"
+        >
+          PyTerrier
         </a>{" "}
-        , enabling transparency and reproducibility.
+        is free and open source , enabling transparency and reproducibility.
       </>
     ),
   },
