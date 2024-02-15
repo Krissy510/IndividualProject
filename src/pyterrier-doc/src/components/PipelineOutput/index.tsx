@@ -42,7 +42,7 @@ export default function PipelineOutput({
       })
       .catch((err) => {
         // Handle error
-        console.error("Error copying text: ", err);
+        alert("Error copying text: ");
       });
   };
 
