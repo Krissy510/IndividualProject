@@ -24,23 +24,23 @@ function HomepageHeader() {
         <div className="flex center gap--10">
           <Link className="button button--primary button--lg" to="/docs/intro">
             <div className="flex center gap--5">
-              <FiCompass />
-              Get Started
+              <FiCompass className="text" />
+              <span className="text">Get Started</span>
             </div>
           </Link>
           <a
-            className="button button--secondary button--lg text-color"
+            className="button button--secondary button--lg text"
             href="https://github.com/terrier-org/pyterrier"
             target="_blank"
           >
             <div className="flex center gap--5">
-              <BsGithub />
-              Source Code
+              <BsGithub className="text" />
+              <span className="text">Source Code</span>
             </div>
           </a>
 
           <Link
-            className="button button--secondary button--lg text-color"
+            className="button button--secondary button--lg text"
             to="https://github.com/Krissy510/IndividualProject/tree/main/src/"
           >
             <div className="flex center gap--5">

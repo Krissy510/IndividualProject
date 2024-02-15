@@ -76,7 +76,11 @@ export default function PipelineOutput({
             setCodeExpand(!codeExpand);
           }}
         >
-          {codeExpand ? <CloseIcon /> : <CodeIcon />}
+          {codeExpand ? (
+            <CloseIcon className="icon" />
+          ) : (
+            <CodeIcon className="icon" />
+          )}
         </IconButton>
       </Box>
       {isPostApiProcessing ? (

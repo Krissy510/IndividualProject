@@ -179,34 +179,27 @@ export default function PipelineInput({
             <GridActionsCellItem
               icon={<SaveIcon />}
               label="Save"
-              sx={{
-                color: "primary.main",
-              }}
+              style={{ color: "#4472C4" }}
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
-              icon={<CancelIcon />}
+              icon={<CancelIcon className="icon" />}
               label="Cancel"
-              className="textPrimary"
               onClick={handleCancelClick(id)}
-              color="inherit"
             />,
           ];
         }
 
         return [
           <GridActionsCellItem
-            icon={<EditIcon />}
+            icon={<EditIcon className="icon" />}
             label="Edit"
-            className="textPrimary"
             onClick={handleEditClick(id)}
-            color="inherit"
           />,
           <GridActionsCellItem
-            icon={<DeleteIcon />}
+            icon={<DeleteIcon className="icon" />}
             label="Delete"
             onClick={handleDeleteClick(id)}
-            color="inherit"
           />,
         ];
       },
@@ -240,11 +233,11 @@ export default function PipelineInput({
       <GridToolbarContainer>
         <Button
           color="primary"
-          startIcon={<AddIcon />}
+          startIcon={<AddIcon className="icon" />}
           onClick={handleClick}
           disabled={inputRows.length > 100}
         >
-          Add Query
+          <span className="text">Add Query</span>
         </Button>
       </GridToolbarContainer>
     );

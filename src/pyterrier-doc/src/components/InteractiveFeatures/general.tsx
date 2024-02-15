@@ -53,7 +53,11 @@ export const generateErrorMessage = (
       break;
   }
 
-  return <p className="error--elements">{errorMessage}</p>;
+  return (
+    <p className="error--elements" style={{ textAlign }}>
+      {errorMessage}
+    </p>
+  );
 };
 
 export const isPropValid = (data: object): boolean => {
