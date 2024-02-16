@@ -29,7 +29,7 @@ app.include_router(pyterrier_pisa.router)
 ###### CORS ###########
 # Whilist
 origins = [
-    'https://pyterrier-documentation.vercel.app',
+    'http://localhost:3000',
 ]
 
 # Config
