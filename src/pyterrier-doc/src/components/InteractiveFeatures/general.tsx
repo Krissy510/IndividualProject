@@ -1,8 +1,9 @@
 import { ReactElement } from "react";
+import { Property } from "csstype";
 
 export const generateErrorMessage = (
   errCode: string,
-  textAlign
+  textAlign: Property.TextAlign
 ): ReactElement => {
   let errorMessage;
 
