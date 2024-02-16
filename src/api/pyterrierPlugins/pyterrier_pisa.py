@@ -12,7 +12,7 @@ from pyterrier_pisa import PisaIndex
 
 pyterrier_init()
 
-folder_path = './index'
+folder_path = './pisa-antique-index'
 
 idx = PisaIndex(folder_path)
 
@@ -91,7 +91,7 @@ def pisa_pl2(request: PisaPl2Request) -> ApiResponse:
         f"idx.pl2(c={request.c})"
     )
 
-@router.post('/plugins/pisa/bm25')
+@router.post('/plugins/pisa/qld')
 def pisa_qld(request: PisaQldRequest) -> ApiResponse:
     result = idx.qld(mu=request.mu)(request.input)
     return generate_api_response(
