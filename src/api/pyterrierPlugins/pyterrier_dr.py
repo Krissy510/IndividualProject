@@ -1,3 +1,5 @@
+import sys
+
 import pyterrier as pt
 from fastapi import APIRouter
 from pyterrier_dr import Ance, Query2Query, TasB, TctColBert
@@ -5,10 +7,13 @@ from pyterrier_dr import Ance, Query2Query, TasB, TctColBert
 from generate import (generate_api_response, generate_interactive_props,
                       generate_multi_interactive_props)
 from helper import pyterrier_init
-from model import (ApiResponse, DrDocumentRequest, DrDocumentResult,
-                   DrQueryRequest, DrQueryResult, DrMultiRequest, DrScorerRequest,
-                   DrScorerResult, InteractiveFeatureProps,
-                   MultiInteractiveFeatureProps)
+
+sys.path.append("..")
+from models.frontend import (ApiResponse, InteractiveFeatureProps,
+                             MultiInteractiveFeatureProps)
+from models.request import (DrDocumentRequest, DrMultiRequest, DrQueryRequest,
+                            DrScorerRequest)
+from models.result import DrDocumentResult, DrQueryResult, DrScorerResult
 
 pyterrier_init()
 

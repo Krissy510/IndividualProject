@@ -26,12 +26,12 @@ Note: The module also includes imports, constants, and presets necessary for its
 
 Make sure to review and customize the PRESET_PARAMETERS dictionary according to your specific requirements before using the module in your project.
 """
+from typing import Dict, List, get_type_hints
 
-from enum import Enum
-from typing import Dict, List, Tuple, TypedDict, get_type_hints
-
-from model import *
 from constant import *
+from models.frontend import (ApiResponse, IColumns, InteractiveFeatureProps,
+                             IParameters, MultiInteractiveFeatureProps)
+
 
 def generate_base_code(base_template_name: str):
     base = BASE_TEMPLATES[base_template_name]
@@ -42,6 +42,7 @@ def generate_base_code(base_template_name: str):
 if not pt.started():
     pt.init()
 '''
+
 
 def generate_index_code(index_template_name: str):
     index = INDEX_TEMPLATES[index_template_name]

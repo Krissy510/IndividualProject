@@ -1,15 +1,24 @@
+import sys
+
 import pyterrier as pt
 from fastapi import APIRouter, HTTPException
 from jnius import JavaException
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import (ApiResponse, AxiomaticRequest, AxiomaticResult, Bo1Request,
-                   Bo1Result, InteractiveFeatureProps, KLRequest, KLResult,
-                   QEResetRequest, Query, ResetStashRequest, ResetStashResult,
-                   RM3Request, RM3Result, SequentialDependenceRequest,
-                   SequentialDependenceResult, StashRequest, StashResult,
-                   TokeniseRequest, TokeniseResult)
+
+sys.path.append("..")
+
+from models.base import Query
+from models.frontend import ApiResponse, InteractiveFeatureProps
+from models.request import (AxiomaticRequest, Bo1Request, KLRequest,
+                            QEResetRequest, ResetStashRequest, RM3Request,
+                            SequentialDependenceRequest, StashRequest,
+                            TokeniseRequest)
+from models.result import (AxiomaticResult, Bo1Result, KLResult,
+                           ResetStashResult, RM3Result,
+                           SequentialDependenceResult, StashResult,
+                           TokeniseResult)
 
 pyterrier_init()
 

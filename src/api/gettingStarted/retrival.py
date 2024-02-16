@@ -1,3 +1,4 @@
+import sys
 from typing import List
 
 import pyterrier as pt
@@ -6,7 +7,13 @@ from jnius import JavaException
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import ApiResponse, InteractiveFeatureProps, Result, RetrieveRequest
+
+sys.path.append("..")
+
+from models.request import RetrieveRequest
+
+from models.base import Result
+from models.frontend import ApiResponse, InteractiveFeatureProps
 
 pyterrier_init()
 

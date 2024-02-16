@@ -1,12 +1,18 @@
+import sys
+
 import pyterrier as pt
 from fastapi import APIRouter, HTTPException
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import (ApiResponse, InteractiveFeatureProps, MaxPassageRequest,
-                   MaxPassageResult, Result, RetrieveRequest,
-                   TextScorerRequest, TextScorerResult, TextSlidingRequest,
-                   TextSlidingResult)
+
+sys.path.append("..")
+
+from models.base import Result
+from models.frontend import ApiResponse, InteractiveFeatureProps
+from models.request import (MaxPassageRequest, RetrieveRequest,
+                            TextScorerRequest, TextSlidingRequest)
+from models.result import MaxPassageResult, TextScorerResult, TextSlidingResult
 
 pyterrier_init()
 

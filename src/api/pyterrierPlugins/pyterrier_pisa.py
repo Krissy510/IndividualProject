@@ -1,11 +1,17 @@
+import sys
+
 import pyterrier as pt
 from fastapi import APIRouter
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import (ApiResponse, InteractiveFeatureProps, PisaBm25Request,
-                   PisaDphRequest, PisaPl2Request, PisaQldRequest,
-                   PisaRetrieveResult)
+
+sys.path.append("..")
+
+from models.frontend import ApiResponse, InteractiveFeatureProps
+from models.request import (PisaBm25Request, PisaDphRequest, PisaPl2Request,
+                            PisaQldRequest)
+from models.result import PisaRetrieveResult
 
 # from pyterrier_pisa import PisaIndex
 
@@ -26,6 +32,8 @@ QUERY_SAMPLE = [
 router = APIRouter()
 
 # Interactive feature GET API
+
+
 @router.get('/plugins/pisa/dph')
 def get_pisa_dph_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
@@ -33,6 +41,7 @@ def get_pisa_dph_fields() -> InteractiveFeatureProps:
         PisaDphRequest,
         PisaRetrieveResult
     )
+
 
 @router.get('/plugins/pisa/bm25')
 def get_pisa_bm25_fields() -> InteractiveFeatureProps:
@@ -42,6 +51,7 @@ def get_pisa_bm25_fields() -> InteractiveFeatureProps:
         PisaRetrieveResult
     )
 
+
 @router.get('/plugins/pisa/pl2')
 def get_pisa_pl2_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(
@@ -49,6 +59,7 @@ def get_pisa_pl2_fields() -> InteractiveFeatureProps:
         PisaPl2Request,
         PisaRetrieveResult
     )
+
 
 @router.get('/plugins/pisa/qld')
 def get_pisa_qld_fields() -> InteractiveFeatureProps:

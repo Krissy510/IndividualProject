@@ -1,10 +1,17 @@
+import sys
+
 import pyterrier as pt
 from fastapi import APIRouter
 from pyterrier_t5 import DuoT5ReRanker, MonoT5ReRanker
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-from model import ApiResponse, InteractiveFeatureProps, T5Request, T5Result
+
+sys.path.append("..")
+from models.request import T5Request
+from models.result import T5Result
+
+from models.frontend import ApiResponse, InteractiveFeatureProps
 
 pyterrier_init()
 
