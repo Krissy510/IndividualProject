@@ -13,14 +13,14 @@ from models.request import (PisaBm25Request, PisaDphRequest, PisaPl2Request,
                             PisaQldRequest)
 from models.result import PisaRetrieveResult
 
-# from pyterrier_pisa import PisaIndex
+from pyterrier_pisa import PisaIndex
 
 
 pyterrier_init()
 
-# folder_path = './index'
+folder_path = './index'
 
-# idx = PisaIndex(folder_path)
+idx = PisaIndex(folder_path)
 
 # Sample data
 QUERY_SAMPLE = [
@@ -70,38 +70,38 @@ def get_pisa_qld_fields() -> InteractiveFeatureProps:
     )
 
 # POST API start here!
-# @router.post('/plugins/pisa/dph')
-# def pisa_dph(request: PisaDphRequest) -> ApiResponse:
-#     result = idx.dph()(request.input)
-#     return generate_api_response(
-#         result.to_dict('records'),
-#         request.input,
-#         f"idx.dph()"
-#     )
+@router.post('/plugins/pisa/dph')
+def pisa_dph(request: PisaDphRequest) -> ApiResponse:
+    result = idx.dph()(request.input)
+    return generate_api_response(
+        result.to_dict('records'),
+        request.input,
+        f"idx.dph()"
+    )
 
-# @router.post('/plugins/pisa/bm25')
-# def pisa_bm25(request: PisaBm25Request) -> ApiResponse:
-#     result = idx.bm25(k1=request.k1,b=request.b)(request.input)
-#     return generate_api_response(
-#         result.to_dict('records'),
-#         request.input,
-#         f"idx.bm25(k1={request.k1},b={request.b})"
-#     )
+@router.post('/plugins/pisa/bm25')
+def pisa_bm25(request: PisaBm25Request) -> ApiResponse:
+    result = idx.bm25(k1=request.k1,b=request.b)(request.input)
+    return generate_api_response(
+        result.to_dict('records'),
+        request.input,
+        f"idx.bm25(k1={request.k1},b={request.b})"
+    )
 
-# @router.post('/plugins/pisa/pl2')
-# def pisa_pl2(request: PisaPl2Request) -> ApiResponse:
-#     result = idx.pl2(c=request.c)(request.input)
-#     return generate_api_response(
-#         result.to_dict('records'),
-#         request.input,
-#         f"idx.pl2(c={request.c})"
-#     )
+@router.post('/plugins/pisa/pl2')
+def pisa_pl2(request: PisaPl2Request) -> ApiResponse:
+    result = idx.pl2(c=request.c)(request.input)
+    return generate_api_response(
+        result.to_dict('records'),
+        request.input,
+        f"idx.pl2(c={request.c})"
+    )
 
-# @router.post('/plugins/pisa/bm25')
-# def pisa_qld(request: PisaQldRequest) -> ApiResponse:
-#     result = idx.qld(mu=request.mu)(request.input)
-#     return generate_api_response(
-#         result.to_dict('records'),
-#         request.input,
-#         f"idx.qld(mu={request.mu})"
-#     )
+@router.post('/plugins/pisa/bm25')
+def pisa_qld(request: PisaQldRequest) -> ApiResponse:
+    result = idx.qld(mu=request.mu)(request.input)
+    return generate_api_response(
+        result.to_dict('records'),
+        request.input,
+        f"idx.qld(mu={request.mu})"
+    )
