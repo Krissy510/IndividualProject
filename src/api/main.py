@@ -11,6 +11,7 @@ pyterrier_init()
 
 app = FastAPI()
 
+###### Router ##############
 # Getting started
 app.include_router(retrival.router)
 app.include_router(query_rewrite_and_expansion.router)
@@ -23,12 +24,15 @@ app.include_router(pyterrier_t5.router)
 app.include_router(pyterrier_dr.router)
 app.include_router(pyterrier_pisa.router)
 
+##############################
+
 ###### CORS ###########
+# Whilist
 origins = [
-    'http://localhost:3000',
-    'http://localhost:8080',
+    'https://pyterrier-documentation.vercel.app',
 ]
 
+# Config
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
