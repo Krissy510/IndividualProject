@@ -7,7 +7,7 @@ from models import (ApiResponse, InteractiveFeatureProps, PisaBm25Request,
                     PisaDphRequest, PisaPl2Request, PisaQldRequest,
                     PisaRetrieveResult)
 
-from pyterrier_pisa import PisaIndex
+# from pyterrier_pisa import PisaIndex
 
 
 pyterrier_init()
