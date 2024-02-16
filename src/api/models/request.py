@@ -98,9 +98,9 @@ class DrScorerRequest(IRequest):
 
 
 class DrMultiRequest(IRequest):
-    # There is some issue with Union type in input. 
-    # Ideally it should be List[Union()]
-    input: List[Union[Query,DocumentText,DrScorerInput]]
+    # There is some issue with Union type in input.
+    # Ideally it should be List[Union[Query,DocumentText,DrScorerInput]] or Union[List[Query],List[DocumentText],List[DrScrorerInput]]
+    input: List
     type: str
     model: str
 
