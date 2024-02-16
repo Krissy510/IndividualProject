@@ -4,7 +4,6 @@ import styles from "./styles.module.css";
 import { BiLabel } from "react-icons/bi";
 import { TbCodePlus } from "react-icons/tb";
 import { BsGithub } from "react-icons/bs";
-import { Link } from "@mui/material";
 
 type FeatureItem = {
   title: string;
@@ -37,7 +36,6 @@ const FeatureList: FeatureItem[] = [
         Provides a rich library of components, which work together through a
         common data model.
       </>
-      // Add link later
     ),
   },
   {

@@ -1,8 +1,5 @@
 import ErrorIcon from "@mui/icons-material/Error";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import SplitscreenIcon from "@mui/icons-material/Splitscreen";
-import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
-import { Button, CircularProgress, IconButton } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
@@ -52,7 +49,6 @@ export default function InteractiveFeature({
     ]);
   };
 
-  // Initial load
   useEffect(() => {
     if (isMulti) {
       updateState(options[paramData["type"]]);
@@ -90,10 +86,6 @@ export default function InteractiveFeature({
           }
         })
         .finally(() => {
-          // For testing only
-          // setTimeout(() => {
-          //   setIsPageLoading(false);
-          // }, 5000);
           setIsPageLoading(false);
         });
     }

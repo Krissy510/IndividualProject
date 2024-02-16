@@ -7,10 +7,10 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     text: {
-      primary: "#ffffff", // White text color
+      primary: "#ffffff",
     },
     primary: {
-      main: "#ffffff", // White border color
+      main: "#ffffff",
     },
   },
 });
@@ -19,7 +19,7 @@ export function NumberField({ data, onChange, setParamValidity }) {
   const [value, setValue] = useState(data.default);
   const isError = !(value > 0);
   const { colorMode, setColorMode } = useColorMode();
-  const theme = colorMode === "dark" ? darkTheme : createTheme(); // Use dark theme if prefers dark mode, otherwise use default theme
+  const theme = colorMode === "dark" ? darkTheme : createTheme();
 
   return (
     <ThemeProvider theme={theme}>

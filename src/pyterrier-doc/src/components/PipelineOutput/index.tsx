@@ -2,19 +2,19 @@ import CloseIcon from "@mui/icons-material/Close";
 import CodeIcon from "@mui/icons-material/Code";
 import ErrorIcon from "@mui/icons-material/Error";
 
+import { useColorMode } from "@docusaurus/theme-common";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { Box, Button, CircularProgress, IconButton } from "@mui/material";
 import { DataGrid, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
 import { useState } from "react";
-import { PipelineOutputProps } from "./model";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
   a11yDark,
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { useColorMode } from "@docusaurus/theme-common";
 import { generateErrorMessage } from "../InteractiveFeatures/general";
+import { PipelineOutputProps } from "./model";
 
 export default function PipelineOutput({
   defineOutputColumns,
@@ -34,14 +34,12 @@ export default function PipelineOutput({
     navigator.clipboard
       .writeText(code)
       .then(() => {
-        // Handle successful copy
         setCopyText("Copied!");
         setTimeout(() => {
           setCopyText("Copy");
         }, 3000);
       })
       .catch((err) => {
-        // Handle error
         alert("Error copying text: ");
       });
   };
