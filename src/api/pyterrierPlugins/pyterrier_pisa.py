@@ -1,17 +1,11 @@
-import sys
-
 import pyterrier as pt
 from fastapi import APIRouter
 
 from generate import generate_api_response, generate_interactive_props
 from helper import pyterrier_init
-
-sys.path.append("..")
-
-from models.frontend import ApiResponse, InteractiveFeatureProps
-from models.request import (PisaBm25Request, PisaDphRequest, PisaPl2Request,
-                            PisaQldRequest)
-from models.result import PisaRetrieveResult
+from models import (ApiResponse, InteractiveFeatureProps, PisaBm25Request,
+                    PisaDphRequest, PisaPl2Request, PisaQldRequest,
+                    PisaRetrieveResult)
 
 from pyterrier_pisa import PisaIndex
 
