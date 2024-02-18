@@ -5,17 +5,31 @@ sidebar_position: 6
 import InteractiveFeature from '@site/src/components/InteractiveFeatures'
 
 # Working with Document Texts
-## Text Sliding
-<InteractiveFeature 
-    apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/text-sliding"
-/>
 
-## Text Scorer
+Many modern retrieval techniques are concerned with operating directly on the text of documents. PyTerrier supports these forms of interactions.
+
+## Indexing and Retrieval of Text in Terrier indices
+
+## Scoring query/text similarity
+### Text Scorer
+This allows scoring of the documents with respect to a query, without creating an index first. This is an alias to `pt.TextScorer()`. Internally, a Terrier memory index is created, before being used for scoring.
 <InteractiveFeature 
     apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/text-scorer"
 />
 
-## Max Passage
+## Working with Passages rather than Documents
+As documents are long, relevant content may only be found in a small portion of the document. Moreover, some models are more suited to operating on small parts of the document. For this reason, passage-based retrieval techniques have been conceived. PyTerrier supports the creation of passages from longer documents, and for the aggregation of scores from these passages.
+
+### Text Sliding
+A useful transformer for splitting long documents into smaller passages within a pipeline. This applies a sliding window over the text, where each passage is the give number of tokens long. Passages can overlap, if the stride is set smaller than the length. In applying this transformer, docnos are altered by adding `‘%p’` and a passage number. The original scores for each document can be recovered by aggregation functions, such as `max_passage()`.
+<InteractiveFeature 
+    apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/text-sliding"
+/>
+
+
+### Max Passage
+Scores each document based on the maximum score of any constituent passage. Applied after a sliding window transformation has been scored.
+
 <InteractiveFeature 
     apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/max-passage"
 />

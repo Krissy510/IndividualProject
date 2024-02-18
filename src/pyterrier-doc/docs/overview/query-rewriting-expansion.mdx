@@ -9,7 +9,21 @@ import InteractiveFeature from '@site/src/components/InteractiveFeatures'
 Query rewriting refers to changing the formulation of the query in order to improve the effectiveness of the search ranking. 
 PyTerrier supplies a number of query rewriting transformers designed to work with BatchRetrieve.
 
+Firstly, we differentiate between two forms of query rewriting:
+- Q -> Q: this rewrites the query, for instance by adding/removing extra query terms. Examples might be a WordNet- or Word2Vec-based QE; The input dataframes contain only `[“qid”, “docno”]` columns. The output dataframes contain `[“qid”, “query”, “query_0”]` columns, where `“query”` contains the reformulated query, and `“query_0”` contains the previous formulation of the query.
+- R -> Q: these class of transformers rewrite a query by making use of an associated set of documents. This is typically exemplifed by pseudo-relevance feedback. Similarly the output dataframes contain `[“qid”, “query”, “query_0”]` columns.
+
+The previous formulation of the query can be restored using pt.rewrite.reset(), discussed below.
+
 ## SequentialDependence
+
+This class implements Metzler and Croft’s sequential dependence model, designed to boost the scores of documents where the query terms occur in close proximity. Application of this transformer rewrites each input query such that:
+- pairs of adjacent query terms are added as #1 and #uw8 complex query terms, with a low weight.
+- the full query is added as #uw12 complex query term, with a low weight.
+- all terms are weighted by a proximity model, either Dirichlet LM or pBiL2.
+
+This transfomer is only compatible with BatchRetrieve, as Terrier supports the #1 and #uwN complex query terms operators. The Terrier index must have blocks (positional information) recorded in the index.
+
 
 <InteractiveFeature 
     apiUrl='https://pyterrier-api-3pxrlcilfa-nw.a.run.app/rewrite/sequential-dependence'
@@ -17,11 +31,15 @@ PyTerrier supplies a number of query rewriting transformers designed to work wit
 
 ## Bo1QueryExpansion
 
+This class applies the Bo1 Divergence from Randomess query expansion model to rewrite the query based on the occurences of terms in the feedback documents provided for each query. In this way, it takes in a dataframe with columns `[“qid”, “query”, “docno”, “score”, “rank”]` and returns a dataframe with `[“qid”, “query”]`.
+
 <InteractiveFeature  
     apiUrl='https://pyterrier-api-3pxrlcilfa-nw.a.run.app/rewrite/bo1'
 />
 
 ## KLQueryExpansion
+
+Similar to Bo1, this class deploys a Divergence from Randomess query expansion model based on Kullback Leibler divergence.
 
 <InteractiveFeature  
     apiUrl='https://pyterrier-api-3pxrlcilfa-nw.a.run.app/rewrite/kl'
@@ -41,17 +59,23 @@ PyTerrier supplies a number of query rewriting transformers designed to work wit
 
 ## Resetting the Query Formulation
 
+The application of any query rewriting operation, including the apply transformer, `pt.apply.query()`, will return a dataframe that includes the input formulation of the query in the query_0 column, and the new reformulation in the query column. The previous query reformulation can be obtained by inclusion of a reset transformer in the pipeline.
+
 <InteractiveFeature 
     apiUrl='https://pyterrier-api-3pxrlcilfa-nw.a.run.app/rewrite/reset'
 />
 
 ## Tokenising the Query
 
+Sometimes your query can include symbols that aren’t compatible with how your retriever parses the query. In this case, a custom tokeniser can be applied as part of the retrieval pipeline
+
 <InteractiveFeature 
     apiUrl='https://pyterrier-api-3pxrlcilfa-nw.a.run.app/rewrite/tokenise'
 />
 
 ## Stashing the Documents
+
+Sometimes you want to apply a query rewriting function as a re-ranker, but your rewriting function uses a different document ranking. In this case, you can use `pt.rewrite.stash_results()` to stash the retrieved documents for each query, so they can be recovered and re-ranked later using your rewritten query formulation.
 
 ### Stash
 <InteractiveFeature 
