@@ -12,10 +12,10 @@ Here are some specific examples of how PyTerrier can be used:
 - **Testing IR systems:** Test the performance of IR systems on standard test collections, such as TREC and CLEF.
 - **Building IR systems:** Build production IR systems for a variety of applications, such as web search, enterprise search, and e-commerce search
 
-[**Don't know what IR is? <u>Click here!</u>**](./category/beginner-start-here)
+[**Don't know what is IR? Don't worry!**](./category/beginner-start-here)
 
 ## Getting started
-You can either run this library on your local machine or use [Google Colab](https://colab.google).
+You can either run this library on your local machine or on [Google Colab](https://colab.research.google.com).
 
 ### What you'll need
 
@@ -40,40 +40,33 @@ java -version
 ### Installation
 
 Installing PyTerrier is easy - it can be installed from the command-line in the normal way using Pip:
-Local Machine
+#### Local Machine
 ```bash
 pip install python-terrier
 ```
-Google Colab
-```bash
-!pip install python-terrier
-```
+> For Colab use `!pip` instead
 
-If you want the latest version of PyTerrier, you can install direct from the Github repo:
+### Install from Github
 
 ```bash
 pip install --upgrade git+https://github.com/terrier-org/pyterrier.git#egg=python-terrier
 ```
 > There is no need to have a local installation of the Java component, Terrier. PyTerrier will download the latest release on startup.
 
-### Your first PyTerrier
+### Verification
+To ensure that pyterrier is successfully installed, you can perform a quick check running the following code::
 
-Similar to other Python library you will need to start by importing PyTerrrier and running `init()`.
 ```python
-import pyterrier as pt
-pt.init()
+# Check if pyterrier is already initialized
+if not pt.started():
+    # If not initialized, initiate pyterrier
+    pt.init()
 ```
-## Start your site
+If there's no error occur then, volla you have finished installing PyTerrier!
 
-Run the development server:
+## What's next?
+- If you are a beginner, check out the [Beginner start here!](./category/beginner-start-here) section.
+- If you are familiar with IR concept already, check out the [Overview](./category/overview) section instead.
 
-```bash
-cd my-website
-npm run start
-```
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
