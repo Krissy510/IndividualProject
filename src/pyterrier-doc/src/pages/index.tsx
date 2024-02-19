@@ -41,7 +41,7 @@ function HomepageHeader() {
 
           <Link
             className="button button--secondary button--lg text"
-            to="https://github.com/Krissy510/IndividualProject/tree/main/src/"
+            to="https://github.com/Krissy510/IndividualProject/tree/main/src/pyterrier-doc"
           >
             <div className="flex center gap--5">
               <IoLibraryOutline />
