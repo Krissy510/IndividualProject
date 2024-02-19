@@ -12,9 +12,9 @@ from models import (ApiResponse, InteractiveFeatureProps, PisaBm25Request,
 
 pyterrier_init()
 
-folder_path = './pisa-antique-index'
+# folder_path = './pisa-antique-index'
 
-idx = PisaIndex(folder_path)
+# idx = PisaIndex(folder_path)
 
 # Sample data
 QUERY_SAMPLE = [
