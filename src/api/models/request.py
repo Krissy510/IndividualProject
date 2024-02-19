@@ -107,6 +107,7 @@ class DrMultiRequest(IRequest):
 
 class PisaRequest(IRequest):
     input: List[Query]
+    dataset_pisa: str
 
 
 class PisaDphRequest(PisaRequest):

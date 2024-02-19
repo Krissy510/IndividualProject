@@ -6,6 +6,8 @@ VALID_WMODEL = ('BB2', 'BM25', 'BM25F', 'CoordinateMatch', 'DFIC', 'DFIZ',
 
 VALID_DATASET = ['vaswani']
 
+VALID_DATASET_PISA = ['irds:antique/test']
+
 VALID_INDEX_VARIANT = ('terrier_stemmed', 'terrier_stemmed_positions', 'terrier_unstemmed',
                        'terrier_stemmed_text', 'terrier_unstemmed_text',)
 
@@ -165,6 +167,13 @@ PRESET_PARAMETERS = {
         'id': 'model',
         'choices': ['sentence-transformers/msmarco-roberta-base-ance-firstp'],
         'read_only': True
-
-    }
+    },
+    'dataset_pisa': {
+        'name': 'Dataset',
+        'type': 'select',
+        'default': 'irds:antique/test',
+        'id': 'dataset_pisa',
+        'choices': VALID_DATASET_PISA,
+        'read_only': True,
+    },
 }
