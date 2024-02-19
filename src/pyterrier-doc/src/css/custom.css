@@ -88,6 +88,10 @@
   color: ghostwhite;
 }
 
+[data-theme='dark'] .icon:hover{
+  background-color: rgb(73, 73, 73);
+}
+
 [data-theme='dark'] .MuiTablePagination-selectLabel,
 [data-theme='dark'] .MuiTablePagination-select,
 [data-theme='dark'] .MuiTablePagination-displayedRows,

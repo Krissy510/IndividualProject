@@ -1,5 +1,6 @@
 import ErrorIcon from "@mui/icons-material/Error";
-import { Button, CircularProgress } from "@mui/material";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import { Button, CircularProgress, IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import { GridColDef, GridRowsProp } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
@@ -108,6 +109,16 @@ export default function InteractiveFeature({
               marginRight: 0,
             }}
           >
+            <IconButton
+              onClick={() => setDisplayInteractive(false)}
+              className="icon"
+              sx={{
+                width: "35px",
+                height: "35px",
+              }}
+            >
+              <ExpandLessIcon />
+            </IconButton>
             <PipelineInput
               inputRows={inputRows}
               setInputRows={setInputRows}
