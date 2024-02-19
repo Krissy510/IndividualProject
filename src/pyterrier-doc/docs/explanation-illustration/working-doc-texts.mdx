@@ -14,7 +14,7 @@ Many modern retrieval techniques are concerned with operating directly on the te
 ### Text Scorer
 This allows scoring of the documents with respect to a query, without creating an index first. This is an alias to `pt.TextScorer()`. Internally, a Terrier memory index is created, before being used for scoring.
 <InteractiveFeature 
-    apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/text-scorer"
+    apiUrl="http://localhost:8080/text-scorer"
 />
 
 ## Working with Passages rather than Documents
@@ -23,7 +23,7 @@ As documents are long, relevant content may only be found in a small portion of 
 ### Text Sliding
 A useful transformer for splitting long documents into smaller passages within a pipeline. This applies a sliding window over the text, where each passage is the give number of tokens long. Passages can overlap, if the stride is set smaller than the length. In applying this transformer, docnos are altered by adding `‘%p’` and a passage number. The original scores for each document can be recovered by aggregation functions, such as `max_passage()`.
 <InteractiveFeature 
-    apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/text-sliding"
+    apiUrl="http://localhost:8080/text-sliding"
 />
 
 
@@ -31,5 +31,5 @@ A useful transformer for splitting long documents into smaller passages within a
 Scores each document based on the maximum score of any constituent passage. Applied after a sliding window transformation has been scored.
 
 <InteractiveFeature 
-    apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/max-passage"
+    apiUrl="http://localhost:8080/max-passage"
 />

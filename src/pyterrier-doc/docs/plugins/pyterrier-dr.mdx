@@ -15,25 +15,25 @@ This provides various Dense Retrieval functionality for [PyTerrier](https://gith
     TctColBert
 
     <InteractiveFeature 
-        apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/plugins/pyterrier-dr/tct-bol-bert"
+        apiUrl="http://localhost:8080/plugins/pyterrier-dr/tct-bol-bert"
         />
 
     TasB
 
     <InteractiveFeature 
-        apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/plugins/pyterrier-dr/tasb"
+        apiUrl="http://localhost:8080/plugins/pyterrier-dr/tasb"
         />
 
     Ance
 
     <InteractiveFeature 
-        apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/plugins/pyterrier-dr/ance"
+        apiUrl="http://localhost:8080/plugins/pyterrier-dr/ance"
         />
 
     Query2Query
 
     <InteractiveFeature 
-        apiUrl="https://pyterrier-api-3pxrlcilfa-nw.a.run.app/plugins/pyterrier-dr/query-2-query"
+        apiUrl="http://localhost:8080/plugins/pyterrier-dr/query-2-query"
         />
 
   </div>
@@ -50,16 +50,17 @@ pip install --upgrade git+https://github.com/terrierteam/pyterrier_dr.git
 You'll also need to install FAISS.
 
 On Colab:
-
-    !pip install faiss-cpu 
-    
+```bash
+!pip install faiss-cpu 
+```   
 On Anaconda:
+```bash
+# CPU-only version
+$ conda install -c pytorch faiss-cpu
 
-    # CPU-only version
-    $ conda install -c pytorch faiss-cpu
-
-    # GPU(+CPU) version
-    $ conda install -c pytorch faiss-gpu
+# GPU(+CPU) version
+$ conda install -c pytorch faiss-gpu
+```
 
 You can then import the package in Python after importing pyterrier:
 
