@@ -24,7 +24,7 @@ const FeatureList: FeatureItem[] = [
         >
           PyTerrier
         </a>{" "}
-        is free and open source , enabling transparency and reproducibility.
+        is free and open source, enabling transparency and reproducibility.
       </>
     ),
   },
