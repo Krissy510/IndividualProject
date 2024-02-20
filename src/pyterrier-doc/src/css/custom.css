@@ -105,6 +105,7 @@
 }
 
 [data-theme='dark'] button:disabled > svg.icon,
+[data-theme='dark'] button:disabled > svg.code-icon,
 [data-theme='dark'] div.MuiTablePagination-actions > button:disabled > svg
 {
   color: #636363 !important;
@@ -123,4 +124,17 @@
 [data-theme='dark'] .MuiDataGrid-row--editing,
 [data-theme='dark'] .MuiDataGrid-menuList {
   background-color: #313030 !important;
+}
+
+
+[data-theme='dark'] button > svg.code-icon{
+  color: #6a9df5;
+  height: 45px;
+  width: 45px;
+  padding: 10px;
+  border-radius: 99px;
+}
+
+[data-theme='dark'] button:hover > svg.code-icon{
+  background-color: #4f4f4f;
 }

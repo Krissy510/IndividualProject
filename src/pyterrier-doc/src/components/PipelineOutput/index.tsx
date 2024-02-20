@@ -75,9 +75,9 @@ export default function PipelineOutput({
           }}
         >
           {codeExpand ? (
-            <CloseIcon className="icon" />
+            <CloseIcon className="code-icon" />
           ) : (
-            <CodeIcon className="icon" />
+            <CodeIcon className="code-icon" />
           )}
         </IconButton>
       </Box>
