@@ -57,6 +57,8 @@ pip install --upgrade git+https://github.com/terrier-org/pyterrier.git#egg=pytho
 To ensure that pyterrier is successfully installed, you can perform a quick check running the following code::
 
 ```python
+import pyterrier as pt
+
 # Check if pyterrier is already initialized
 if not pt.started():
     # If not initialized, initiate pyterrier
