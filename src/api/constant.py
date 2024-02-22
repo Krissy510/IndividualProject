@@ -42,8 +42,8 @@ FIELD_WIDTHS = {
     'score': 80,
     'rank': 80,
     'stashed_results_0': 300,
-    'query_vec': 300,
-    'doc_vec': 300,
+    'query_vec': 500,
+    'doc_vec': 500,
 }
 
 PRESET_PARAMETERS = {
