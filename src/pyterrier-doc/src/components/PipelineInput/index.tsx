@@ -120,6 +120,7 @@ export default function PipelineInput({
     };
 
     setIsApiProcessing(true);
+    setGeneratedCode("");
 
     axios
       .post(apiUrl, request)
