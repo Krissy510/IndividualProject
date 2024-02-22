@@ -78,13 +78,20 @@ def get_ance_fields() -> MultiInteractiveFeatureProps:
 def get_query_2_query_fields() -> InteractiveFeatureProps:
     return generate_interactive_props(SAMPLE_QUERY, DrQueryRequest, DrQueryResult)
 
+def limit_output(outputCol, query_vec_limit=3):
+    tmp = repr(outputCol[:min(query_vec_limit, len(outputCol))])
+    tmp = tmp.replace(']','')
+    tmp = tmp.split()
+    tmp.insert(query_vec_limit, '...],')
+    return ' '.join(tmp)
+
 
 def dr_processing(result, request_type, request_input, code):
     output = result.to_dict('records')
     if (request_type != "scorer"):
         key = KEY_TYPE[request_type]
         for i in range(len(output)):
-            output[i][key] = repr(output[i][key])
+            output[i][key] = limit_output(output[i][key])
     return generate_api_response(result=output,
                                  input=request_input,
                                  pipeline=code,
@@ -116,7 +123,7 @@ def query_2_query(request: DrQueryRequest) -> ApiResponse:
     result = Query2Query()(request.input)
     result = result.to_dict('records')
     for i in range(len(result)):
-        result[i]['query_vec'] = repr(result[i]['query_vec'])
+        result[i]['query_vec'] = limit_output(result[i]['query_vec'])
     return generate_api_response(result=result,
                                  input=request.input,
                                  pipeline="pyterrier_dr.Query2Query()",
