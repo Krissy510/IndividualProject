@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import CodeIcon from "@mui/icons-material/Code";
+import { FaCode } from "react-icons/fa";
 import ErrorIcon from "@mui/icons-material/Error";
 
 import { useColorMode } from "@docusaurus/theme-common";
@@ -77,7 +77,25 @@ export default function PipelineOutput({
           {codeExpand ? (
             <CloseIcon className="code-icon" />
           ) : (
-            <CodeIcon className="code-icon" />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                }}
+              >
+                Code
+              </span>
+              <FaCode className="code-icon" />
+            </Box>
           )}
         </IconButton>
       </Box>
