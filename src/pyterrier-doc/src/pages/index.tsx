@@ -2,7 +2,6 @@ import React from "react";
 import PyTerrierLogo from "@site/static/img/logo.svg";
 import { FiCompass } from "react-icons/fi";
 import { BsGithub } from "react-icons/bs";
-import { IoLibraryOutline } from "react-icons/io5";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
@@ -44,7 +43,7 @@ function HomepageHeader() {
             to="https://github.com/Krissy510/IndividualProject/tree/main/src/pyterrier-doc"
           >
             <div className="flex center gap--5">
-              <IoLibraryOutline />
+              <BsGithub className="text" />
               Documentation
             </div>
           </Link>
