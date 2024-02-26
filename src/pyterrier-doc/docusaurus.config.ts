@@ -74,7 +74,12 @@ const config: Config = {
           // {to: '/testPage', label: 'Test Page', position: 'left'},
           {
             href: 'https://github.com/terrier-org/pyterrier',
-            label: 'GitHub',
+            label: 'PyTerrier',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/terrier-org/pyterrier',
+            label: 'Documentation',
             position: 'right',
           },
         ],
