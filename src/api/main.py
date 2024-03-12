@@ -2,9 +2,9 @@ import pyterrier as pt
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from explanationIllustrations import working_text
-from gettingStarted import query_rewrite_and_expansion, retrival
-from pyterrierPlugins import pyterrier_t5, pyterrier_dr, pyterrier_pisa
+from apis.explanationIllustrations import working_text
+from apis.gettingStarted import query_rewrite_and_expansion, retrival
+from apis.pyterrierPlugins import pyterrier_t5, pyterrier_dr, pyterrier_pisa
 from helper import pyterrier_init
 
 pyterrier_init()
