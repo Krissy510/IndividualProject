@@ -7,7 +7,7 @@ For local machine use `local-test` branch instead since the main version contain
 
 Make the script executable:
 ```bash
-chmod +x cli.py
+chmod +x run.sh
 ```
 Then run the commmand below to start installing dependencies and dataset's index.
 ```bash
