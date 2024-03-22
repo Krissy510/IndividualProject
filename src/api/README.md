@@ -21,7 +21,7 @@ To run, simply use the following command:
 ```bash
 ./run.sh dev
 ```
-> Make sure that the script is exectuable ([Read here](#local))
+> Make sure that the script is exectuable (Read Set up)
 
 ## Testing
 Test suite in this project onyl test non-pyterrier functions. 

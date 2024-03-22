@@ -1,41 +1,57 @@
-# Readme
+# Interactive Documentation for PyTerrier
+There are three folders for the source code.
 
-Put a brief description of your code here. This should at least describe the file structure.
+1. `api` folder contains the back-end of the project, developd using Python and FastAPI.
+2. `pyterrier-doc` folder contains the front-end of the project, developed using Docusaurs, which uses React(Typescript).
+3. `PyTerrierBaseImage` foder contains the dockerfile that is used for building the base image that is used in the back-end.
 
-## Build instructions
+## Requirements
+### Front-end
+* Node.js version 18.0 or above
+### Back-end
+* Python 3.10.x
+* Packages: listed in `requirements.txt`
+* Tested on MacOS and Windows 10
 
-**You must** include the instructions necessary to build and deploy this project successfully. If appropriate, also include 
-instructions to run automated tests. 
+## Initialize
+### Front-end 
+```bash
+yarn 
+```
+This command will install dependencies in the `package.json`.
 
-### Requirements
+### Back-end 
+```bash
+./run.sh init
+```
+Running the command below will install python dependencies and index folders that is required when using PyTerrier.
 
-List the all of the pre-requisites software required to set up your project (e.g. compilers, packages, libraries, OS, hardware)
+## Build steps
+### Front-end 
+```bash
+yarn build
+```
+Run this command to build the front-end.
 
-For example:
+### Back-end
+```bash
+docker build -t "Image name" .
+```
+This command will build the docker image from `dockerfile` for API.
 
-* Python 3.7
-* Packages: listed in `requirements.txt` 
-* Tested on Windows 10
+### PyTerrier Base Image
+```bash
+docker build -t "Image name" .
+```
+This command will build the docker image from `dockerfile` for pyterrier base docker image.
 
-or another example:
 
-* Requires Raspberry Pi 3 
-* a Linux host machine with the `arm-none-eabi` toolchain (at least version `x.xx`) installed
-* a working LuaJIT installation > 2.1.0
+## Test steps
+### Back-end
+```bash
+./run.sh test
+```
+This command is use for testing the back-end specifically the generated function in `generate.py`.
 
-### Build steps
 
-List the steps required to build software. 
-
-Hopefully something simple like `pip install -e .` or `make` or `cd build; cmake ..`. In
-some cases you may have much more involved setup required.
-
-### Test steps
-
-List steps needed to show your software works. This might be running a test suite, or just starting the program; but something that could be used to verify your code is working correctly.
-
-Examples:
-
-* Run automated tests by running `pytest`
-* Start the software by running `bin/editor.exe` and opening the file `examples/example_01.bin`
 
